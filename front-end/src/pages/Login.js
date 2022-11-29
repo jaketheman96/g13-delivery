@@ -1,8 +1,15 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import DeliveryContext from '../context/DeliveryContext';
 
 function LoginPage() {
-  const { setEmail, setPassword } = useContext(DeliveryContext);
+  const {
+    email,
+    setEmail,
+    password,
+    setPassword,
+    isButtonDisabled,
+    setIsButtonDisabled,
+  } = useContext(DeliveryContext);
 
   const handleEmail = (event) => {
     setEmail(event.target.value);
@@ -11,6 +18,26 @@ function LoginPage() {
   const handlePassword = (event) => {
     setPassword(event.target.value);
   };
+
+  // email validator
+  useEffect(() => {
+    const emailValidator = () => {
+      const emailRegex = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/;
+      if (email.match(emailRegex)) return setIsButtonDisabled(false);
+      return setIsButtonDisabled(true);
+    };
+    emailValidator();
+  });
+
+  // password validator
+  useEffect(() => {
+    const passwordValidation = () => {
+      const six = 6;
+      if (password.length > six) return setIsButtonDisabled(false);
+      return setIsButtonDisabled(true);
+    };
+    passwordValidation();
+  });
 
   return (
     <div>
@@ -31,6 +58,7 @@ function LoginPage() {
       <button
         type="button"
         data-testid="common_login__button-login"
+        disabled={ isButtonDisabled }
       >
         Login
       </button>
@@ -40,9 +68,9 @@ function LoginPage() {
       >
         Ainda nao tenho conta
       </button>
-      <p data-testid="common_login__element-invalid-email">
-        (elemento oculto)Mensagem de erro
-      </p>
+      <div data-testid="common_login__element-invalid-email">
+        alo
+      </div>
     </div>
   );
 }
