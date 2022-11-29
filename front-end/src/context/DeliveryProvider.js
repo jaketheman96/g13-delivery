@@ -3,15 +3,18 @@ import PropTypes from 'prop-types';
 import DeliveryContext from './DeliveryContext';
 
 function DeliveryProvider({ children }) {
-  const [teste, setTeste] = useState('');
-  const [teste2, setTeste2] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
   const globalState = React.useMemo(() => ({
-    teste,
-    setTeste,
-    teste2,
-    setTeste2,
-  }), [teste, teste2]);
+    email,
+    setEmail,
+    password,
+    setPassword,
+  }), [
+    email,
+    password,
+  ]);
 
   return (
     <DeliveryContext.Provider value={ globalState }>
