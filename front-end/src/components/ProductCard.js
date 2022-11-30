@@ -1,7 +1,18 @@
-import React from 'react';
 import PropTypes from 'prop-types';
+import { useState } from 'react';
 
 function ProductCard({ id, image, name, price }) {
+  const [inputValue, setInputVale] = useState(0);
+
+  const handleClick = (event) => {
+    const operation = event.target.name;
+    if (inputValue === 0 && operation === 'btn-rm') setInputVale(0);
+    else {
+      return operation === 'btn-rm' ? setInputVale(inputValue - 1)
+        : setInputVale(inputValue + 1);
+    }
+  };
+
   return (
     <div className="card" style={ { width: '20em' } }>
       <img
@@ -23,6 +34,8 @@ function ProductCard({ id, image, name, price }) {
         <button
           type="button"
           data-testid={ `customer_products__button-card-rm-item-${id} ` }
+          name="btn-rm"
+          onClick={ handleClick }
         >
           -
 
@@ -31,10 +44,13 @@ function ProductCard({ id, image, name, price }) {
           data-testid={ `customer_products__input-card-quantity-${id}` }
           style={ { width: '2em' } }
           type="text"
+          value={ inputValue }
         />
         <button
           type="button"
           data-testid={ `customer_products__button-card-add-item-${id} ` }
+          name="btn-add"
+          onClick={ handleClick }
         >
           +
 
