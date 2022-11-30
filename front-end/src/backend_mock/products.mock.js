@@ -1,4 +1,4 @@
-export default products = [
+const products = [
   {
     id: 1,
     name: 'Skol Lata 250ml',
@@ -66,3 +66,5 @@ export default products = [
     url_image: 'http://localhost:3001/images/stella_artois_275ml.jpg',
   },
 ];
+
+export default products;
