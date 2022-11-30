@@ -16,7 +16,7 @@ module.exports = {
         onDelete: 'CASCADE',
         field: 'user_id',
         references: {
-          model: 'user',
+          model: 'users',
           key: 'id',
         },
       },
@@ -27,12 +27,12 @@ module.exports = {
         onDelete: 'CASCADE',
         field: 'seller_id',
         references: {
-          model: 'user',
+          model: 'users',
           key: 'id',
         },
       },
       totalPrice: {
-        type: Sequelize.STRING,
+        type: Sequelize.FLOAT,
         allowNull: false,
         field: 'total_price',
       },

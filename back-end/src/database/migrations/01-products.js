@@ -22,7 +22,6 @@ module.exports = {
         allowNull: false,
         field: 'url_image',
       },
-    
     });
   },
 
