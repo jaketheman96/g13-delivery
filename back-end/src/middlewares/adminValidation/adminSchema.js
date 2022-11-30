@@ -1,27 +1,34 @@
-const { CustomError } = require('../../../utils/customError');
+const { z } = require('zod');
 
-const { adminSchema } = require('./adminValidation');
+const adminSchema = z.object({
+  name: z
+  .string({
+    requiredError: 'Name is required',
+    invalidTypeError: 'Name must be a string',
+  })
+  .min(12, { message: 'Name must be ate least 12 characters long' }),
 
-class AdminValidation {
-  constructor(schema) {
-    this.schema = schema;
-  }
+  email: z
+    .string({
+      requiredError: 'email is required',
+      invalidTypeError: 'email must be a string',
+    })
+    .email({ message: 'You must provide a valid email address' }),
 
-  validate(req, _res, next) {
-    const requestInformations = req.body;
+  password: z
+    .string({
+      requiredError: 'password is required',
+      invalidTypeError: 'password must be a string',
+    })
+    .min(6, { message: 'Password must be at least 6 characters' }),
 
-    const result = this.schema.safeParse(requestInformations);
+  role: z
+    .enum(['administrator', 'seller', 'customer'], {
+      errorMap: () => ({ message: 'Please provide a valid role' }),
+    }),
 
-    if (result.success) return next();
-
-    const { issues: [{ message }] } = result.error;
-
-    throw new CustomError(400, message);
-  }
-}
-
-const adminValidation = new AdminValidation(adminSchema);
+});
 
 module.exports = {
-  adminValidation,
+  adminSchema,
 };
