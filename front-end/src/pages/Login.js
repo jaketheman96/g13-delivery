@@ -30,7 +30,7 @@ function LoginPage() {
       register: () => history.push('/register'),
       login: async () => {
         const response = await loginFetch({ email, password });
-        return response; /* esperando backend... */
+        localStorage.setItem(JSON.stringify(response));
       },
     };
     buttons[option]();
