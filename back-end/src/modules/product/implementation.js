@@ -1,5 +1,5 @@
-const { CustomError } = require('../../../utils/CustomError');
-const Products = require('../../database/models/Products');
+const { CustomError } = require('../../../utils/customError');
+const Products = require('../../database/models/Product');
 
 class ProductsImplementation {
   constructor(sequelizeProductModel = Products) {

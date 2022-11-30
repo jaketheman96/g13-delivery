@@ -1,4 +1,4 @@
-const { CustomError } = require('../../../utils/CustomError');
+const { CustomError } = require('../../../utils/customError');
 const { SalesImplementation } = require('./implementation');
 const SaleProduct = require('../../database/models/SaleProduct');
 

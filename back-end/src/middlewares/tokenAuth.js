@@ -1,5 +1,5 @@
 const { StatusCodes } = require('http-status-codes');
-const { CustomError } = require('../../utils/CustomError');
+const { CustomError } = require('../../utils/customError');
 const { token } = require('../../utils/Token');
 
 class TokenAuth {
