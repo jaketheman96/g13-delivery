@@ -3,8 +3,9 @@ const express = require('express');
 const cors = require('cors');
 const { handleErrors } = require('../middlewares/handleErrors');
 const { routes } = require('./routes');
-
-const PORT = 3001;
+require('dotenv').config();
+// const PORT = 3001;
+const PORT = process.env.PORT || 3001;
 
 class App {
   constructor(app = express()) {
