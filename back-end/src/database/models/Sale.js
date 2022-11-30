@@ -11,11 +11,19 @@ module.exports = (sequelize, DataTypes) => {
       type:DataTypes.INTEGER,
       allowNull: false,
       foreignKey: true,
+      references: {
+        model: 'users',
+        key: 'id'
+      }
     },
     sellerId: {
       type:DataTypes.INTEGER,
       allowNull: false,
       foreignKey: true,
+      references: {
+        model: 'users',
+        key: 'id'
+      }
     },
     totalPrice: {
       type: DataTypes.DECIMAL,
@@ -37,6 +45,7 @@ module.exports = (sequelize, DataTypes) => {
     {
       timestamps: false,
       tableName: 'sales',
+      underscored: true,
     });
     // Sale.associate = (models) => {
     //   Sale.belongsTo(models.User, {
