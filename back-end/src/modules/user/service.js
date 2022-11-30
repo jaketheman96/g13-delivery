@@ -1,7 +1,7 @@
 const { StatusCodes } = require('http-status-codes');
 const { UsersImplementation } = require('./implementation');
 const { token } = require('../../../utils/Token');
-const { CustomError } = require('../../../utils/CustomError');
+const { CustomError } = require('../../../utils/customError');
 const { hashGenerator } = require('../../../utils/hashGenerator');
 
 class UsersService {
@@ -70,6 +70,21 @@ class UsersService {
       };
   }
 
+  async getAllCommonUsers() {
+      const allCommonUsers = await this.userImplementation.getAllCommonUsers();
+
+      return allCommonUsers;
+  }
+
+  async deleteUser(userId) {
+      const foundUser = await this.userImplementation.findUserById(userId);
+
+      if (!foundUser) {
+          throw new CustomError(404, 'User not found');
+      }
+
+      await this.userImplementation.deleteUser(userId);
+  }
 }
 
 module.exports = {
