@@ -4,11 +4,19 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       allowNull: false,
       foreignKey: true,
+      references: {
+        model: 'sales',
+        key: 'id'
+      }
     },
     productId: {
       type: DataTypes.INTEGER,
       allowNull: false,
       foreignKey: true,
+      references: {
+        model: 'products',
+        key: 'id'
+      }
     },
     quantity: {
       type: DataTypes.INTEGER,
@@ -17,7 +25,8 @@ module.exports = (sequelize, DataTypes) => {
   },
     {
       timestamps: false,
-      tableName: 'saleProducts',
+      tableName: 'sale_products',
+      underscored: true,
     });
     // SaleProduct.associate = (models) => {
     //   SaleProduct.belongsTo(models.Sale, {
