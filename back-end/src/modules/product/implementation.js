@@ -1,9 +1,9 @@
 const { CustomError } = require('../../../utils/customError');
-const Products = require('../../database/models/Product');
+const { Product } = require('../../database/models');
 
 class ProductsImplementation {
-  constructor(sequelizeProductModel = Products) {
-    this.sequelizeProductModel = sequelizeProductModel;
+  constructor() {
+    this.sequelizeProductModel = Product;
   }
 
   async createProduct(productInfo) {
@@ -17,7 +17,7 @@ class ProductsImplementation {
   }
 
   async findAllProducts() {
-    const productsList = await this.sequelizeProductModel.findAll();
+    const productsList = await this.sequelizeProductModel.findAll().then((products) => products);
     return productsList;
   }
 
