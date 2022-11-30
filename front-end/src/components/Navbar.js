@@ -1,7 +1,9 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { useContext } from 'react';
+import DeliveryContext from '../context/DeliveryContext';
 
-function Navbar({ userName }) {
+function Navbar() {
+  const { userInfos } = useContext(DeliveryContext);
+
   return (
     <header>
       <button
@@ -18,11 +20,8 @@ function Navbar({ userName }) {
         Meus pedidos
 
       </button>
-      <h3
-        data-testid="customer_products__element_navbar-user-full-name"
-      >
-        { userName }
-
+      <h3 data-testid="customer_products__element_navbar-user-full-name">
+        {userInfos && userInfos.name}
       </h3>
       <button
         data-testid="customer_products__element_navbar-link-logout"
@@ -36,7 +35,3 @@ function Navbar({ userName }) {
 }
 
 export default Navbar;
-
-Navbar.propTypes = {
-  userName: PropTypes.string.isRequired,
-};

@@ -34,8 +34,7 @@ function LoginPage() {
         const response = await loginFetch({ email, password });
         if (response.message) return setShowLoginError(true);
         localStorage.setItem('userInfo', JSON.stringify(response));
-        setShowLoginError(false);
-        history.push('/products');
+        history.push('/customer/products');
       },
     };
     buttons[option]();

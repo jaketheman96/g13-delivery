@@ -1,15 +1,23 @@
-import React from 'react';
-import users from '../backend_mock/users.mock';
+import React, { useContext, useEffect } from 'react';
 import products from '../backend_mock/products.mock';
 import Navbar from '../components/Navbar';
 import ProductCard from '../components/ProductCard';
-
-const userNameMock = users[1].name;
+import DeliveryContext from '../context/DeliveryContext';
 
 function ProductsPage() {
+  const { setUserInfos } = useContext(DeliveryContext);
+
+  useEffect(() => {
+    const getItensFromStorage = () => {
+      const userData = localStorage.getItem('userInfo');
+      setUserInfos(JSON.parse(userData));
+    };
+    getItensFromStorage();
+  }, [setUserInfos]);
+
   return (
     <>
-      <Navbar userName={ userNameMock } />
+      <Navbar />
       <br />
       <div className="row row-cols-1 row-cols-md-2 g-4">
         {

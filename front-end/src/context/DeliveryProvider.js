@@ -7,6 +7,7 @@ function DeliveryProvider({ children }) {
   const [password, setPassword] = useState('');
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
   const [name, setName] = useState('');
+  const [userInfos, setUserInfos] = useState();
 
   const globalState = React.useMemo(() => ({
     email,
@@ -17,11 +18,14 @@ function DeliveryProvider({ children }) {
     setName,
     isButtonDisabled,
     setIsButtonDisabled,
+    userInfos,
+    setUserInfos,
   }), [
     email,
     password,
     name,
     isButtonDisabled,
+    userInfos,
   ]);
 
   return (
