@@ -5,7 +5,7 @@ const { salesRoutes } = require('../modules/sale/routes');
 
 const routes = express.Router();
 
-routes.use('/users', userRoutes);
+routes.use('/', userRoutes);
 routes.use('/products', productRoutes);
 routes.use('/sales', salesRoutes);
 

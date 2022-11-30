@@ -1,7 +1,7 @@
 require('express-async-errors');
 const express = require('express');
 const cors = require('cors');
-const { globalError } = require('../middlewares/globalError');
+const { handleErrors } = require('../middlewares/handleErrors');
 const { routes } = require('./routes');
 
 const PORT = 3001;
@@ -12,7 +12,7 @@ class App {
     this.app.use(express.json());
     this.app.use(cors());
     this.app.use(routes);
-    this.app.use(globalError.handle);
+    this.app.use(handleErrors);
     this.app.use(express.static('public'));
   }
 
