@@ -13,7 +13,7 @@ function App() {
         <Redirect exact from="/" to="/login" />
         <Route path="/login" component={ LoginPage } />
         <Route path="/register" component={ RegisterPage } />
-        <Route path="/products" component={ ProductsPage } />
+        <Route path="/customer/products" component={ ProductsPage } />
       </Switch>
     </DeliveryProvider>
   );

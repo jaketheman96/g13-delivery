@@ -1,13 +1,30 @@
 import React from 'react';
+import users from '../backend_mock/users.mock';
+import products from '../backend_mock/products.mock';
+import Navbar from '../components/Navbar';
+import ProductCard from '../components/ProductCard';
+
+const userNameMock = users[1].name;
 
 function ProductsPage() {
   return (
-    <header>
-      <button type="button">Produtos</button>
-      <button type="button">Meus pedidos</button>
-      <h3>Username</h3>
-      <button type="button">Sair</button>
-    </header>
+    <>
+      <Navbar userName={ userNameMock } />
+      <br />
+      <div className="row row-cols-1 row-cols-md-2 g-4">
+        {
+          products.map((product) => (
+            <ProductCard
+              key={ product.id }
+              id={ product.id }
+              image={ product.url_image }
+              price={ product.price }
+              name={ product.name }
+            />
+          ))
+        }
+      </div>
+    </>
   );
 }
 
