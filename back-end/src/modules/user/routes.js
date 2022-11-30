@@ -8,11 +8,15 @@ const { tokenAuth } = require('../../middlewares/tokenAuth');
 
 const userRoutes = express.Router();
 
-userRoutes
-  .get('/', (req, res) => usersController.getAllCommonUsers(req, res))
+userRoutes.post(
+  '/login',
+  (req, res, next) => loginValidation.validate(req, res, next),
+  (req, res) => usersController.loginUser(req, res),
+)
+  .get('/users', (req, res) => usersController.getAllCommonUsers(req, res))
 
   .delete(
-    '/:userId',
+    '/users/:userId',
     (req, res, next) => tokenAuth.handle(req, res, next),
     (req, res) => usersController.deleteUser(req, res),
   )
