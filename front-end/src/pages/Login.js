@@ -96,7 +96,9 @@ function LoginPage() {
       >
         Ainda nao tenho conta
       </button>
-      {showLoginError ? <p>Senha ou email invalidos</p> : null}
+      <div data-testid="common_login__element-invalid-email">
+        {showLoginError && <p> Senha ou email invalidos </p>}
+      </div>
     </div>
   );
 }
