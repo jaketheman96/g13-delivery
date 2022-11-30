@@ -1,7 +1,7 @@
 const { StatusCodes } = require('http-status-codes');
 const { UsersImplementation } = require('./implementation');
 const { token } = require('../../../utils/Token');
-const { CustomError } = require('../../../utils/CustomError');
+const { CustomError } = require('../../../utils/customError');
 const { hashGenerator } = require('../../../utils/hashGenerator');
 
 class UsersService {

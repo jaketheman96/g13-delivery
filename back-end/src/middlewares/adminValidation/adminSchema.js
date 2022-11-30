@@ -1,6 +1,6 @@
 const { CustomError } = require('../../../utils/customError');
 
-const { adminSchema } = require('./adminSchema');
+const { adminSchema } = require('./adminValidation');
 
 class AdminValidation {
   constructor(schema) {
