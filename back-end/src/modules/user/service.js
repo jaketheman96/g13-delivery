@@ -70,6 +70,21 @@ class UsersService {
       };
   }
 
+  async getAllCommonUsers() {
+      const allCommonUsers = await this.userImplementation.getAllCommonUsers();
+
+      return allCommonUsers;
+  }
+
+  async deleteUser(userId) {
+      const foundUser = await this.userImplementation.findUserById(userId);
+
+      if (!foundUser) {
+          throw new CustomError(404, 'User not found');
+      }
+
+      await this.userImplementation.deleteUser(userId);
+  }
 }
 
 module.exports = {
