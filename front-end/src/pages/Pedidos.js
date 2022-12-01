@@ -4,6 +4,13 @@ import OrderCard from '../components/OrderCard';
 import salesMock from '../backend_mock/sales.mock';
 
 function Pedidos() {
+  const formatDate = (date) => {
+    const dataFormatada = `
+      ${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}
+    `;
+    return dataFormatada;
+  };
+
   return (
     <>
       <Navbar />
@@ -14,7 +21,7 @@ function Pedidos() {
             id={ sale.id }
             price={ sale.total_price }
             status={ sale.status }
-            date={ sale.saleDate.toLocaleDateString() }
+            date={ formatDate(sale.saleDate) }
           />
         ))}
       </section>
