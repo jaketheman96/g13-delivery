@@ -3,28 +3,27 @@ import DeliveryContext from '../context/DeliveryContext';
 
 function Navbar() {
   const { userInfos } = useContext(DeliveryContext);
-
   return (
     <header>
       <button
-        data-testid="customer_products__element_navbar-user-full-name"
+        data-testid="customer_products__element-navbar-link-products"
         type="button"
       >
         Produtos
 
       </button>
       <button
-        data-testid="customer_products__element_navbar-link-orders"
+        data-testid="customer_products__element-navbar-link-orders"
         type="button"
       >
         Meus pedidos
 
       </button>
-      <h3 data-testid="customer_products__element_navbar-user-full-name">
+      <h3 data-testid="customer_products__element-navbar-user-full-name">
         {userInfos && userInfos.name}
       </h3>
       <button
-        data-testid="customer_products__element_navbar-link-logout"
+        data-testid="customer_products__element-navbar-link-logout"
         type="button"
       >
         Sair
