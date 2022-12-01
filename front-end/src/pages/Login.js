@@ -11,10 +11,9 @@ function LoginPage() {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [showLoginError, setShowLoginError] = useState(false);
 
   const history = useHistory();
-
-  const [showLoginError, setShowLoginError] = useState(false);
 
   const handleChange = (event) => {
     const option = event.target.name;
