@@ -20,22 +20,15 @@ userRoutes.post(
     (req, res, next) => tokenAuth.handle(req, res, next),
     (req, res) => usersController.deleteUser(req, res),
   )
-
   .post(
-    '/login',
-    (req, res, next) => loginValidation.validate(req, res, next),
-    (req, res) => usersController.loginUser(req, res),
-  )
-
-  .post(
-    '/register/admin',
+    '/users/register/admin',
     (req, res, next) => tokenAuth.handle(req, res, next),
     (req, res, next) => adminValidation.validate(req, res, next),
     (req, res) => usersController.registerAdminUser(req, res),
 )
 
   .post(
-    '/register',
+    '/users/register',
     (req, res, next) => commonRegValidation.validate(req, res, next),
     (req, res) => usersController.registerCommonUser(req, res),
   );
