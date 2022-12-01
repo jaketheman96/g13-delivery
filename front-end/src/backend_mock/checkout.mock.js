@@ -25,5 +25,7 @@ const checkoutMocks = {
       quantity: 4,
     },
   ],
-  totalPrice: '51.86'
-}
+  totalPrice: '51.86',
+};
+
+export default checkoutMocks;
