@@ -1,21 +1,19 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import DeliveryContext from '../context/DeliveryContext';
-import registerFetch from '../utils/registerFetch';
+import userFetch from '../utils/userFetch';
 
 function RegisterPage() {
   const {
-    email,
-    setEmail,
-    password,
-    setPassword,
-    name,
-    setName,
+    userInfos,
     isButtonDisabled,
     setIsButtonDisabled,
   } = useContext(DeliveryContext);
-  const history = useHistory();
 
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [name, setName] = useState('');
+  const [showRegisterError, setShowRegisterError] = useState(false);
   const handleChange = (event) => {
     const option = event.target.name;
     const inputs = {
@@ -30,10 +28,10 @@ function RegisterPage() {
     const option = event.target.name;
     const buttons = {
       register: async () => {
-        const response = await registerFetch({ name, email, password });
-        if (response.message) return setShowLoginError(true);
-        localStorage.setItem('userInfo', JSON.stringify(response));
-        history.push('/customer/products');
+        const response = await userFetch({ name, email, password }, 'users/register');
+        if (response.message) return setShowRegisterError(true);
+        localStorage.setItem('user', JSON.stringify(response));
+        history.push(`/${userInfos.role}/products`);
       },
     };
     buttons[option]();
@@ -102,6 +100,9 @@ function RegisterPage() {
       >
         Registrar
       </button>
+      <div data-testid="common_register__element-invalid_register">
+        {showRegisterError && <p> Registro invalido </p>}
+      </div>
     </div>
   );
 }

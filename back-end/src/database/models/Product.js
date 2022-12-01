@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
     },
     price: {
-      type: DataTypes.FLOAT,
+      type: DataTypes.DECIMAL(7,2),
       allowNull: false,
     },
     urlImage: {

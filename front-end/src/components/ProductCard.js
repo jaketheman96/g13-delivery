@@ -33,7 +33,7 @@ function ProductCard({ id, image, name, price }) {
         </p>
         <button
           type="button"
-          data-testid={ `customer_products__button-card-rm-item-${id} ` }
+          data-testid={ `customer_products__button-card-rm-item-${id}` }
           name="btn-rm"
           onClick={ handleClick }
         >
@@ -48,7 +48,7 @@ function ProductCard({ id, image, name, price }) {
         />
         <button
           type="button"
-          data-testid={ `customer_products__button-card-add-item-${id} ` }
+          data-testid={ `customer_products__button-card-add-item-${id}` }
           name="btn-add"
           onClick={ handleClick }
         >
@@ -66,5 +66,5 @@ ProductCard.propTypes = {
   id: PropTypes.number.isRequired,
   image: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
-  price: PropTypes.number.isRequired,
+  price: PropTypes.string.isRequired,
 };
