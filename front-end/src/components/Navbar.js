@@ -10,8 +10,8 @@ function Navbar() {
   const handleClick = ({ target }) => {
     const option = target.name;
     const input = {
-      products: () => history.push('/customer/products'),
-      orders: () => history.push('/customer/orders'),
+      products: () => history.push(`/${userInfos.role}/products`),
+      orders: () => history.push(`/${userInfos.role}/orders`),
       logout: () => {
         localStorage.removeItem('user');
         setUserInfos(null);
