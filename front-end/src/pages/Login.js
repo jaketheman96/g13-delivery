@@ -1,17 +1,16 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import DeliveryContext from '../context/DeliveryContext';
-import loginFetch from '../utils/loginFetch';
+import loginFetch from '../utils/userFetch';
 
 function LoginPage() {
   const {
-    email,
-    setEmail,
-    password,
-    setPassword,
     isButtonDisabled,
     setIsButtonDisabled,
   } = useContext(DeliveryContext);
+
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
   const history = useHistory();
 
@@ -31,7 +30,7 @@ function LoginPage() {
     const buttons = {
       register: () => history.push('/register'),
       login: async () => {
-        const response = await loginFetch({ email, password });
+        const response = await loginFetch({ email, password }, 'login');
         if (response.message) return setShowLoginError(true);
         localStorage.setItem('user', JSON.stringify(response));
         history.push('/customer/products');
