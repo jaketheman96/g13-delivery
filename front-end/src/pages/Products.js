@@ -26,7 +26,7 @@ function ProductsPage() {
               key={ product.id }
               id={ product.id }
               image={ product.url_image }
-              price={ product.price }
+              price={ product.price.replace('.', ',') }
               name={ product.name }
             />
           ))

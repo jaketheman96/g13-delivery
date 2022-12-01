@@ -33,7 +33,7 @@ function ProductCard({ id, image, name, price }) {
         </p>
         <button
           type="button"
-          data-testid={ `customer_products__button-card-rm-item-${id} ` }
+          data-testid={ `customer_products__button-card-rm-item-${id}` }
           name="btn-rm"
           onClick={ handleClick }
         >
@@ -48,7 +48,7 @@ function ProductCard({ id, image, name, price }) {
         />
         <button
           type="button"
-          data-testid={ `customer_products__button-card-add-item-${id} ` }
+          data-testid={ `customer_products__button-card-add-item-${id}` }
           name="btn-add"
           onClick={ handleClick }
         >
