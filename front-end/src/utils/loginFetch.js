@@ -4,10 +4,13 @@ const loginFetch = async (userData) => {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(userData),
   };
-  fetch('http://localhost:3001/login', requestOptions)
-    .then((response) => response.json())
-    .then((data) => data)
-    .catch((error) => error);
+  try {
+    const response = await fetch('http://localhost:3001/login', requestOptions);
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    return error;
+  }
 };
 
 export default loginFetch;

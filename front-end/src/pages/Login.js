@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import DeliveryContext from '../context/DeliveryContext';
 import loginFetch from '../utils/loginFetch';
@@ -15,6 +15,8 @@ function LoginPage() {
 
   const history = useHistory();
 
+  const [showLoginError, setShowLoginError] = useState(false);
+
   const handleChange = (event) => {
     const option = event.target.name;
     const inputs = {
@@ -30,8 +32,9 @@ function LoginPage() {
       register: () => history.push('/register'),
       login: async () => {
         const response = await loginFetch({ email, password });
-        console.log(response);
+        if (response.message) return setShowLoginError(true);
         localStorage.setItem('userInfo', JSON.stringify(response));
+        history.push('/customer/products');
       },
     };
     buttons[option]();
@@ -93,7 +96,9 @@ function LoginPage() {
       >
         Ainda nao tenho conta
       </button>
-      <div data-testid="common_login__element-invalid-email">Erro oculto</div>
+      <div data-testid="common_login__element-invalid-email">
+        {showLoginError && <p> Senha ou email invalidos </p>}
+      </div>
     </div>
   );
 }
