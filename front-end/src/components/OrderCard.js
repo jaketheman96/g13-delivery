@@ -16,15 +16,15 @@ function OrderCard({ id, price, date, status }) {
       >
         {status}
       </h2>
-      <h3
+      <h4
         data-testid={ `customer_orders__element-order-date-${id}` }
       >
         {date}
-      </h3>
+      </h4>
       <h4
         data-testid={ `customer_orders__element-card-price-${id}` }
       >
-        {price}
+        {`R$${price}`}
       </h4>
     </div>
   );

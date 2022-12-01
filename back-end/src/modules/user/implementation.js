@@ -42,6 +42,7 @@ class UsersImplementation {
   async getAllCommonUsers() {
     return this.sequelizeUserModel.findAll({
       where: { role: { [Op.eq]: ['customer'] } },
+      attributes: { exclude: ['password'] },
     }).then((users) => users);
   }
 
