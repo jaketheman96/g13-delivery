@@ -12,12 +12,14 @@ class SalesServices {
     const { userId, sellerId, products, deliveryAddress, deliveryNumber } = saleData;
 
     const totalPrice = products.reduce((acc, product) => acc + product.price, 0);
+    const saleDate = new Date();
     return this.salesImplementation.create({
       userId,
       sellerId,
       totalPrice,
       deliveryAddress,
       deliveryNumber,
+      saleDate,
     })
       .then(async (newSale) => {
         await this.salesProductsModel

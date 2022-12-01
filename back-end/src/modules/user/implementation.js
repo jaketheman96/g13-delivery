@@ -17,6 +17,17 @@ class UsersImplementation {
       where: { email },
     }).then((user) => user);
   }
+
+  async findUserByEmailAndName(email, name) {
+    return this.sequelizeUserModel.findOne({
+      where: { 
+        [Op.or]: [
+          { email },
+          { name }, 
+        ],
+      },
+    }).then((user) => user);
+  }
   
   async registerCommonUser({ email, name, password, role }) {
     return this.sequelizeUserModel.create({ email, name, password, role })
