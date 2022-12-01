@@ -34,6 +34,12 @@ class UsersService {
   async registerCommonUser(userRegistrationInfo) {
       const hashedUser = hashGenerator(userRegistrationInfo);
 
+      await this.userImplementation
+        .findUserByEmailAndName(userRegistrationInfo.email, userRegistrationInfo.name)
+            .then((user) => {
+        if (user) throw new CustomError(StatusCodes.CONFLICT, 'User already exists');
+      });
+
       hashedUser.role = 'customer';
 
       const createdUser = await this
