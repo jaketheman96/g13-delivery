@@ -11,7 +11,7 @@ class UsersImplementation {
     }).then((user) => user);
   }
 
-  async registerCommonUser({name, email, password, role}) {
+  async registerCommonUser({ name, email, password, role }) {
     return this.sequelizeUserModel.create({
       name,
       email,
