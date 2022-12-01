@@ -33,7 +33,7 @@ function LoginPage() {
       login: async () => {
         const response = await loginFetch({ email, password });
         if (response.message) return setShowLoginError(true);
-        localStorage.setItem('userInfo', JSON.stringify(response));
+        localStorage.setItem('user', JSON.stringify(response));
         history.push('/customer/products');
       },
     };

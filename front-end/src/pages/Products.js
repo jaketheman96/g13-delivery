@@ -9,7 +9,7 @@ function ProductsPage() {
 
   useEffect(() => {
     const getItensFromStorage = () => {
-      const userData = localStorage.getItem('userInfo');
+      const userData = localStorage.getItem('user');
       setUserInfos(JSON.parse(userData));
     };
     getItensFromStorage();
