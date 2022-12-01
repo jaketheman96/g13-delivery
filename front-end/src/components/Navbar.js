@@ -7,10 +7,18 @@ function Navbar() {
 
   const history = useHistory();
 
-  const handleClick = () => {
-    localStorage.removeItem('user');
-    setUserInfos(null);
-    history.push('/login');
+  const handleClick = ({ target }) => {
+    const option = target.name;
+    const input = {
+      products: () => history.push(`/${userInfos.role}/products`),
+      orders: () => history.push(`/${userInfos.role}/orders`),
+      logout: () => {
+        localStorage.removeItem('user');
+        setUserInfos(null);
+        history.push('/login');
+      },
+    };
+    input[option]();
   };
 
   return (
@@ -18,16 +26,18 @@ function Navbar() {
       <button
         data-testid="customer_products__element-navbar-link-products"
         type="button"
+        name="products"
+        onClick={ handleClick }
       >
         Produtos
-
       </button>
       <button
         data-testid="customer_products__element-navbar-link-orders"
         type="button"
+        name="orders"
+        onClick={ handleClick }
       >
         Meus pedidos
-
       </button>
       <h3 data-testid="customer_products__element-navbar-user-full-name">
         {userInfos && userInfos.name}
@@ -35,10 +45,10 @@ function Navbar() {
       <button
         data-testid="customer_products__element-navbar-link-logout"
         type="button"
+        name="logout"
         onClick={ handleClick }
       >
         Sair
-
       </button>
     </header>
   );

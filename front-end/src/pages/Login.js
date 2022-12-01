@@ -5,6 +5,7 @@ import loginFetch from '../utils/userFetch';
 
 function LoginPage() {
   const {
+    userInfos,
     isButtonDisabled,
     setIsButtonDisabled,
   } = useContext(DeliveryContext);
@@ -32,7 +33,7 @@ function LoginPage() {
         const response = await loginFetch({ email, password }, 'login');
         if (response.message) return setShowLoginError(true);
         localStorage.setItem('user', JSON.stringify(response));
-        history.push('/customer/products');
+        history.push(`/${userInfos.role}/products`);
       },
     };
     buttons[option]();
