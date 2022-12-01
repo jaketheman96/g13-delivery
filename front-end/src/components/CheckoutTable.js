@@ -81,7 +81,7 @@ export default function CheckoutTable({ checkoutItens }) {
       <div>
         Total:
         &nbsp;
-        <span>
+        <span data-testid="customer_checkout__element-order-total-price">
           {checkoutItens.totalPrice}
         </span>
       </div>
