@@ -29,6 +29,16 @@ const userSales = [
     saleDate: new Date(),
     status: 'Entregue',
   },
+  {
+    id: 4,
+    userId: 4,
+    sellerId: 4,
+    total_price: '40.89',
+    deliveryAddress: 'teste4',
+    deliveryNumber: 4,
+    saleDate: new Date(),
+    status: 'Em Trânsito',
+  },
 ];
 
 export default userSales;
