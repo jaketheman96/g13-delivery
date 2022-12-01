@@ -32,6 +32,7 @@ function RegisterPage() {
       register: async () => {
         const response = await userFetch({ name, email, password }, 'users/register');
         if (response.message) return setShowRegisterError(true);
+        localStorage.setItem('user', JSON.stringify(response));
         history.push('/customer/products');
       },
     };
