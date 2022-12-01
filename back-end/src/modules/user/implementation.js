@@ -10,15 +10,6 @@ class UsersImplementation {
       where: { email, password },
     }).then((user) => user);
   }
-
-  async registerCommonUser({ name, email, password, role }) {
-    return this.sequelizeUserModel.create({
-      name,
-      email,
-      password,
-      role,
-    });
-  }
 }
 
 module.exports = { UsersImplementation };
