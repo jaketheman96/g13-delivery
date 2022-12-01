@@ -1,5 +1,7 @@
 import React, { useContext, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import DeliveryContext from '../context/DeliveryContext';
+import registerFetch from '../utils/registerFetch';
 
 function RegisterPage() {
   const {
@@ -12,6 +14,7 @@ function RegisterPage() {
     isButtonDisabled,
     setIsButtonDisabled,
   } = useContext(DeliveryContext);
+  const history = useHistory();
 
   const handleChange = (event) => {
     const option = event.target.name;
@@ -26,7 +29,12 @@ function RegisterPage() {
   const handleClick = (event) => {
     const option = event.target.name;
     const buttons = {
-      register: () => { }, // fazer o registro
+      register: async () => {
+        const response = await registerFetch({ name, email, password });
+        if (response.message) return setShowLoginError(true);
+        localStorage.setItem('userInfo', JSON.stringify(response));
+        history.push('/customer/products');
+      },
     };
     buttons[option]();
   };
