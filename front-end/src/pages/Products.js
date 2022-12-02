@@ -36,6 +36,26 @@ function ProductsPage() {
   };
 
   useEffect(() => {
+    const startCart = () => {
+      let newCart = [];
+      for (let i = 0; i < products.length; i += 1) {
+        const product = products[i];
+        const cartProduct = {
+          ...product,
+          quantity: 0,
+        };
+        newCart = [...newCart, cartProduct];
+      }
+      const storedCart = JSON.stringify(newCart);
+      localStorage.setItem('cart', storedCart);
+      setCart(newCart);
+    };
+    if (products) {
+      startCart();
+    }
+  }, [products]);
+
+  useEffect(() => {
     const getItensFromStorage = () => {
       const userData = localStorage.getItem('userInfo');
       const restoredCart = localStorage.getItem('cart');
@@ -45,27 +65,9 @@ function ProductsPage() {
       setUserInfos(JSON.parse(userData));
     };
 
-    const startCart = () => {
-      let newCart = [];
-      if (products) {
-        for (let i = 0; i < products.length; i += 1) {
-          const product = products[i];
-          const cartProduct = {
-            ...product,
-            quantity: 0,
-          };
-          newCart = [...newCart, cartProduct];
-        }
-        const storedCart = JSON.stringify(newCart);
-        localStorage.setItem('cart', storedCart);
-        setCart(newCart);
-      }
-    };
-
     async function getProducts() {
       const data = await fetchProducts();
       setProducts(data);
-      startCart();
     }
     getProducts();
     getItensFromStorage();
