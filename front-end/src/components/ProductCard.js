@@ -14,9 +14,9 @@ function ProductCard({ id, image, name, price }) {
   };
 
   const handleChange = (event) => {
-    const n = Number(event.target.value);
-    if (Number.isNaN(n)) setInputVale(0);
-    else setInputVale(+event.target.value);
+    const quantity = Number(event.target.value);
+    if (Number.isNaN(quantity)) setInputVale(0);
+    else setInputVale(Number(event.target.value));
   };
 
   return (
