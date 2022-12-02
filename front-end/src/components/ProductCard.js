@@ -13,6 +13,12 @@ function ProductCard({ id, image, name, price }) {
     }
   };
 
+  const handleChange = (event) => {
+    const n = Number(event.target.value);
+    if (Number.isNaN(n)) setInputVale(0);
+    else setInputVale(+event.target.value);
+  };
+
   return (
     <div className="card" style={ { width: '20em' } }>
       <img
@@ -45,6 +51,7 @@ function ProductCard({ id, image, name, price }) {
           style={ { width: '2em' } }
           type="text"
           value={ inputValue }
+          onChange={ handleChange }
         />
         <button
           type="button"
