@@ -36,13 +36,26 @@ function ProductsPage() {
       const data = await fetchProducts();
       setProducts(data);
     }
+
     getProducts();
     getItensFromStorage();
   }, [setUserInfos]);
 
-  const handleClick = () => {
-    setTotal(0);
+  const order = () => {
+    // setTotal(0);
   };
+
+  const handleTotal = () => {
+    let totalVal = 0;
+    for (let i = 0; i < cart.length; i += 1) {
+      totalVal += Number(cart[i].price * cart[i].quantity);
+    }
+    setTotal(totalVal);
+  };
+
+  useEffect(() => {
+    handleTotal();
+  }, [cart]);
 
   return (
     <>
@@ -66,7 +79,7 @@ function ProductsPage() {
         type="button"
         data-testid="customer_products__checkout-bottom-value"
         name="total"
-        onClick={ handleClick }
+        onClick={ order }
       >
         Ver carrinho:
         {' '}
