@@ -4,6 +4,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       allowNull: false,
       foreignKey: true,
+      primaryKey: true,
       references: {
         model: 'sales',
         key: 'id'
@@ -13,6 +14,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       allowNull: false,
       foreignKey: true,
+      primaryKey: true,
       references: {
         model: 'products',
         key: 'id'
@@ -25,7 +27,7 @@ module.exports = (sequelize, DataTypes) => {
   },
     {
       timestamps: false,
-      tableName: 'sale_products',
+      tableName: 'sales_products',
       underscored: true,
     });
     // SaleProduct.associate = (models) => {

@@ -17,6 +17,17 @@ class UsersImplementation {
       where: { email },
     }).then((user) => user);
   }
+
+  async findUserByEmailAndName(email, name) {
+    return this.sequelizeUserModel.findOne({
+      where: { 
+        [Op.or]: [
+          { email },
+          { name }, 
+        ],
+      },
+    }).then((user) => user);
+  }
   
   async registerCommonUser({ email, name, password, role }) {
     return this.sequelizeUserModel.create({ email, name, password, role })
@@ -31,6 +42,7 @@ class UsersImplementation {
   async getAllCommonUsers() {
     return this.sequelizeUserModel.findAll({
       where: { role: { [Op.eq]: ['customer'] } },
+      attributes: { exclude: ['password'] },
     }).then((users) => users);
   }
 
