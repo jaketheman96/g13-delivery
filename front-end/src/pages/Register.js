@@ -14,6 +14,9 @@ function RegisterPage() {
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
   const [showRegisterError, setShowRegisterError] = useState(false);
+
+  const history = useHistory();
+
   const handleChange = (event) => {
     const option = event.target.name;
     const inputs = {
