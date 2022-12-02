@@ -11,28 +11,20 @@ function ProductsPage() {
   const [products, setProducts] = useState(null);
   const [cart, setCart] = useState([]);
 
-  const addToCart = (productId) => {
+  const handleQuantity = (productId, quantity) => {
     const product = products.find(({ id }) => id === +productId);
-    let cartProduct = { ...product, quantity: 1 };
+    const cartProduct = { ...product, quantity: 1 };
     const isNewProduct = !cart.some(({ id }) => id === +productId);
     if (isNewProduct) setCart([...cart, cartProduct]);
     else {
-      cartProduct = cart.find(({ id }) => id === +productId);
-      cartProduct.quantity += 1;
-      const cartCopy = [...cart];
-      cartCopy.forEach((item) => {
-        if (item.id === productId) {
-          item.quantity += 1;
+      const newCart = [...cart];
+      for (let i = 0; i < newCart.length; i += 1) {
+        if (newCart[i].id === +productId) {
+          newCart[i].quantity = quantity;
         }
-      });
-      setCart(cartCopy);
+      }
+      setCart(newCart);
     }
-  };
-
-  const removeFromCart = (productId) => {
-    let cartCopy = [...cart];
-    cartCopy = cartCopy.filter(({ id }) => id !== +productId);
-    setCart(cartCopy);
   };
 
   useEffect(() => {
@@ -65,7 +57,7 @@ function ProductsPage() {
               image={ product.urlImage }
               price={ product.price.replace('.', ',') }
               name={ product.name }
-              cartActions={ { addToCart, removeFromCart } }
+              handleQuantity={ handleQuantity }
             />
           ))
         }
