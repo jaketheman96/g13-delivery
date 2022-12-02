@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import ProductCard from '../components/ProductCard';
 import DeliveryContext from '../context/DeliveryContext';
@@ -7,6 +8,7 @@ import fetchProducts from '../utils/fetchProducts';
 
 function ProductsPage() {
   const { setUserInfos } = useContext(DeliveryContext);
+  const history = useHistory();
   const [total, setTotal] = useState(0);
   const [products, setProducts] = useState(null);
   const [cart, setCart] = useState([]);
@@ -41,10 +43,6 @@ function ProductsPage() {
     getItensFromStorage();
   }, [setUserInfos]);
 
-  const order = () => {
-    // setTotal(0);
-  };
-
   useEffect(() => {
     const handleTotal = () => {
       let totalVal = 0;
@@ -78,7 +76,7 @@ function ProductsPage() {
         type="button"
         data-testid="customer_products__checkout-bottom-value"
         name="total"
-        onClick={ order }
+        onClick={ () => history.push('/customer/checkout') }
       >
         Ver carrinho:
         {' '}
