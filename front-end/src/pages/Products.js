@@ -45,15 +45,14 @@ function ProductsPage() {
     // setTotal(0);
   };
 
-  const handleTotal = () => {
-    let totalVal = 0;
-    for (let i = 0; i < cart.length; i += 1) {
-      totalVal += Number(cart[i].price * cart[i].quantity);
-    }
-    setTotal(totalVal);
-  };
-
   useEffect(() => {
+    const handleTotal = () => {
+      let totalVal = 0;
+      for (let i = 0; i < cart.length; i += 1) {
+        totalVal += Number(cart[i].price * cart[i].quantity);
+      }
+      setTotal(totalVal);
+    };
     handleTotal();
   }, [cart]);
 
