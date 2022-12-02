@@ -30,7 +30,15 @@ function Navbar() {
   };
 
   return (
-    <header>
+    <header
+      style={ {
+        display: 'flex',
+        justifyContent: 'space-between',
+        padding: '5px',
+        flexWrap: 'wrap',
+        alignItems: 'center',
+      } }
+    >
       <button
         data-testid="customer_products__element-navbar-link-products"
         type="button"
