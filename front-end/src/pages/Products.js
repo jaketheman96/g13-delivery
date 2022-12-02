@@ -9,6 +9,31 @@ function ProductsPage() {
   const { setUserInfos } = useContext(DeliveryContext);
   const [total, setTotal] = useState(0);
   const [products, setProducts] = useState(null);
+  const [cart, setCart] = useState([]);
+
+  const addToCart = (productId) => {
+    const product = products.find(({ id }) => id === +productId);
+    let cartProduct = { ...product, quantity: 1 };
+    const isNewProduct = !cart.some(({ id }) => id === +productId);
+    if (isNewProduct) setCart([...cart, cartProduct]);
+    else {
+      cartProduct = cart.find(({ id }) => id === +productId);
+      cartProduct.quantity += 1;
+      const cartCopy = [...cart];
+      cartCopy.forEach((item) => {
+        if (item.id === productId) {
+          item.quantity += 1;
+        }
+      });
+      setCart(cartCopy);
+    }
+  };
+
+  const removeFromCart = (productId) => {
+    let cartCopy = [...cart];
+    cartCopy = cartCopy.filter(({ id }) => id !== +productId);
+    setCart(cartCopy);
+  };
 
   useEffect(() => {
     const getItensFromStorage = () => {
@@ -24,7 +49,7 @@ function ProductsPage() {
   }, [setUserInfos]);
 
   const handleClick = () => {
-    setTotal();
+    setTotal(0);
   };
 
   return (
@@ -37,9 +62,10 @@ function ProductsPage() {
             <ProductCard
               key={ product.id }
               id={ product.id }
-              image={ product.url_image }
+              image={ product.urlImage }
               price={ product.price.replace('.', ',') }
               name={ product.name }
+              cartActions={ { addToCart, removeFromCart } }
             />
           ))
         }
@@ -47,7 +73,7 @@ function ProductsPage() {
       <button
         type="button"
         data-testid="customer_products__checkout-bottom-value"
-        name="btn-add"
+        name="total"
         onClick={ handleClick }
       >
         Ver carrinho:

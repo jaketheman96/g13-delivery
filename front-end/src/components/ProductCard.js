@@ -1,15 +1,23 @@
 import PropTypes from 'prop-types';
 import { useState } from 'react';
 
-function ProductCard({ id, image, name, price }) {
+function ProductCard({ id, image, name, price, cartActions }) {
   const [inputValue, setInputVale] = useState(0);
 
   const handleClick = (event) => {
     const operation = event.target.name;
-    if (inputValue === 0 && operation === 'btn-rm') setInputVale(0);
-    else {
-      return operation === 'btn-rm' ? setInputVale(inputValue - 1)
-        : setInputVale(inputValue + 1);
+    const { addToCart, removeFromCart } = cartActions;
+    if (inputValue === 0 && operation === 'btn-rm') {
+      setInputVale(0);
+    } else {
+      if (operation === 'btn-rm') {
+        setInputVale(inputValue - 1);
+        removeFromCart(event.target.id);
+      }
+      if (operation === 'btn-add') {
+        setInputVale(inputValue + 1);
+        addToCart(event.target.id);
+      }
     }
   };
 
@@ -39,6 +47,7 @@ function ProductCard({ id, image, name, price }) {
         </p>
         <button
           type="button"
+          id={ id }
           data-testid={ `customer_products__button-card-rm-item-${id}` }
           name="btn-rm"
           onClick={ handleClick }
@@ -55,6 +64,7 @@ function ProductCard({ id, image, name, price }) {
         />
         <button
           type="button"
+          id={ id }
           data-testid={ `customer_products__button-card-add-item-${id}` }
           name="btn-add"
           onClick={ handleClick }
@@ -74,4 +84,5 @@ ProductCard.propTypes = {
   image: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   price: PropTypes.number.isRequired,
+  cartActions: PropTypes.arrayOf().isRequired,
 };
