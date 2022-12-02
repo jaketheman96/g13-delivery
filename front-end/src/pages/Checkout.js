@@ -4,7 +4,6 @@ import CheckoutTable from '../components/CheckoutTable';
 import Navbar from '../components/Navbar';
 
 function CheckoutPage() {
-  console.log(checkoutItens.cart);
   return (
     <>
       <Navbar />

@@ -1,20 +1,34 @@
-import React from 'react';
-import products from '../backend_mock/products.mock';
+import React, { useContext, useEffect } from 'react';
 import Navbar from '../components/Navbar';
 import ProductCard from '../components/ProductCard';
+import DeliveryContext from '../context/DeliveryContext';
+import getFetch from '../utils/getFetch';
 
 function ProductsPage() {
+  const {
+    productsInfo,
+    setProductsInfo,
+  } = useContext(DeliveryContext);
+
+  useEffect(() => {
+    const getProducts = async () => {
+      const result = await getFetch('products');
+      return setProductsInfo(result);
+    };
+    getProducts();
+  }, [setProductsInfo]);
+
   return (
     <>
       <Navbar />
       <br />
       <div className="row row-cols-1 row-cols-md-2 g-4">
         {
-          products.map((product) => (
+          !productsInfo ? <p>Loading...</p> : productsInfo.map((product) => (
             <ProductCard
               key={ product.id }
               id={ product.id }
-              image={ product.url_image }
+              image={ product.urlImage }
               price={ product.price.replace('.', ',') }
               name={ product.name }
             />

@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import DeliveryContext from '../context/DeliveryContext';
-import loginFetch from '../utils/userFetch';
+import postFetch from '../utils/postFetch';
 
 function LoginPage() {
   const {
@@ -29,7 +29,7 @@ function LoginPage() {
     const buttons = {
       register: () => history.push('/register'),
       login: async () => {
-        const response = await loginFetch({ email, password }, 'login');
+        const response = await postFetch({ email, password }, 'login');
         if (response.message) return setShowLoginError(true);
         localStorage.setItem('user', JSON.stringify(response));
         history.push('/customer/products');
