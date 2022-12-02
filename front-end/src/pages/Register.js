@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import DeliveryContext from '../context/DeliveryContext';
-import userFetch from '../utils/userFetch';
+import postFetch from '../utils/postFetch';
 
 function RegisterPage() {
   const {
@@ -30,7 +30,7 @@ function RegisterPage() {
     const option = event.target.name;
     const buttons = {
       register: async () => {
-        const response = await userFetch({ name, email, password }, 'users/register');
+        const response = await postFetch({ name, email, password }, 'users/register');
         if (response.message) return setShowRegisterError(true);
         localStorage.setItem('user', JSON.stringify(response));
         history.push('/customer/products');

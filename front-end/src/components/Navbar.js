@@ -1,6 +1,7 @@
 import React, { useContext, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import DeliveryContext from '../context/DeliveryContext';
+import Loading from './Loading';
 
 function Navbar() {
   const { userInfos, setUserInfos } = useContext(DeliveryContext);
@@ -56,7 +57,7 @@ function Navbar() {
         Meus pedidos
       </button>
       <h3 data-testid="customer_products__element-navbar-user-full-name">
-        {userInfos && userInfos.name}
+        {userInfos ? userInfos.name : <Loading />}
       </h3>
       <button
         data-testid="customer_products__element-navbar-link-logout"
