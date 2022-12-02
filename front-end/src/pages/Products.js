@@ -17,14 +17,20 @@ function ProductsPage() {
     const product = products.find(({ id }) => id === +productId);
     const cartProduct = { ...product, quantity: 1 };
     const isNewProduct = !cart.some(({ id }) => id === +productId);
-    if (isNewProduct) setCart([...cart, cartProduct]);
-    else {
+    if (isNewProduct) {
+      const newCart = [...cart, cartProduct];
+      const storedCart = JSON.stringify(newCart);
+      localStorage.setItem('cart', storedCart);
+      setCart(newCart);
+    } else {
       const newCart = [...cart];
       for (let i = 0; i < newCart.length; i += 1) {
         if (newCart[i].id === +productId) {
           newCart[i].quantity = quantity;
         }
       }
+      const storedCart = JSON.stringify(newCart);
+      localStorage.setItem('cart', storedCart);
       setCart(newCart);
     }
   };
@@ -32,24 +38,46 @@ function ProductsPage() {
   useEffect(() => {
     const getItensFromStorage = () => {
       const userData = localStorage.getItem('userInfo');
+      const restoredCart = localStorage.getItem('cart');
+      if (restoredCart) {
+        setCart(JSON.parse(restoredCart));
+      }
       setUserInfos(JSON.parse(userData));
     };
+
+    const startCart = () => {
+      let newCart = [];
+      if (products) {
+        for (let i = 0; i < products.length; i += 1) {
+          const product = products[i];
+          const cartProduct = {
+            ...product,
+            quantity: 0,
+          };
+          newCart = [...newCart, cartProduct];
+        }
+        const storedCart = JSON.stringify(newCart);
+        localStorage.setItem('cart', storedCart);
+        setCart(newCart);
+      }
+    };
+
     async function getProducts() {
       const data = await fetchProducts();
       setProducts(data);
+      startCart();
     }
-
     getProducts();
     getItensFromStorage();
   }, [setUserInfos]);
 
   useEffect(() => {
     const handleTotal = () => {
-      let totalVal = 0;
+      let totalValue = 0;
       for (let i = 0; i < cart.length; i += 1) {
-        totalVal += Number(cart[i].price * cart[i].quantity);
+        totalValue += Number(cart[i].price * cart[i].quantity);
       }
-      setTotal(totalVal);
+      setTotal(totalValue);
     };
     handleTotal();
   }, [cart]);

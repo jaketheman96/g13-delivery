@@ -1,31 +1,46 @@
 import PropTypes from 'prop-types';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+
+let render = 0;
 
 function ProductCard({ id, image, name, price, handleQuantity }) {
-  const [inputValue, setInputVale] = useState(0);
+  const [inputValue, setInputValue] = useState(0);
 
   const handleClick = (event) => {
     const operation = event.target.name;
     if (inputValue === 0 && operation === 'btn-rm') {
-      setInputVale(0);
+      setInputValue(0);
     } else {
       if (operation === 'btn-rm') {
         const newInputValue = inputValue - 1;
-        setInputVale(newInputValue);
+        setInputValue(newInputValue);
         handleQuantity(event.target.id, newInputValue);
       }
       if (operation === 'btn-add') {
         const newInputValue = inputValue + 1;
-        setInputVale(newInputValue);
+        setInputValue(newInputValue);
         handleQuantity(event.target.id, newInputValue);
       }
     }
   };
 
+  useEffect(() => {
+    const getItensFromStorage = () => {
+      let restoredCart = localStorage.getItem('cart');
+      restoredCart = JSON.parse(restoredCart);
+      if (restoredCart) {
+        const product = restoredCart[render];
+        setInputValue(product.quantity);
+        render += 1;
+      }
+    };
+    getItensFromStorage();
+  }, []);
+
   const handleChange = (event) => {
     const quantity = Number(event.target.value);
-    if (Number.isNaN(quantity)) setInputVale(0);
-    else setInputVale(Number(event.target.value));
+    if (Number.isNaN(quantity)) setInputValue(0);
+    else setInputValue(Number(event.target.value));
   };
 
   return (
