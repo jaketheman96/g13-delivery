@@ -5,7 +5,6 @@ import userFetch from '../utils/userFetch';
 
 function RegisterPage() {
   const {
-    userInfos,
     isButtonDisabled,
     setIsButtonDisabled,
   } = useContext(DeliveryContext);
@@ -34,7 +33,7 @@ function RegisterPage() {
         const response = await userFetch({ name, email, password }, 'users/register');
         if (response.message) return setShowRegisterError(true);
         localStorage.setItem('user', JSON.stringify(response));
-        history.push(`/${userInfos.role}/products`);
+        history.push('/customer/products');
       },
     };
     buttons[option]();
