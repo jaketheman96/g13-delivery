@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
-let render = 0;
+// let render = 0;
 function ProductCard({ id, image, name, price, handleQuantity }) {
   const [inputValue, setInputValue] = useState(0);
 
@@ -21,18 +21,18 @@ function ProductCard({ id, image, name, price, handleQuantity }) {
     }
   };
 
-  useEffect(() => {
-    const getItensFromStorage = () => {
-      let restoredInputs = localStorage.getItem('inputs');
-      restoredInputs = JSON.parse(restoredInputs);
-      if (restoredInputs) {
-        const input = restoredInputs[render];
-        setInputValue(input.quantity);
-        render += 1;
-      }
-    };
-    getItensFromStorage();
-  }, []);
+  // useEffect(() => {
+  //   const getItensFromStorage = () => {
+  //     let restoredInputs = localStorage.getItem('inputs');
+  //     restoredInputs = JSON.parse(restoredInputs);
+  //     if (restoredInputs) {
+  //       const input = restoredInputs[render];
+  //       setInputValue(input.quantity);
+  //       render += 1;
+  //     }
+  //   };
+  //   getItensFromStorage();
+  // }, []);
 
   const handleChange = (event) => {
     const quantity = Number(event.target.value);
@@ -45,10 +45,11 @@ function ProductCard({ id, image, name, price, handleQuantity }) {
   };
 
   return (
-    <div className="card" style={ { width: '20em' } }>
+    <div className="card" style={ { width: '10em' } }>
       <img
         src={ `${image}` }
         className="card-img-top"
+        style={ { width: '3em' } }
         alt="product"
         data-testid={ `customer_products__img-card-bg-image-${id}` }
       />
@@ -59,9 +60,13 @@ function ProductCard({ id, image, name, price, handleQuantity }) {
         >
           { name || 'Product Name' }
         </p>
-        <p data-testid={ `customer_products__element-card-price-${id}` }>
+        <span>
+          R$
+        </span>
+        <span data-testid={ `customer_products__element-card-price-${id}` }>
           { price || 'Product Price'}
-        </p>
+        </span>
+        <br />
         <button
           type="button"
           id={ id }
