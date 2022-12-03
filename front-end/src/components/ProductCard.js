@@ -45,10 +45,11 @@ function ProductCard({ id, image, name, price, handleQuantity }) {
   };
 
   return (
-    <div className="card" style={ { width: '20em' } }>
+    <div className="card" style={ { width: '10em' } }>
       <img
         src={ `${image}` }
         className="card-img-top"
+        style={ { width: '3em' } }
         alt="product"
         data-testid={ `customer_products__img-card-bg-image-${id}` }
       />
