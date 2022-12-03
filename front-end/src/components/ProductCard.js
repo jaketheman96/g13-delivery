@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import { useState, useEffect } from 'react';
 
 let render = 0;
-
+// customer_products__button-card-add-item-
 function ProductCard({ id, image, name, price, handleQuantity }) {
   const [inputValue, setInputValue] = useState(0);
 
@@ -26,11 +26,11 @@ function ProductCard({ id, image, name, price, handleQuantity }) {
 
   useEffect(() => {
     const getItensFromStorage = () => {
-      let restoredCart = localStorage.getItem('cart');
-      restoredCart = JSON.parse(restoredCart);
-      if (restoredCart) {
-        const product = restoredCart[render];
-        setInputValue(product.quantity);
+      let restoredInputs = localStorage.getItem('inputs');
+      restoredInputs = JSON.parse(restoredInputs);
+      if (restoredInputs) {
+        const input = restoredInputs[render];
+        setInputValue(input.quantity);
         render += 1;
       }
     };
@@ -39,8 +39,12 @@ function ProductCard({ id, image, name, price, handleQuantity }) {
 
   const handleChange = (event) => {
     const quantity = Number(event.target.value);
-    if (Number.isNaN(quantity)) setInputValue(0);
-    else setInputValue(Number(event.target.value));
+    if (Number.isNaN(quantity)) {
+      setInputValue(1);
+    } else {
+      setInputValue(Number(event.target.value));
+      handleQuantity(event.target.id, Number(event.target.value));
+    }
   };
 
   return (
@@ -73,6 +77,7 @@ function ProductCard({ id, image, name, price, handleQuantity }) {
         </button>
         <input
           data-testid={ `customer_products__input-card-quantity-${id}` }
+          id={ id }
           style={ { width: '2em' } }
           type="text"
           value={ inputValue }

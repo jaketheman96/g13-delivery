@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import ProductCard from '../components/ProductCard';
 import DeliveryContext from '../context/DeliveryContext';
-import convertToBRL from '../utils/convertToBRL';
+// import convertToBRL from '../utils/convertToBRL';
 import fetchProducts from '../utils/fetchProducts';
 
 function ProductsPage() {
@@ -12,11 +12,22 @@ function ProductsPage() {
   const [total, setTotal] = useState(0);
   const [products, setProducts] = useState(null);
   const [cart, setCart] = useState([]);
+  const [inputs, setInputs] = useState([]);
 
   const handleQuantity = (productId, quantity) => {
     const product = products.find(({ id }) => id === +productId);
     const cartProduct = { ...product, quantity: 1 };
     const isNewProduct = !cart.some(({ id }) => id === +productId);
+    const newInputs = [...inputs];
+
+    for (let i = 0; i < newInputs.length; i += 1) {
+      if (newInputs[i].id === +productId) {
+        newInputs[i].quantity = quantity;
+      }
+    }
+    const storedInputs = JSON.stringify(newInputs);
+    localStorage.setItem('inputs', storedInputs);
+
     if (isNewProduct) {
       const newCart = [...cart, cartProduct];
       const storedCart = JSON.stringify(newCart);
@@ -36,28 +47,33 @@ function ProductsPage() {
   };
 
   useEffect(() => {
-    const startCart = () => {
-      let newCart = [];
-      for (let i = 0; i < products.length; i += 1) {
-        const product = products[i];
-        const cartProduct = {
-          ...product,
-          quantity: 0,
-        };
-        newCart = [...newCart, cartProduct];
+    const newInputs = localStorage.getItem('inputs');
+    if (newInputs) {
+      setInputs(JSON.parse(newInputs));
+    } else {
+      const startCart = () => {
+        let newCart = [];
+        for (let i = 0; i < products.length; i += 1) {
+          const product = products[i];
+          const cartProduct = {
+            ...product,
+            quantity: 0,
+          };
+          newCart = [...newCart, cartProduct];
+        }
+        const storedCart = JSON.stringify(newCart);
+        localStorage.setItem('inputs', storedCart);
+        setInputs(newCart);
+      };
+      if (products) {
+        startCart();
       }
-      const storedCart = JSON.stringify(newCart);
-      localStorage.setItem('cart', storedCart);
-      setCart(newCart);
-    };
-    if (products) {
-      startCart();
     }
   }, [products]);
 
   useEffect(() => {
     const getItensFromStorage = () => {
-      const userData = localStorage.getItem('userInfo');
+      const userData = localStorage.getItem('user');
       const restoredCart = localStorage.getItem('cart');
       if (restoredCart) {
         setCart(JSON.parse(restoredCart));
@@ -104,15 +120,19 @@ function ProductsPage() {
       </div>
       <button
         type="button"
-        data-testid="customer_products__checkout-bottom-value"
+        data-testid="customer_products__button-cart"
+        disabled={ total <= 0 }
         name="total"
+        value={ total.toFixed(2).replace('.', ',') }
         onClick={ () => history.push('/customer/checkout') }
       >
-        Ver carrinho:
-        {' '}
-        { convertToBRL.format(total) }
+        Total
 
       </button>
+      <span data-testid="customer_products__checkout-bottom-value">
+        { total.toFixed(2).replace('.', ',') }
+
+      </span>
     </>
   );
 }
