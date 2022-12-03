@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
-let render = 0;
+// let render = 0;
 function ProductCard({ id, image, name, price, handleQuantity }) {
   const [inputValue, setInputValue] = useState(0);
 
@@ -21,18 +21,18 @@ function ProductCard({ id, image, name, price, handleQuantity }) {
     }
   };
 
-  useEffect(() => {
-    const getItensFromStorage = () => {
-      let restoredInputs = localStorage.getItem('inputs');
-      restoredInputs = JSON.parse(restoredInputs);
-      if (restoredInputs && restoredInputs[render].quantity) {
-        const input = restoredInputs[render];
-        setInputValue(input.quantity);
-        render += 1;
-      }
-    };
-    getItensFromStorage();
-  }, []);
+  // useEffect(() => {
+  //   const getItensFromStorage = () => {
+  //     let restoredInputs = localStorage.getItem('inputs');
+  //     restoredInputs = JSON.parse(restoredInputs);
+  //     if (restoredInputs) {
+  //       const input = restoredInputs[render];
+  //       setInputValue(input.quantity);
+  //       render += 1;
+  //     }
+  //   };
+  //   getItensFromStorage();
+  // }, []);
 
   const handleChange = (event) => {
     const quantity = Number(event.target.value);

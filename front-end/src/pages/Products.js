@@ -13,21 +13,21 @@ function ProductsPage() {
   const [total, setTotal] = useState(0);
   const [products, setProducts] = useState(null);
   const [cart, setCart] = useState([]);
-  const [inputs, setInputs] = useState([]);
+  // const [inputs, setInputs] = useState([]);
 
   const handleQuantity = (productId, quantity) => {
     const product = products.find(({ id }) => id === +productId);
     const cartProduct = { ...product, quantity };
     const isNewProduct = !cart.some(({ id }) => id === +productId);
-    const newInputs = [...inputs];
+    // const newInputs = [...inputs];
 
-    for (let i = 0; i < newInputs.length; i += 1) {
-      if (newInputs[i].id === +productId) {
-        newInputs[i].quantity = quantity;
-      }
-    }
-    const storedInputs = JSON.stringify(newInputs);
-    localStorage.setItem('inputs', storedInputs);
+    // for (let i = 0; i < newInputs.length; i += 1) {
+    //   if (newInputs[i].id === +productId) {
+    //     newInputs[i].quantity = quantity;
+    //   }
+    // }
+    // const storedInputs = JSON.stringify(newInputs);
+    // localStorage.setItem('inputs', storedInputs);
 
     if (isNewProduct) {
       const newCart = [...cart, cartProduct];
@@ -47,30 +47,30 @@ function ProductsPage() {
     }
   };
 
-  useEffect(() => {
-    const newInputs = localStorage.getItem('inputs');
-    if (newInputs) {
-      setInputs(JSON.parse(newInputs));
-    } else {
-      const startCart = () => {
-        let newCart = [];
-        for (let i = 0; i < products.length; i += 1) {
-          const product = products[i];
-          const cartProduct = {
-            ...product,
-            quantity: 0,
-          };
-          newCart = [...newCart, cartProduct];
-        }
-        const storedCart = JSON.stringify(newCart);
-        localStorage.setItem('inputs', storedCart);
-        setInputs(newCart);
-      };
-      if (products) {
-        startCart();
-      }
-    }
-  }, [products]);
+  // useEffect(() => {
+  //   const newInputs = localStorage.getItem('inputs');
+  //   if (newInputs) {
+  //     setInputs(JSON.parse(newInputs));
+  //   } else {
+  //     const startCart = () => {
+  //       let newCart = [];
+  //       for (let i = 0; i < products.length; i += 1) {
+  //         const product = products[i];
+  //         const cartProduct = {
+  //           ...product,
+  //           quantity: 0,
+  //         };
+  //         newCart = [...newCart, cartProduct];
+  //       }
+  //       const storedCart = JSON.stringify(newCart);
+  //       localStorage.setItem('inputs', storedCart);
+  //       setInputs(newCart);
+  //     };
+  //     if (products) {
+  //       startCart();
+  //     }
+  //   }
+  // }, [products]);
 
   useEffect(() => {
     const getItensFromStorage = () => {
