@@ -18,7 +18,7 @@ function ProductCard({ id, image, name, price, handleQuantity }) {
       }
       if (operation === 'btn-add') {
         const newInputValue = inputValue + 1;
-        setInputValue(newInputValue);
+        setInputValue((prevState) => prevState);
         handleQuantity(event.target.id, newInputValue);
       }
     }
