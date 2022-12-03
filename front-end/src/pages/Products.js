@@ -5,6 +5,7 @@ import ProductCard from '../components/ProductCard';
 import DeliveryContext from '../context/DeliveryContext';
 // import convertToBRL from '../utils/convertToBRL';
 import fetchProducts from '../utils/fetchProducts';
+import Loading from '../components/Loading';
 
 function ProductsPage() {
   const { setUserInfos } = useContext(DeliveryContext);
@@ -106,7 +107,7 @@ function ProductsPage() {
       <br />
       <div className="row row-cols-1 row-cols-md-2 g-4">
         {
-          !productsInfo ? <Loading /> : productsInfo.map((product) => (
+          !products ? <Loading /> : products.map((product) => (
 
             <ProductCard
               key={ product.id }
