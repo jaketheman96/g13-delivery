@@ -1,15 +1,46 @@
 import PropTypes from 'prop-types';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
-function ProductCard({ id, image, name, price }) {
-  const [inputValue, setInputVale] = useState(0);
+let render = 0;
+function ProductCard({ id, image, name, price, handleQuantity }) {
+  const [inputValue, setInputValue] = useState(0);
 
   const handleClick = (event) => {
     const operation = event.target.name;
-    if (inputValue === 0 && operation === 'btn-rm') setInputVale(0);
-    else {
-      return operation === 'btn-rm' ? setInputVale(inputValue - 1)
-        : setInputVale(inputValue + 1);
+    if (inputValue === 0 && operation === 'btn-rm') {
+      setInputValue(0);
+    } else {
+      if (operation === 'btn-rm') {
+        setInputValue((prevtState) => prevtState - 1);
+        handleQuantity(event.target.id, inputValue - 1);
+      }
+      if (operation === 'btn-add') {
+        setInputValue((prevState) => prevState + 1);
+        handleQuantity(event.target.id, inputValue + 1);
+      }
+    }
+  };
+
+  useEffect(() => {
+    const getItensFromStorage = () => {
+      let restoredInputs = localStorage.getItem('inputs');
+      restoredInputs = JSON.parse(restoredInputs);
+      if (restoredInputs) {
+        const input = restoredInputs[render];
+        setInputValue(input.quantity);
+        render += 1;
+      }
+    };
+    getItensFromStorage();
+  }, []);
+
+  const handleChange = (event) => {
+    const quantity = Number(event.target.value);
+    if (Number.isNaN(quantity)) {
+      setInputValue(1);
+    } else {
+      setInputValue(Number(event.target.value));
+      handleQuantity(event.target.id, Number(event.target.value));
     }
   };
 
@@ -33,6 +64,7 @@ function ProductCard({ id, image, name, price }) {
         </p>
         <button
           type="button"
+          id={ id }
           data-testid={ `customer_products__button-card-rm-item-${id}` }
           name="btn-rm"
           onClick={ handleClick }
@@ -42,12 +74,15 @@ function ProductCard({ id, image, name, price }) {
         </button>
         <input
           data-testid={ `customer_products__input-card-quantity-${id}` }
+          id={ id }
           style={ { width: '2em' } }
           type="text"
           value={ inputValue }
+          onChange={ handleChange }
         />
         <button
           type="button"
+          id={ id }
           data-testid={ `customer_products__button-card-add-item-${id}` }
           name="btn-add"
           onClick={ handleClick }
@@ -66,5 +101,6 @@ ProductCard.propTypes = {
   id: PropTypes.number.isRequired,
   image: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
-  price: PropTypes.string.isRequired,
+  price: PropTypes.number.isRequired,
+  handleQuantity: PropTypes.arrayOf().isRequired,
 };

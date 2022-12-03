@@ -16,8 +16,8 @@ function App() {
         <Route path="/login" component={ LoginPage } />
         <Route path="/register" component={ RegisterPage } />
         <Route path="/customer/products" component={ ProductsPage } />
-        <Route path="/customer/orders" component={ Pedidos } />
         <Route path="/customer/checkout" component={ CheckoutPage } />
+        <Route path="/customer/orders" component={ Pedidos } />
       </Switch>
     </DeliveryProvider>
   );
