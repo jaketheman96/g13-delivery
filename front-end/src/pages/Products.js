@@ -131,6 +131,10 @@ function ProductsPage() {
         Total
 
       </button>
+      <span>
+        R$
+
+      </span>
       <span data-testid="customer_products__checkout-bottom-value">
         { total.toFixed(2).replace('.', ',') }
 
