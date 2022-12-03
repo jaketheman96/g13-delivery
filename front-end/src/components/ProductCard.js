@@ -25,7 +25,7 @@ function ProductCard({ id, image, name, price, handleQuantity }) {
     const getItensFromStorage = () => {
       let restoredInputs = localStorage.getItem('inputs');
       restoredInputs = JSON.parse(restoredInputs);
-      if (restoredInputs) {
+      if (restoredInputs && restoredInputs[render].quantity) {
         const input = restoredInputs[render];
         setInputValue(input.quantity);
         render += 1;
