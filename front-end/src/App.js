@@ -2,6 +2,7 @@ import React from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import './App.css';
 import DeliveryProvider from './context/DeliveryProvider';
+import CheckoutPage from './pages/Checkout';
 import LoginPage from './pages/Login';
 import Pedidos from './pages/Pedidos';
 import ProductsPage from './pages/Products';
@@ -18,6 +19,7 @@ function App() {
         <Route path="/customer/products" component={ ProductsPage } />
         <Route path="/customer/checkout" component={ CheckoutPage } />
         <Route path="/customer/orders" component={ Pedidos } />
+        <Route path="/customer/checkout" component={ CheckoutPage } />
       </Switch>
     </DeliveryProvider>
   );

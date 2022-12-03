@@ -106,7 +106,8 @@ function ProductsPage() {
       <br />
       <div className="row row-cols-1 row-cols-md-2 g-4">
         {
-          products && products.map((product) => (
+          !productsInfo ? <Loading /> : productsInfo.map((product) => (
+
             <ProductCard
               key={ product.id }
               id={ product.id }
