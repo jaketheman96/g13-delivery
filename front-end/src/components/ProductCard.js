@@ -2,7 +2,6 @@ import PropTypes from 'prop-types';
 import { useState, useEffect } from 'react';
 
 let render = 0;
-// customer_products__button-card-add-item-
 function ProductCard({ id, image, name, price, handleQuantity }) {
   const [inputValue, setInputValue] = useState(0);
 
@@ -18,7 +17,7 @@ function ProductCard({ id, image, name, price, handleQuantity }) {
       }
       if (operation === 'btn-add') {
         const newInputValue = inputValue + 1;
-        setInputValue((prevState) => prevState);
+        setInputValue(newInputValue);
         handleQuantity(event.target.id, newInputValue);
       }
     }

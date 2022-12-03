@@ -17,7 +17,7 @@ function ProductsPage() {
 
   const handleQuantity = (productId, quantity) => {
     const product = products.find(({ id }) => id === +productId);
-    const cartProduct = { ...product, quantity: 1 };
+    const cartProduct = { ...product, quantity };
     const isNewProduct = !cart.some(({ id }) => id === +productId);
     const newInputs = [...inputs];
 
