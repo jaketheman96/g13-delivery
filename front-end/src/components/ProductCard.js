@@ -11,14 +11,12 @@ function ProductCard({ id, image, name, price, handleQuantity }) {
       setInputValue(0);
     } else {
       if (operation === 'btn-rm') {
-        const newInputValue = inputValue - 1;
-        setInputValue(newInputValue);
-        handleQuantity(event.target.id, newInputValue);
+        setInputValue((prevtState) => prevtState - 1);
+        handleQuantity(event.target.id, inputValue - 1);
       }
       if (operation === 'btn-add') {
-        const newInputValue = inputValue + 1;
-        setInputValue(newInputValue);
-        handleQuantity(event.target.id, newInputValue);
+        setInputValue((prevState) => prevState + 1);
+        handleQuantity(event.target.id, inputValue + 1);
       }
     }
   };
