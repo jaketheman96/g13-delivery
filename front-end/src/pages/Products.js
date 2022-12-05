@@ -3,8 +3,8 @@ import { useHistory } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import ProductCard from '../components/ProductCard';
 import DeliveryContext from '../context/DeliveryContext';
+import getFetch from '../utils/getFetch';
 // import convertToBRL from '../utils/convertToBRL';
-import fetchProducts from '../utils/fetchProducts';
 import Loading from '../components/Loading';
 
 function ProductsPage() {
@@ -83,7 +83,7 @@ function ProductsPage() {
     };
 
     async function getProducts() {
-      const data = await fetchProducts();
+      const data = await getFetch('products');
       setProducts(data);
     }
     getProducts();
