@@ -11,10 +11,11 @@ function ProductsPage() {
   const { setUserInfos,
     setTotalCartPrice,
     totalCartPrice,
+    cart,
+    setCart,
   } = useContext(DeliveryContext);
   const history = useHistory();
   const [products, setProducts] = useState(null);
-  const [cart, setCart] = useState([]);
   // const [inputs, setInputs] = useState([]);
 
   const handleQuantity = (productId, quantity) => {
@@ -90,7 +91,7 @@ function ProductsPage() {
     }
     getProducts();
     getItensFromStorage();
-  }, [setUserInfos]);
+  }, [setUserInfos, setCart]);
 
   useEffect(() => {
     const handleTotal = () => {
