@@ -8,9 +8,11 @@ import getFetch from '../utils/getFetch';
 import Loading from '../components/Loading';
 
 function ProductsPage() {
-  const { setUserInfos } = useContext(DeliveryContext);
+  const { setUserInfos,
+    setTotalCartPrice,
+    totalCartPrice,
+  } = useContext(DeliveryContext);
   const history = useHistory();
-  const [total, setTotal] = useState(0);
   const [products, setProducts] = useState(null);
   const [cart, setCart] = useState([]);
   // const [inputs, setInputs] = useState([]);
@@ -96,10 +98,10 @@ function ProductsPage() {
       for (let i = 0; i < cart.length; i += 1) {
         totalValue += Number(cart[i].price * cart[i].quantity);
       }
-      setTotal(totalValue);
+      setTotalCartPrice(totalValue);
     };
     handleTotal();
-  }, [cart]);
+  }, [cart, setTotalCartPrice]);
 
   return (
     <>
@@ -123,9 +125,9 @@ function ProductsPage() {
       <button
         type="button"
         data-testid="customer_products__button-cart"
-        disabled={ total <= 0 }
+        disabled={ totalCartPrice <= 0 }
         name="total"
-        value={ total.toFixed(2).replace('.', ',') }
+        value={ totalCartPrice.toFixed(2).replace('.', ',') }
         onClick={ () => history.push('/customer/checkout') }
       >
         Total
@@ -136,7 +138,7 @@ function ProductsPage() {
 
       </span>
       <span data-testid="customer_products__checkout-bottom-value">
-        { total.toFixed(2).replace('.', ',') }
+        { totalCartPrice.toFixed(2).replace('.', ',') }
 
       </span>
     </>

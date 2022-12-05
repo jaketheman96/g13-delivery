@@ -1,8 +1,11 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import Loading from './Loading';
+import DeliveryContext from '../context/DeliveryContext';
 
 export default function CheckoutTable({ checkoutItens }) {
+  const { totalCartPrice } = useContext(DeliveryContext);
+
   return (
     <div>
       <h1>Finalizar Pedido</h1>
@@ -83,7 +86,7 @@ export default function CheckoutTable({ checkoutItens }) {
         Total:
         &nbsp;
         <span data-testid="customer_checkout__element-order-total-price">
-          teste
+          {`R$${totalCartPrice}`}
         </span>
       </div>
 
