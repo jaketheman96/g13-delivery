@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Loading from './Loading';
 
 export default function CheckoutTable({ checkoutItens }) {
   return (
@@ -29,7 +30,7 @@ export default function CheckoutTable({ checkoutItens }) {
           </tr>
         </thead>
         <tbody>
-          {checkoutItens.cart.map((item) => (
+          {!checkoutItens ? <Loading /> : checkoutItens.map((item) => (
             <tr key={ `element-order-table-name-${item.id}` }>
               <td
                 data-testid={
@@ -82,7 +83,7 @@ export default function CheckoutTable({ checkoutItens }) {
         Total:
         &nbsp;
         <span data-testid="customer_checkout__element-order-total-price">
-          {checkoutItens.totalPrice}
+          teste
         </span>
       </div>
 
@@ -91,15 +92,11 @@ export default function CheckoutTable({ checkoutItens }) {
 }
 
 CheckoutTable.propTypes = {
-  checkoutItens: PropTypes.shape({
-    cart: PropTypes.arrayOf(PropTypes.shape({
-      id: PropTypes.number,
-      productId: PropTypes.number,
-      name: PropTypes.string,
-      unitPrice: PropTypes.string,
-      subTotal: PropTypes.string,
-      quantity: PropTypes.number,
-    })).isRequired,
-    totalPrice: PropTypes.string.isRequired,
-  }).isRequired,
+  checkoutItens: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    name: PropTypes.string.isRequired,
+    price: PropTypes.string.isRequired,
+    quantity: PropTypes.number.isRequired,
+    urlImage: PropTypes.string.isRequired,
+  }).isRequired).isRequired,
 };
