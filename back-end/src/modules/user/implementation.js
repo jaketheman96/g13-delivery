@@ -13,12 +13,6 @@ class UsersImplementation {
     }).then((user) => user);
   }
 
-  async findUserByEmail({ email }) {
-    return this.sequelizeUserModel.findOne({
-      where: { email },
-    }).then((user) => user);
-  }
-
   async findUserByEmailAndName(email, name) {
     return this.sequelizeUserModel.findOne({
       where: { 
@@ -30,19 +24,14 @@ class UsersImplementation {
     }).then((user) => user);
   }
   
-  async registerCommonUser({ email, name, password, role }) {
+  async registerUser({ email, name, password, role }) {
     return this.sequelizeUserModel.create({ email, name, password, role })
     .then((user) => user);
   }
-  
-  async registerAdminUser({ email, name, password }) {
-    return this.sequelizeUserModel.create({ email, name, password, role: 'administrator' })
-    .then((user) => user);
-  }
-  
+    
   async getAllCommonUsers() {
     return this.sequelizeUserModel.findAll({
-      where: { role: { [Op.eq]: ['customer'] } },
+      where: { role: { [Op.or]: ['seller', 'customer'] } },
       attributes: { exclude: ['password'] },
     }).then((users) => users);
   }

@@ -18,16 +18,16 @@ class UsersController {
       const userRegisterInformations = req.body;
 
       const commonUserResponse = await this
-          .usersService.registerCommonUser(userRegisterInformations);
+          .usersService.registerUser(userRegisterInformations, 'customer');
 
       return res.status(StatusCodes.CREATED).json(commonUserResponse);
   }
 
   async registerAdminUser(req, res) {
-      const userRegisterInformations = req.body;
+      const { role, ...userRegisterInformations } = req.body;
 
       const commonUserResponse = await this
-          .usersService.registerAdminUser(userRegisterInformations);
+          .usersService.registerUser(userRegisterInformations, role);
 
       return res.status(StatusCodes.CREATED).json(commonUserResponse);
   }
