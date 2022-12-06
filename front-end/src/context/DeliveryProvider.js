@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import DeliveryContext from './DeliveryContext';
+import getItensFromStorage from '../utils/getItensFromStorage';
 
 function DeliveryProvider({ children }) {
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
@@ -18,6 +19,18 @@ function DeliveryProvider({ children }) {
     };
     handleTotal();
   }, [cart, setTotalCartPrice]);
+
+  useEffect(() => {
+    const getStorage = () => {
+      const userData = getItensFromStorage('user');
+      const restoredCart = getItensFromStorage('cart');
+      if (restoredCart) {
+        setCart(restoredCart);
+      }
+      setUserInfos(userData);
+    };
+    getStorage();
+  }, []);
 
   const globalState = React.useMemo(() => ({
     isButtonDisabled,
