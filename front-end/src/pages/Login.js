@@ -32,7 +32,14 @@ function LoginPage() {
         const response = await postFetch({ email, password }, 'login');
         if (response.message) return setShowLoginError(true);
         localStorage.setItem('user', JSON.stringify(response));
-        history.push('/customer/products');
+        switch (response.role) {
+        case 'administrator':
+          return history.push('/admin/manage');
+        case 'seller':
+          return history.push('/seller/orders');
+        default:
+          return history.push('/customer/products');
+        }
       },
     };
     buttons[option]();
