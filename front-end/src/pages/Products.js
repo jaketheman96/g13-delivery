@@ -3,16 +3,19 @@ import { useHistory } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import ProductCard from '../components/ProductCard';
 import DeliveryContext from '../context/DeliveryContext';
+import getFetch from '../utils/getFetch';
 // import convertToBRL from '../utils/convertToBRL';
-import fetchProducts from '../utils/fetchProducts';
 import Loading from '../components/Loading';
 
 function ProductsPage() {
-  const { setUserInfos } = useContext(DeliveryContext);
+  const { setUserInfos,
+    setTotalCartPrice,
+    totalCartPrice,
+    cart,
+    setCart,
+  } = useContext(DeliveryContext);
   const history = useHistory();
-  const [total, setTotal] = useState(0);
   const [products, setProducts] = useState(null);
-  const [cart, setCart] = useState([]);
   // const [inputs, setInputs] = useState([]);
 
   const handleQuantity = (productId, quantity) => {
@@ -83,12 +86,12 @@ function ProductsPage() {
     };
 
     async function getProducts() {
-      const data = await fetchProducts();
+      const data = await getFetch('products');
       setProducts(data);
     }
     getProducts();
     getItensFromStorage();
-  }, [setUserInfos]);
+  }, [setUserInfos, setCart]);
 
   useEffect(() => {
     const handleTotal = () => {
@@ -96,10 +99,10 @@ function ProductsPage() {
       for (let i = 0; i < cart.length; i += 1) {
         totalValue += Number(cart[i].price * cart[i].quantity);
       }
-      setTotal(totalValue);
+      setTotalCartPrice(totalValue);
     };
     handleTotal();
-  }, [cart]);
+  }, [cart, setTotalCartPrice]);
 
   return (
     <>
@@ -123,9 +126,9 @@ function ProductsPage() {
       <button
         type="button"
         data-testid="customer_products__button-cart"
-        disabled={ total <= 0 }
+        disabled={ totalCartPrice <= 0 }
         name="total"
-        value={ total.toFixed(2).replace('.', ',') }
+        value={ totalCartPrice.toFixed(2).replace('.', ',') }
         onClick={ () => history.push('/customer/checkout') }
       >
         Total
@@ -136,7 +139,7 @@ function ProductsPage() {
 
       </span>
       <span data-testid="customer_products__checkout-bottom-value">
-        { total.toFixed(2).replace('.', ',') }
+        { totalCartPrice.toFixed(2).replace('.', ',') }
 
       </span>
     </>

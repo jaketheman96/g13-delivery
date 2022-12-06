@@ -106,6 +106,6 @@ ProductCard.propTypes = {
   id: PropTypes.number.isRequired,
   image: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
-  price: PropTypes.number.isRequired,
-  handleQuantity: PropTypes.arrayOf().isRequired,
+  price: PropTypes.string.isRequired,
+  handleQuantity: PropTypes.func.isRequired,
 };

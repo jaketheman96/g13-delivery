@@ -5,19 +5,23 @@ import DeliveryContext from './DeliveryContext';
 function DeliveryProvider({ children }) {
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
   const [userInfos, setUserInfos] = useState();
-  const [productsInfo, setProductsInfo] = useState();
+  const [totalCartPrice, setTotalCartPrice] = useState(0);
+  const [cart, setCart] = useState([]);
 
   const globalState = React.useMemo(() => ({
     isButtonDisabled,
     setIsButtonDisabled,
     userInfos,
     setUserInfos,
-    productsInfo,
-    setProductsInfo,
+    cart,
+    setCart,
+    totalCartPrice,
+    setTotalCartPrice,
   }), [
     isButtonDisabled,
     userInfos,
-    productsInfo,
+    totalCartPrice,
+    cart,
   ]);
 
   return (

@@ -1,10 +1,32 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { useContext } from 'react';
+import Loading from './Loading';
+import DeliveryContext from '../context/DeliveryContext';
+import getItensFromStorage from '../utils/getItensFromStorage';
 
-export default function CheckoutTable({ checkoutItens }) {
+const PRICE_ZERO = 0;
+
+export default function CheckoutTable() {
+  const {
+    totalCartPrice,
+    cart,
+    setCart,
+    setTotalCartPrice,
+  } = useContext(DeliveryContext);
+
+  const handleRemoveBtn = ({ target }) => {
+    const arrayFromStorage = getItensFromStorage('cart');
+    const arrayFiltered = arrayFromStorage
+      .filter((product) => Number(target.id) !== product.id);
+    setCart(arrayFiltered);
+    localStorage.setItem('cart', JSON.stringify(arrayFiltered));
+    const total = totalCartPrice - Number(target.value);
+    if (total < PRICE_ZERO) return setTotalCartPrice(0);
+    setTotalCartPrice(total);
+  };
+
   return (
     <div>
-      <h1>Finalizar Pedido</h1>
+      <h3>Finalizar Pedido</h3>
       <table>
         <thead>
           <tr>
@@ -29,47 +51,50 @@ export default function CheckoutTable({ checkoutItens }) {
           </tr>
         </thead>
         <tbody>
-          {checkoutItens.cart.map((item) => (
-            <tr key={ `element-order-table-name-${item.id}` }>
+          {!cart ? <Loading /> : cart.map((item, index) => (
+            <tr key={ index }>
               <td
                 data-testid={
-                  `customer_checkout__element-order-table-item-number-${item.id}`
+                  `customer_checkout__element-order-table-item-number-${index}`
                 }
               >
-                {item.id}
+                {index + 1}
               </td>
               <td
                 data-testid={
-                  `customer_checkout__element-order-table-name-${item.name}`
+                  `customer_checkout__element-order-table-name-${index}`
                 }
               >
                 {item.name}
               </td>
               <td
                 data-testid={
-                  `customer_checkout__element-order-table-quantity-${item.quantity}`
+                  `customer_checkout__element-order-table-quantity-${index}`
                 }
               >
                 {item.quantity}
               </td>
               <td
                 data-testid={
-                  `customer_checkout__element-order-table-unit-price-${item.unitPrice}`
+                  `customer_checkout__element-order-table-unit-price-${index}`
                 }
               >
-                {item.unitPrice}
+                {item.price.replace('.', ',')}
               </td>
               <td
                 data-testid={
-                  `customer_checkout__element-order-table-sub-total-${item.subTotal}`
+                  `customer_checkout__element-order-table-sub-total-${index}`
                 }
               >
-                {item.subTotal}
+                {(item.price * item.quantity).toFixed(2).replace('.', ',')}
               </td>
               <td>
                 <button
                   type="button"
-                  onClick={ () => { console.log(item); } }
+                  onClick={ handleRemoveBtn }
+                  id={ item.id }
+                  value={ (item.price * item.quantity).toFixed(2) }
+                  data-testid={ `customer_checkout__element-order-table-remove-${index}` }
                 >
                   Remover
                 </button>
@@ -82,24 +107,10 @@ export default function CheckoutTable({ checkoutItens }) {
         Total:
         &nbsp;
         <span data-testid="customer_checkout__element-order-total-price">
-          {checkoutItens.totalPrice}
+          {`R$${totalCartPrice.toFixed(2).replace('.', ',')}`}
         </span>
       </div>
 
     </div>
   );
 }
-
-CheckoutTable.propTypes = {
-  checkoutItens: PropTypes.shape({
-    cart: PropTypes.arrayOf(PropTypes.shape({
-      id: PropTypes.number,
-      productId: PropTypes.number,
-      name: PropTypes.string,
-      unitPrice: PropTypes.string,
-      subTotal: PropTypes.string,
-      quantity: PropTypes.number,
-    })).isRequired,
-    totalPrice: PropTypes.string.isRequired,
-  }).isRequired,
-};
