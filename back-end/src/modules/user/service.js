@@ -82,6 +82,12 @@ class UsersService {
       return allCommonUsers;
   }
 
+  async getAllSellerUsers() {
+      const allSellerUsers = await this.userImplementation.getAllSellerUsers();
+
+      return allSellerUsers;
+  }
+
   async getOrdersByCustomerId(id) {
       const orders = await this.userImplementation.getOrdersByCustomerId(id);
 
