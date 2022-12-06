@@ -26,7 +26,7 @@ export default function CheckoutTable() {
 
   return (
     <div>
-      <h1>Finalizar Pedido</h1>
+      <h3>Finalizar Pedido</h3>
       <table>
         <thead>
           <tr>
@@ -52,13 +52,13 @@ export default function CheckoutTable() {
         </thead>
         <tbody>
           {!cart ? <Loading /> : cart.map((item, index) => (
-            <tr key={ `element-order-table-name-${index}` }>
+            <tr key={ index }>
               <td
                 data-testid={
                   `customer_checkout__element-order-table-item-number-${index}`
                 }
               >
-                {item.id}
+                {index + 1}
               </td>
               <td
                 data-testid={
@@ -79,14 +79,14 @@ export default function CheckoutTable() {
                   `customer_checkout__element-order-table-unit-price-${index}`
                 }
               >
-                {item.price}
+                {item.price.replace('.', ',')}
               </td>
               <td
                 data-testid={
                   `customer_checkout__element-order-table-sub-total-${index}`
                 }
               >
-                {(item.price * item.quantity).toFixed(2)}
+                {(item.price * item.quantity).toFixed(2).replace('.', ',')}
               </td>
               <td>
                 <button
@@ -107,7 +107,7 @@ export default function CheckoutTable() {
         Total:
         &nbsp;
         <span data-testid="customer_checkout__element-order-total-price">
-          {`R$${totalCartPrice.toFixed(2)}`}
+          {`R$${totalCartPrice.toFixed(2).replace('.', ',')}`}
         </span>
       </div>
 
