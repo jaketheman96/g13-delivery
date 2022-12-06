@@ -9,10 +9,9 @@ class SalesServices {
   }
 
   async create(saleData) {
-    const { userId, sellerId, products, deliveryAddress, deliveryNumber } = saleData;
+    const { userId, sellerId, products, deliveryAddress, deliveryNumber, totalPrice } = saleData;
 
-    const totalPrice = products.reduce((acc, product) => acc + product.price * product.quantity, 0);
-    const saleDate = new Date();
+    // const totalPrice = products.reduce((acc, product) => acc + product.price * product.quantity, 0);
     const status = 'Pendente';
 
     return this.salesImplementation.create({
@@ -21,7 +20,6 @@ class SalesServices {
       totalPrice,
       deliveryAddress,
       deliveryNumber,
-      saleDate,
       status,
     }).then(async (newSale) => {
         await this.salesProductsModel

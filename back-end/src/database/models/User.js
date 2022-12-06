@@ -27,13 +27,13 @@ module.exports = (sequelize, DataTypes) => {
       });
     };
 
-    User.associate = (models) => {
-      User.hasOne(models.Sale,
-        { foreignKey: 'user_id', as: 'userSale' });
+    // User.associate = (models) => {
+    //   User.hasOne(models.Sale,
+    //     { foreignKey: 'user_id', as: 'userSale' });
 
-      User.hasOne(models.Sale,
-        { foreignKey: 'seller_id', as: 'sellerSale' });
-    };
+    //   User.hasOne(models.Sale,
+    //     { foreignKey: 'seller_id', as: 'sellerSale' });
+    // };
     
     return User;
   };

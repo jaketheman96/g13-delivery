@@ -1,9 +1,10 @@
 const { Op } = require('sequelize');
-const { User } = require('../../database/models');
+const { User, Sale } = require('../../database/models');
 
 class UsersImplementation {
   constructor() {
     this.sequelizeUserModel = User;
+    this.sequelizeSaleModel = Sale;
   }
 
   async loginUser({ email, password }) {
@@ -44,6 +45,17 @@ class UsersImplementation {
       where: { role: { [Op.eq]: ['customer'] } },
       attributes: { exclude: ['password'] },
     }).then((users) => users);
+  }
+
+  async getOrdersByCustomerId(id) {
+    return this.sequelizeSaleModel.findAll({
+      include: [
+        { model: this.sequelizeUserModel, as: 'buyer', attributes: [] },
+        { model: this.sequelizeUserModel, as: 'seller', attributes: [] },
+      ],
+      where: { userId: id },
+      attributes: ['id', 'totalPrice', 'status', 'saleDate'],
+    }).then((sales) => sales);
   }
 
   async findUserById(id) {

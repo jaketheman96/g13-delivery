@@ -13,9 +13,13 @@ userRoutes.post(
   (req, res, next) => loginValidation.validate(req, res, next),
   (req, res) => usersController.loginUser(req, res),
 )
+  .get(
+    '/customer/orders',
+    (req, res, next) => tokenAuth.handle(req, res, next),
+    (req, res) => usersController.getOrdersByCustomerId(req, res),
+  )
   .get('/users', (req, res) => usersController.getAllCommonUsers(req, res))
-
-  .delete(
+    .delete(
     '/users/:userId',
     (req, res, next) => tokenAuth.handle(req, res, next),
     (req, res) => usersController.deleteUser(req, res),
