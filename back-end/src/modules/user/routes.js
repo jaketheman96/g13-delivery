@@ -19,6 +19,7 @@ userRoutes.post(
     (req, res) => usersController.getOrdersByCustomerId(req, res),
   )
   .get('/users', (req, res) => usersController.getAllCommonUsers(req, res))
+  .get('/users/sellers', (req, res) => usersController.getAllSellerUsers(req, res))
     .delete(
     '/users/:userId',
     (req, res, next) => tokenAuth.handle(req, res, next),

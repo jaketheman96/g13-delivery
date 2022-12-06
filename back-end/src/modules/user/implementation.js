@@ -47,6 +47,13 @@ class UsersImplementation {
     }).then((users) => users);
   }
 
+  async getAllSellerUsers() {
+    return this.sequelizeUserModel.findAll({
+      where: { role: { [Op.eq]: ['seller'] } },
+      attributes: { exclude: ['password'] },
+    }).then((users) => users);
+  }
+
   async getOrdersByCustomerId(id) {
     return this.sequelizeSaleModel.findAll({
       include: [

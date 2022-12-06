@@ -38,6 +38,12 @@ class UsersController {
       return res.status(StatusCodes.OK).json(allCommonUsers);
   }
 
+  async getAllSellerUsers(_req, res) {
+      const allSellerUsers = await this.usersService.getAllSellerUsers();
+
+      return res.status(StatusCodes.OK).json(allSellerUsers);
+  }
+
   async getOrdersByCustomerId(req, res) {
         const { id } = req.user;
 
