@@ -1,7 +1,10 @@
-const postFetch = async (data, page) => {
+const postFetch = async (data, page, token) => {
   const requestOptions = {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: token,
+    },
     body: JSON.stringify(data),
   };
   try {

@@ -9,7 +9,6 @@ import Loading from '../components/Loading';
 
 function ProductsPage() {
   const { setUserInfos,
-    setTotalCartPrice,
     totalCartPrice,
     cart,
     setCart,
@@ -92,17 +91,6 @@ function ProductsPage() {
     getProducts();
     getItensFromStorage();
   }, [setUserInfos, setCart]);
-
-  useEffect(() => {
-    const handleTotal = () => {
-      let totalValue = 0;
-      for (let i = 0; i < cart.length; i += 1) {
-        totalValue += Number(cart[i].price * cart[i].quantity);
-      }
-      setTotalCartPrice(totalValue);
-    };
-    handleTotal();
-  }, [cart, setTotalCartPrice]);
 
   return (
     <>

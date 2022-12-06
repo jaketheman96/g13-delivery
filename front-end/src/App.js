@@ -3,6 +3,7 @@ import { Redirect, Route, Switch } from 'react-router-dom';
 import './App.css';
 import DeliveryProvider from './context/DeliveryProvider';
 import CheckoutPage from './pages/Checkout';
+import DetalhesDoPedido from './pages/DetalhesDoPedido';
 import LoginPage from './pages/Login';
 import Pedidos from './pages/Pedidos';
 import ProductsPage from './pages/Products';
@@ -17,7 +18,8 @@ function App() {
         <Route path="/register" component={ RegisterPage } />
         <Route path="/customer/products" component={ ProductsPage } />
         <Route path="/customer/checkout" component={ CheckoutPage } />
-        <Route path="/customer/orders" component={ Pedidos } />
+        <Route exact path="/customer/orders" component={ Pedidos } />
+        <Route path="/customer/orders/:id" component={ DetalhesDoPedido } />
       </Switch>
     </DeliveryProvider>
   );
