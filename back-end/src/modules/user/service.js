@@ -20,7 +20,7 @@ class UsersService {
 
       const { name, email, role, id } = foundUser;
 
-      const userToken = token.generate({ ...hashedUser, id });
+      const userToken = await token.generate({ ...hashedUser, id });
 
       return {
           id,
@@ -31,7 +31,7 @@ class UsersService {
       };
   }
 
-  async registerCommonUser(userRegistrationInfo) {
+  async registerUser(userRegistrationInfo, role) {
       const hashedUser = hashGenerator(userRegistrationInfo);
 
       await this.userImplementation
@@ -40,30 +40,9 @@ class UsersService {
         if (user) throw new CustomError(StatusCodes.CONFLICT, 'User already exists');
       });
 
-      hashedUser.role = 'customer';
+      hashedUser.role = role;
 
-      const createdUser = await this
-        .userImplementation.registerCommonUser(hashedUser);
-
-      const commonUserToken = token.generate(hashedUser);
-
-      return {
-          id: createdUser.id,
-          name: createdUser.name,
-          email: createdUser.email,
-          role: createdUser.role,
-          token: commonUserToken,
-      };
-  }
-
-  async registerAdminUser(userRegistrationInfo) {
-      const hashedUser = hashGenerator(userRegistrationInfo);
-
-      await this.userImplementation.findUserByEmail(userRegistrationInfo.email).then((user) => {
-        if (user) throw new CustomError(StatusCodes.CONFLICT, 'User already exists');
-      });
-
-      const createdUser = await this.userImplementation.registerAdminUser(hashedUser);
+      const createdUser = await this.userImplementation.registerUser(hashedUser);
 
       const adminUserToken = token.generate(hashedUser);
 
@@ -88,8 +67,8 @@ class UsersService {
       return allSellerUsers;
   }
 
-  async getOrdersByCustomerId(id) {
-      const orders = await this.userImplementation.getOrdersByCustomerId(id);
+  async getOrdersByCustomerId(customerId) {
+      const orders = await this.userImplementation.getOrdersByCustomerId(customerId);
 
       return orders;
   }
