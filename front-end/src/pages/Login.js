@@ -5,6 +5,7 @@ import postFetch from '../utils/postFetch';
 
 function LoginPage() {
   const {
+    userInfos,
     isButtonDisabled,
     setIsButtonDisabled,
   } = useContext(DeliveryContext);
@@ -14,6 +15,13 @@ function LoginPage() {
   const [showLoginError, setShowLoginError] = useState(false);
 
   const history = useHistory();
+
+  useEffect(() => {
+    const userValidation = () => {
+      if (userInfos) return history.push('/customer/products');
+    };
+    userValidation();
+  }, [userInfos, history]);
 
   const handleChange = (event) => {
     const option = event.target.name;

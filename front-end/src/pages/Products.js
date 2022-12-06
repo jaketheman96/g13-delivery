@@ -8,7 +8,8 @@ import getFetch from '../utils/getFetch';
 import Loading from '../components/Loading';
 
 function ProductsPage() {
-  const { setUserInfos,
+  const {
+    userInfos,
     totalCartPrice,
     cart,
     setCart,
@@ -75,22 +76,19 @@ function ProductsPage() {
   // }, [products]);
 
   useEffect(() => {
-    const getItensFromStorage = () => {
-      const userData = localStorage.getItem('user');
-      const restoredCart = localStorage.getItem('cart');
-      if (restoredCart) {
-        setCart(JSON.parse(restoredCart));
-      }
-      setUserInfos(JSON.parse(userData));
-    };
-
     async function getProducts() {
       const data = await getFetch('products');
       setProducts(data);
     }
     getProducts();
-    getItensFromStorage();
-  }, [setUserInfos, setCart]);
+  }, [setCart]);
+
+  useEffect(() => {
+    const userValidation = () => {
+      if (!userInfos) return history.push('/login');
+    };
+    userValidation();
+  }, [userInfos, history]);
 
   return (
     <>
