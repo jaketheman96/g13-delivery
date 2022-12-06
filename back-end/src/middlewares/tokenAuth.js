@@ -20,7 +20,7 @@ class TokenAuth {
     if (!userLoginInfos) {
       throw new CustomError(this.invalid, 'Invalid or expired token');
     }
-
+    req.user = userLoginInfos;
     return next();
   }
 }

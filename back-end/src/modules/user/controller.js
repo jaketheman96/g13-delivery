@@ -38,6 +38,14 @@ class UsersController {
       return res.status(StatusCodes.OK).json(allCommonUsers);
   }
 
+  async getOrdersByCustomerId(req, res) {
+        const { id } = req.user;
+
+      const orders = await this.usersService.getOrdersByCustomerId(id);
+
+      return res.status(StatusCodes.OK).json(orders);
+  }
+
   async deleteUser(req, res) {
       const { userId } = req.params;
 
