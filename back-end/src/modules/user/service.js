@@ -44,14 +44,14 @@ class UsersService {
 
       const createdUser = await this.userImplementation.registerUser(hashedUser);
 
-      const adminUserToken = token.generate(hashedUser);
+      const newUserToken = await token.generate(hashedUser);
 
       return {
           id: createdUser.id,
           name: createdUser.name,
           email: createdUser.email,
           role: createdUser.role,
-          token: adminUserToken,
+          token: newUserToken,
       };
   }
 

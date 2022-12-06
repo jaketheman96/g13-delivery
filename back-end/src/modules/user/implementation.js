@@ -13,12 +13,6 @@ class UsersImplementation {
     }).then((user) => user);
   }
 
-  async findUserByEmail({ email }) {
-    return this.sequelizeUserModel.findOne({
-      where: { email },
-    }).then((user) => user);
-  }
-
   async findUserByEmailAndName(email, name) {
     return this.sequelizeUserModel.findOne({
       where: { 
