@@ -1,6 +1,54 @@
-import React from 'react';
+import React, { useContext, useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
+import DeliveryContext from '../context/DeliveryContext';
+import getFetch from '../utils/getFetch';
+import postFetch from '../utils/postFetch';
 
 function SellerForm() {
+  const { cart, userInfos, totalCartPrice } = useContext(DeliveryContext);
+  const [sellerInfos, setSellerInfos] = useState([]);
+  const [deliveryAddress, setDeliveryAddress] = useState('');
+  const [deliveryNumber, setDeliveryNumber] = useState(0);
+  const [seller, setSeller] = useState(0);
+
+  const history = useHistory();
+
+  useEffect(() => {
+    const getSellers = async () => {
+      const response = await getFetch('users/sellers');
+      setSellerInfos(response);
+    };
+
+    getSellers();
+  }, []);
+
+  const requestBody = () => ({
+    userId: userInfos.id,
+    sellerId: Number(seller),
+    products: cart.map((itens) => ({ id: itens.id, quantity: itens.quantity })),
+    deliveryAddress,
+    deliveryNumber,
+    totalPrice: totalCartPrice.toFixed(2),
+  });
+
+  const handleClick = async (event) => {
+    event.preventDefault();
+    const body = requestBody();
+    const response = await postFetch(body, 'sales', userInfos.token);
+    history.push(`/customer/orders/${response.id}`);
+    return response;
+  };
+
+  const handleChange = ({ target }) => {
+    const input = target.name;
+    const options = {
+      address: () => setDeliveryAddress(target.value),
+      number: () => setDeliveryNumber(target.value),
+      seller: () => setSeller(target.value),
+    };
+    return options[input]();
+  };
+
   return (
     <section>
       <form>
@@ -10,10 +58,17 @@ function SellerForm() {
             id="seller"
             name="seller"
             data-testid="customer_checkout__select-seller"
+            onChange={ handleChange }
           >
-            <option value="teste1">teste1</option>
-            <option value="teste2">teste2</option>
-            <option value="teste3">teste3</option>
+            <option>-----</option>
+            {sellerInfos.map((s) => (
+              <option
+                key={ s.id }
+                value={ s.id }
+              >
+                {s.name}
+              </option>
+            ))}
           </select>
         </label>
         <label htmlFor="address">
@@ -24,6 +79,7 @@ function SellerForm() {
             type="text"
             placeholder="Av. Frio de Janeiro, Bairro lalaland"
             data-testid="customer_checkout__input-address"
+            onChange={ handleChange }
           />
         </label>
         <label htmlFor="number">
@@ -34,13 +90,14 @@ function SellerForm() {
             type="number"
             placeholder="147"
             data-testid="customer_checkout__input-address-number"
+            onChange={ handleChange }
           />
         </label>
         <br />
         <button
           type="submit"
           data-testid="customer_checkout__button-submit-order"
-          onClick={ (e) => e.preventDefault() }
+          onClick={ handleClick }
         >
           Finalizar Pedido
         </button>

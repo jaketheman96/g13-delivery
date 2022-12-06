@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import Loading from './Loading';
 import DeliveryContext from '../context/DeliveryContext';
 import getItensFromStorage from '../utils/getItensFromStorage';
@@ -13,15 +13,26 @@ export default function CheckoutTable() {
     setTotalCartPrice,
   } = useContext(DeliveryContext);
 
-  const handleRemoveBtn = ({ target }) => {
-    const arrayFromStorage = getItensFromStorage('cart');
-    const arrayFiltered = arrayFromStorage
-      .filter((product) => Number(target.id) !== product.id);
-    setCart(arrayFiltered);
-    localStorage.setItem('cart', JSON.stringify(arrayFiltered));
-    const total = totalCartPrice - Number(target.value);
+  useEffect(() => {
+    const handleStorage = () => {
+      const arrayFromStorage = getItensFromStorage('cart');
+      setCart(arrayFromStorage);
+    };
+
+    handleStorage();
+  }, [setCart]);
+
+  const subtractTotal = (totalPrice, value) => {
+    const total = totalPrice - Number(value);
     if (total < PRICE_ZERO) return setTotalCartPrice(0);
     setTotalCartPrice(total);
+  };
+
+  const handleRemoveBtn = ({ target }) => {
+    const arrayFiltered = cart.filter((product) => Number(target.id) !== product.id);
+    setCart(arrayFiltered);
+    localStorage.setItem('cart', JSON.stringify(arrayFiltered));
+    subtractTotal(totalCartPrice, target.value);
   };
 
   return (

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import DeliveryContext from './DeliveryContext';
 
@@ -7,6 +7,17 @@ function DeliveryProvider({ children }) {
   const [userInfos, setUserInfos] = useState();
   const [totalCartPrice, setTotalCartPrice] = useState(0);
   const [cart, setCart] = useState([]);
+
+  useEffect(() => {
+    const handleTotal = () => {
+      let totalValue = 0;
+      for (let i = 0; i < cart.length; i += 1) {
+        totalValue += Number(cart[i].price * cart[i].quantity);
+      }
+      setTotalCartPrice(totalValue);
+    };
+    handleTotal();
+  }, [cart, setTotalCartPrice]);
 
   const globalState = React.useMemo(() => ({
     isButtonDisabled,
