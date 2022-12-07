@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import DeliveryContext from '../context/DeliveryContext';
 import Loading from './Loading';
@@ -6,18 +6,6 @@ import Loading from './Loading';
 function Navbar() {
   const { userInfos, setUserInfos } = useContext(DeliveryContext);
   const history = useHistory();
-
-  useEffect(() => {
-    const getItensFromStorage = () => {
-      const userData = localStorage.getItem('user');
-      if (userData) setUserInfos(JSON.parse(userData));
-    };
-    getItensFromStorage();
-  }, [setUserInfos]);
-
-  useEffect(() => {
-
-  }, []);
 
   const handleClick = ({ target }) => {
     const option = target.name;

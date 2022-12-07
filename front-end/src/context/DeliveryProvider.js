@@ -27,7 +27,9 @@ function DeliveryProvider({ children }) {
       if (restoredCart) {
         setCart(restoredCart);
       }
-      setUserInfos(userData);
+      if (userData) {
+        setUserInfos(userData);
+      }
     };
     getStorage();
   }, []);
