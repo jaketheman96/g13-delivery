@@ -1,9 +1,10 @@
-const { Sale, User } = require('../../database/models');
+const Sales = require('../../database/models/Sale');
+const Users = require('../../database/models/User');
 
 class SalesImplementation {
   constructor() {
-    this.sequelizeSaleModel = Sale;
-    this.sequelizeUserModel = User;
+    this.sequelizeSaleModel = Sales;
+    this.sequelizeUserModel = Users;
   }
 
   async create(sale) {
