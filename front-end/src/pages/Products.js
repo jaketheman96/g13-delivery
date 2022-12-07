@@ -56,7 +56,7 @@ function ProductsPage() {
     }
     getProducts();
     return () => { setProducts(null); };
-  }, [setCart]);
+  }, []);
 
   // useEffect(() => {
   //   const newInputs = localStorage.getItem('inputs');
