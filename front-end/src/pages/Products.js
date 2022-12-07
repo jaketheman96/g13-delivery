@@ -78,9 +78,10 @@ function ProductsPage() {
   useEffect(() => {
     async function getProducts() {
       const data = await getFetch('products');
-      setProducts(data);
+      if (data) setProducts(data);
     }
     getProducts();
+    return () => setProducts(null);
   }, [setCart]);
 
   useEffect(() => {
@@ -88,7 +89,7 @@ function ProductsPage() {
       if (!userInfos) return history.push('/login');
     };
     userValidation();
-  }, [userInfos, history]);
+  }, [history, userInfos]);
 
   return (
     <>
