@@ -20,7 +20,7 @@ class UsersService {
 
       const { name, email, role, id } = foundUser;
 
-      const userToken = await token.generate({ ...hashedUser, id });
+      const userToken = await token.generate({ ...hashedUser, id, role });
 
       return {
           id,
@@ -40,9 +40,7 @@ class UsersService {
         if (user) throw new CustomError(StatusCodes.CONFLICT, 'User already exists');
       });
 
-      hashedUser.role = role;
-
-      const createdUser = await this.userImplementation.registerUser(hashedUser);
+      const createdUser = await this.userImplementation.registerUser({ ...hashedUser, role });
 
       const newUserToken = await token.generate(hashedUser);
 

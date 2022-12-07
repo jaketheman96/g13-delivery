@@ -1,6 +1,6 @@
 const { CustomError } = require('../../../utils/customError');
 const { SalesImplementation } = require('./implementation');
-const SaleProduct = require('../../database/models/SaleProduct');
+const { SaleProduct } = require('../../database/models');
 
 class SalesServices {
   constructor() {
@@ -19,6 +19,7 @@ class SalesServices {
       totalPrice,
       deliveryAddress,
       deliveryNumber,
+      status: 'Pendente',
     })
       .then(async (newSale) => {
         const newSalesProducts = products.map((product) => (
