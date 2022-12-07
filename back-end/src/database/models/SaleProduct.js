@@ -1,45 +1,58 @@
-const { Model, DataTypes } = require('sequelize');
-const Products = require('./Products');
-const Sales = require('./Sales');
-const { sequelize } = require('.');
-
-class SalesProducts extends Model {}
-
-SalesProducts.init({
-  saleId: {
-    type: DataTypes.INTEGER,
-    primaryKey: true,
-    allowNull: false,
-    references: {
-      model: Sales,
-      key: "id",
+module.exports = (sequelize, DataTypes) => {
+  const SaleProduct = sequelize.define('SaleProduct', {
+    saleId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      foreignKey: true,
+      primaryKey: true,
+      references: {
+        model: 'sales',
+        key: 'id'
+      }
     },
-    onDelete: 'CASCADE',
-    onUpdate: 'CASCADE',
-  },
-  productId: {
-    type: DataTypes.INTEGER,
-    primaryKey: true,
-    allowNull: false,
-    references: {
-      model: Products,
-      key: "id",
+    productId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      foreignKey: true,
+      primaryKey: true,
+      references: {
+        model: 'products',
+        key: 'id'
+      }
     },
-    onDelete: 'CASCADE',
-    onUpdate: 'CASCADE',
+    quantity: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    }
   },
-  quantity: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-  } }, {
-    timestamps: false,
-    underscored: true,
-    modelName: "SalesProducts",
-    tableName: "sales_products",
-    sequelize,
-  });
+    {
+      timestamps: false,
+      tableName: 'sales_products',
+      underscored: true,
+    });
+    // SaleProduct.associate = (models) => {
+    //   SaleProduct.belongsTo(models.Sale, {
+    //   foreignKey: 'saleId', as: 'sale'
+    // });
+    // SaleProduct.belongsTo(models.Product, {
+    //   foreignKey: 'productId', as: 'product'
+    // });
+  // };
 
-Products.belongsToMany(Sales, { through: SalesProducts, foreignKey: 'productId', as: "productsSales" });
-Sales.belongsToMany(Products, { through: SalesProducts, foreignKey: 'saleId', as: "saleProducts" });
+  SaleProduct.associate = (models) => {
+    models.Sale.belongsToMany(models.Product, {
+      as: "products",
+      through: SaleProduct,
+      foreignKey: "sale_id",
+      otherKey: "product_id",
+    });
+    models.Product.belongsToMany(models.Sale, {
+      as: "sales",
+      through: SaleProduct,
+      foreignKey: "product_id",
+      otherKey: "sale_id",
+    });
+  };
 
-module.exports = SalesProducts;
+  return SaleProduct;
+};

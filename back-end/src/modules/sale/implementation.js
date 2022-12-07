@@ -1,32 +1,33 @@
 const Sales = require('../../database/models/Sale');
-const Products = require('../../database/models/Product');
+const Users = require('../../database/models/User');
 
 class SalesImplementation {
   constructor() {
     this.sequelizeSaleModel = Sales;
-    this.sequelizeProductsModel = Products;
+    this.sequelizeUserModel = Users;
   }
 
-  create(sale) {
+  async create(sale) {
     return this.sequelizeSaleModel.create(sale).then((newSale) => newSale);
   }
 
-  readAll() {
-    return this.sequelizeSaleModel.findAll({ attributes: { exclude: ['userId', 'sellerId'] } })
-      .then((sales) => sales);
-  }
-
-  readAllById(whereQuery) {
+  async readAll() {
     return this.sequelizeSaleModel.findAll({
-      where: whereQuery,
+      include: [
+        { model: this.sequelizeUserModel, as: 'buyer', attributes: { exclude: ['password'] } },
+        { model: this.sequelizeUserModel, as: 'seller', attributes: { exclude: ['password'] } },
+      ],
       attributes: { exclude: ['userId', 'sellerId'] },
     }).then((sales) => sales);
   }
 
-  readOne(id) {
+  async readOne(id) {
     return this.sequelizeSaleModel.findByPk(id, {
-      include: { model: Products, as: 'saleProducts' },
-      attributes: { exclude: ['userId', 'sellerId'] },
+      include: [
+        { model: this.sequelizeUserModel, as: 'buyer', attributes: { exclude: ['password'] } },
+        { model: this.sequelizeUserModel, as: 'seller', attributes: { exclude: ['password'] } },
+      ],
+      attributes: { exclude: ['userId', 'SellerId'] },
     }).then((sale) => sale);
   }
 
