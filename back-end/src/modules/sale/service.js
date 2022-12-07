@@ -1,6 +1,6 @@
 const { CustomError } = require('../../../utils/customError');
 const { SalesImplementation } = require('./implementation');
-const SaleProduct = require('../../database/models/SaleProducts');
+const SaleProduct = require('../../database/models/SaleProduct');
 
 class SalesServices {
   constructor() {
