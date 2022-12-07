@@ -1,6 +1,6 @@
 const { CustomError } = require('../../../utils/customError');
 const { SalesImplementation } = require('./implementation');
-const { SaleProduct } = require('../../database/models');
+const SaleProduct = require('../../database/models/SaleProduct');
 
 class SalesServices {
   constructor() {
@@ -8,24 +8,24 @@ class SalesServices {
     this.salesProductsModel = SaleProduct;
   }
 
-  async create(saleData) {
-    const { userId, sellerId, products, deliveryAddress, deliveryNumber, totalPrice } = saleData;
+  create(userId, saleData) {
+    const { sellerId, products, deliveryAddress, deliveryNumber } = saleData;
 
-    // const totalPrice = products.reduce((acc, product) => acc + product.price * product.quantity, 0);
-    const status = 'Pendente';
-
+    const totalPrice = products
+      .reduce((acc, product) => acc + (product.price * product.quantity), 0);
     return this.salesImplementation.create({
       userId,
       sellerId,
       totalPrice,
       deliveryAddress,
       deliveryNumber,
-      status,
-    }).then(async (newSale) => {
-        await this.salesProductsModel
-          .bulkCreate(products
-            .map(({ id, quantity }) => ({ saleId: newSale.id, productId: id, quantity })));
-        return newSale;
+    })
+      .then(async (newSale) => {
+        const newSalesProducts = products.map((product) => (
+          { saleId: newSale.id, productId: product.id, quantity: product.quantity }
+        ));
+        await this.salesProductsModel.bulkCreate(newSalesProducts);
+        return newSale.id;
       });
   }
 
