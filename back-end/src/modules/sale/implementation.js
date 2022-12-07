@@ -1,5 +1,5 @@
-const Sales = require('../../database/models/Sales');
-const Products = require('../../database/models/Products');
+const Sales = require('../../database/models/Sale');
+const Products = require('../../database/models/Product');
 
 class SalesImplementation {
   constructor() {
