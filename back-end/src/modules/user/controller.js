@@ -32,6 +32,12 @@ class UsersController {
       return res.status(StatusCodes.CREATED).json(commonUserResponse);
   }
 
+  async getAllUsers(_req, res) {
+      const allCommonUsers = await this.usersService.getAllUsers();
+
+      return res.status(StatusCodes.OK).json(allCommonUsers);
+  }
+
   async getAllCommonUsers(_req, res) {
       const allCommonUsers = await this.usersService.getAllCommonUsers();
 
