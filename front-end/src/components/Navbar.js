@@ -15,10 +15,6 @@ function Navbar() {
     getItensFromStorage();
   }, [setUserInfos]);
 
-  useEffect(() => {
-
-  }, []);
-
   const handleClick = ({ target }) => {
     const option = target.name;
     const input = {

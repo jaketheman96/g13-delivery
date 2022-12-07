@@ -29,6 +29,11 @@ class UsersImplementation {
     .then((user) => user);
   }
     
+  async getAllUsers() {
+    return this.sequelizeUserModel.findAll()
+      .then((users) => users);
+  }
+
   async getAllCommonUsers() {
     return this.sequelizeUserModel.findAll({
       where: { role: { [Op.or]: ['seller', 'customer'] } },

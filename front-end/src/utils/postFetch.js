@@ -3,6 +3,8 @@ const postFetch = async (data, page, token) => {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'POST',
       Authorization: token,
     },
     body: JSON.stringify(data),

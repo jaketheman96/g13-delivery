@@ -1,12 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import Navbar from '../components/Navbar';
+import DeliveryContext from '../context/DeliveryContext';
+import postFetch from '../utils/postFetch';
 
 function AdminPage() {
+  const { userInfos } = useContext(DeliveryContext);
   const [name, setname] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [role, setRole] = useState('');
   const [btnAvailability, toggleBtnAvailability] = useState(false);
+  const [errorMessage, setErrorMessage] = useState(undefined);
 
   const handleChange = (event) => {
     const option = event.target.name;
@@ -19,9 +23,16 @@ function AdminPage() {
     inputs[option]();
   };
 
-  const handleClick = () => {
-    const user = { email, name, password, role };
-    console.log(`${user} registred`);
+  const handleClick = async () => {
+    const user = { name, email, password, role };
+    const newUser = await postFetch(
+      user,
+      'users/register/admin',
+      userInfos.token,
+    );
+    if (newUser.message) {
+      setErrorMessage(newUser.message);
+    }
   };
 
   useEffect(() => {
@@ -56,6 +67,15 @@ function AdminPage() {
   return (
     <>
       <Navbar />
+      <div
+        data-testid="admin_manage__element-invalid-register"
+        hidden={ !errorMessage }
+        className="alert alert-danger"
+        role="alert"
+      >
+        { errorMessage }
+      </div>
+
       <div>
         <div className="row">
           <div className="col">
