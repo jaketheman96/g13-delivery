@@ -1,9 +1,12 @@
 import React from 'react';
 import Navbar from '../components/Navbar';
 import OrderCard from '../components/OrderCard';
+// import DeliveryContext from '../context/DeliveryContext';
 import salesMock from '../backend_mock/sales.mock';
 
 function Pedidos() {
+  // const { userInfos } = useContext(DeliveryContext);
+
   const formatDate = (date) => {
     const dataFormatada = `
       ${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}
@@ -15,7 +18,7 @@ function Pedidos() {
     <>
       <Navbar />
       <section>
-        {salesMock.map((sale) => (
+        { salesMock.map((sale) => (
           <OrderCard
             key={ sale.id }
             id={ sale.id }

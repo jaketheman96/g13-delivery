@@ -5,9 +5,9 @@ import postFetch from '../utils/postFetch';
 
 function LoginPage() {
   const {
-    userInfos,
     isButtonDisabled,
     setIsButtonDisabled,
+    setUserInfos,
   } = useContext(DeliveryContext);
 
   const [email, setEmail] = useState('');
@@ -15,13 +15,6 @@ function LoginPage() {
   const [showLoginError, setShowLoginError] = useState(false);
 
   const history = useHistory();
-
-  useEffect(() => {
-    const userValidation = () => {
-      if (userInfos) return history.push('/customer/products');
-    };
-    userValidation();
-  }, [userInfos, history]);
 
   const handleChange = (event) => {
     const option = event.target.name;
@@ -40,14 +33,7 @@ function LoginPage() {
         const response = await postFetch({ email, password }, 'login');
         if (response.message) return setShowLoginError(true);
         localStorage.setItem('user', JSON.stringify(response));
-        switch (response.role) {
-        case 'administrator':
-          return history.push('/admin/manage');
-        case 'seller':
-          return history.push('/seller/orders');
-        default:
-          return history.push('/customer/products');
-        }
+        setUserInfos(response);
       },
     };
     buttons[option]();

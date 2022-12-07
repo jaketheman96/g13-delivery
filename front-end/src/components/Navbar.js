@@ -1,11 +1,18 @@
 import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import DeliveryContext from '../context/DeliveryContext';
-import Loading from './Loading';
 
 function Navbar() {
   const { userInfos, setUserInfos } = useContext(DeliveryContext);
   const history = useHistory();
+
+  // useEffect(() => {
+  //   const getUserInfo = () => {
+  //     const itens = getItensFromStorage('user');
+  //     if (itens) return setUserInfos(itens);
+  //   };
+  //   getUserInfo();
+  // }, [setUserInfos]);
 
   const handleClick = ({ target }) => {
     const option = target.name;
@@ -61,7 +68,7 @@ function Navbar() {
         { handleNavbar(userInfos?.role) }
       </button>
       <h3 data-testid="customer_products__element-navbar-user-full-name">
-        {userInfos ? userInfos.name : <Loading />}
+        {userInfos && userInfos.name}
       </h3>
       <button
         data-testid="customer_products__element-navbar-link-logout"
