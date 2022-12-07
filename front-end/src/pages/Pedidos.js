@@ -18,6 +18,7 @@ function Pedidos() {
       }
     };
     getSales();
+    return () => setOrders([]);
   }, [setOrders, userInfos]);
 
   const formatDate = (saleDate) => {
