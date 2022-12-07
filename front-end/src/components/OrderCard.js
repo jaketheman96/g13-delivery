@@ -24,7 +24,7 @@ function OrderCard({ id, price, date, status }) {
       <h4
         data-testid={ `customer_orders__element-card-price-${id}` }
       >
-        {`R$${price}`}
+        {price.replace('.', ',')}
       </h4>
     </div>
   );
