@@ -1,6 +1,7 @@
+const { StatusCodes } = require('http-status-codes');
 const { CustomError } = require('../../../utils/customError');
 const { SalesImplementation } = require('./implementation');
-const { SaleProduct } = require('../../database/models');
+const SaleProduct = require('../../database/models/SaleProducts');
 
 class SalesServices {
   constructor() {
@@ -8,42 +9,57 @@ class SalesServices {
     this.salesProductsModel = SaleProduct;
   }
 
-  async create(saleData) {
-    const { userId, sellerId, products, deliveryAddress, deliveryNumber, totalPrice } = saleData;
+  create(userId, saleData) {
+    const { sellerId, products, deliveryAddress, deliveryNumber } = saleData;
 
-    // const totalPrice = products.reduce((acc, product) => acc + product.price * product.quantity, 0);
-    const status = 'Pendente';
-
+    const totalPrice = products
+      .reduce((acc, product) => acc + (product.price * product.quantity), 0);
     return this.salesImplementation.create({
       userId,
       sellerId,
       totalPrice,
       deliveryAddress,
       deliveryNumber,
-      status,
-    }).then(async (newSale) => {
-        await this.salesProductsModel
-          .bulkCreate(products
-            .map(({ id, quantity }) => ({ saleId: newSale.id, productId: id, quantity })));
-        return newSale;
+    })
+      .then(async (newSale) => {
+        const newSalesProducts = products.map((product) => (
+          { saleId: newSale.id, productId: product.id, quantity: product.quantity }
+        ));
+        await this.salesProductsModel.bulkCreate(newSalesProducts);
+        return newSale.id;
       });
   }
 
-  async readAll() {
+  readAll() {
     return this.salesImplementation.readAll().then((sales) => sales);
   }
 
-  async readOne(id) {
-    return this.salesImplementation.readOne(id)
-      .then((sale) => {
-        if (!sale) throw new CustomError(404, 'Sale not found');
+  readOne(id) {
+    return this.salesImplementation.readOne(id).then((sale) => {
+        if (!sale) throw new CustomError(StatusCodes.NOT_FOUND, 'Sale not found');
         return sale;
       });
   }
 
-  async updateOne(id, sale) {
-    await this.readOne(id);
-    await this.salesImplementation.updateOne(id, sale);
+  readAllById(id, role) {
+    const whereQuery = (role === 'seller') ? { sellerId: id } : { userId: id };
+    return this.salesImplementation.readAllById(whereQuery).then((sales) => sales);
+  }
+
+  async updateOne(id, status) {
+    await this.readOne(id).then(async (sale) => {
+      const updatedSale = {
+        id: sale.id,
+        userId: sale.userId,
+        sellerId: sale.sellerId,
+        totalPrice: sale.totalPrice,
+        deliveryAddress: sale.deliveryAddress,
+        deliveryNumber: sale.deliveryNumber,
+        saleDate: sale.saleDate,
+        status,
+      };
+      await this.salesImplementation.updateOne(id, updatedSale);
+    });
   }
 
   async delete(id) {
