@@ -5,7 +5,6 @@ import Loading from './Loading';
 
 function Navbar() {
   const { userInfos, setUserInfos } = useContext(DeliveryContext);
-
   const history = useHistory();
 
   useEffect(() => {
@@ -15,6 +14,10 @@ function Navbar() {
     };
     getItensFromStorage();
   }, [setUserInfos]);
+
+  useEffect(() => {
+
+  }, []);
 
   const handleClick = ({ target }) => {
     const option = target.name;
@@ -30,6 +33,17 @@ function Navbar() {
     input[option]();
   };
 
+  const handleNavbar = (userRole) => {
+    switch (userRole) {
+    case 'customer':
+      return 'Meus pedidos';
+    case 'administrator':
+      return 'Gerenciar usuários';
+    default:
+      return 'Pedidos';
+    }
+  };
+
   return (
     <header
       style={ {
@@ -43,6 +57,7 @@ function Navbar() {
       <button
         data-testid="customer_products__element-navbar-link-products"
         type="button"
+        hidden={ userInfos?.role !== 'customer' }
         name="products"
         onClick={ handleClick }
       >
@@ -51,10 +66,11 @@ function Navbar() {
       <button
         data-testid="customer_products__element-navbar-link-orders"
         type="button"
+        hidden={ userInfos?.role in ['customer', 'seller'] }
         name="orders"
         onClick={ handleClick }
       >
-        Meus pedidos
+        { handleNavbar(userInfos?.role) }
       </button>
       <h3 data-testid="customer_products__element-navbar-user-full-name">
         {userInfos ? userInfos.name : <Loading />}
