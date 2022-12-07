@@ -63,14 +63,15 @@ function Navbar() {
       >
         Produtos
       </button>
-      <input
+      <button
         data-testid="customer_products__element-navbar-link-orders"
         type="button"
-        value={ handleNavbar(userInfos?.role) }
         hidden={ userInfos?.role in ['customer', 'seller'] }
         name="orders"
         onClick={ handleClick }
-      />
+      >
+        { handleNavbar(userInfos?.role) }
+      </button>
       <h3 data-testid="customer_products__element-navbar-user-full-name">
         {userInfos ? userInfos.name : <Loading />}
       </h3>
