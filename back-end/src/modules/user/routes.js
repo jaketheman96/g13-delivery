@@ -14,7 +14,7 @@ userRoutes.post(
   (req, res) => usersController.loginUser(req, res),
 )
   .get(
-    '/customer/orders',
+    '/customer/orders/:id',
     (req, res, next) => tokenAuth.handle(req, res, next),
     (req, res) => usersController.getOrdersByCustomerId(req, res),
   )

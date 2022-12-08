@@ -1,5 +1,4 @@
 import React, { useContext } from 'react';
-import Loading from './Loading';
 import DeliveryContext from '../context/DeliveryContext';
 
 const PRICE_ZERO = 0;
@@ -52,7 +51,7 @@ export default function CheckoutTable() {
           </tr>
         </thead>
         <tbody>
-          {!cart ? <Loading /> : cart.map((item, index) => (
+          {cart && cart.map((item, index) => (
             <tr key={ index }>
               <td
                 data-testid={

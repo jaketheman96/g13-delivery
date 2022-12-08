@@ -43,7 +43,6 @@ function LoginPage() {
         if (response.message) return setShowLoginError(true);
         localStorage.setItem('user', JSON.stringify(response));
         setUserInfos(response);
-        history.push(roleValidator(response));
       },
     };
     buttons[option]();
