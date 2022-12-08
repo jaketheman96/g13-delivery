@@ -59,6 +59,17 @@ class UsersImplementation {
     }).then((sales) => sales);
   }
 
+  async getOrdersBySellerId(id) {
+    return this.sequelizeSaleModel.findAll({
+      include: [
+        { model: this.sequelizeUserModel, as: 'buyer', attributes: [] },
+        { model: this.sequelizeUserModel, as: 'seller', attributes: [] },
+      ],
+      where: { sellerId: id },
+      attributes: ['id', 'totalPrice', 'status', 'saleDate', 'deliveryAddress'],
+    }).then((sales) => sales);
+  }
+
   async findUserById(id) {
     return this.sequelizeUserModel.findByPk(id).then((user) => user);
   }
