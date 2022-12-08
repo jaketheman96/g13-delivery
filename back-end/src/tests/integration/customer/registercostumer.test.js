@@ -13,32 +13,34 @@ chai.use(chaiHttp);
 
 const { expect } = chai;
 
-describe("Teste da rota de POST /login", () => {
+describe("Teste da rota de POST /users/register", () => {
   afterEach(() => sinon.restore());
 
-  describe("Quando o login não recebe email e senha", () => {
+  describe("Quando o recebe algum atrabuto não recebe email e senha", () => {
     it("Retorna status 400 com uma mensagem de erro", async () => {
       const httpResponse = await chai
         .request(`http://localhost:${PORT}`)
-        .post("/login");
+        .post("/users/register");
 
       expect(httpResponse.status).to.equal(400);
       expect(httpResponse.body).to.deep.equal({ message: "Required" });
     });
   });
 
-  describe("Quando o login recebe um email invalido", () => {
+  describe("Quando o registro recebe um email invalido", () => {
     it("Retorna status 400 e uma mensagem de erro", async () => {
       const INVALID_EMAIL = "algueminvalidoalguem.com";
       const VALID_PASSWORD = "secret_customer";
+      const VALID_NAME = "Alguem do Brasil";
       sinon.stub(User, "findOne").resolves(null);
 
       const httpResponse = await chai
         .request(`http://localhost:${PORT}`)
-        .post("/login")
+        .post("/users/register")
         .send({
           email: INVALID_EMAIL,
           password: VALID_PASSWORD,
+          name: VALID_NAME
         });
 
       expect(httpResponse.status).to.equal(400);
@@ -48,42 +50,49 @@ describe("Teste da rota de POST /login", () => {
     });
   });
 
-  describe("Quando o login recebe um usuario invalido", () => {
-    it("Retorna status 404 e uma mensagem de erro", async () => {
-      const INVALID_USER_EMAIL = "algueminvalido@alguem.com";
-      const INVALID_PASSWORD = "INVALID_PASSWORD";
-      sinon.stub(User, "findOne").resolves(null);
+  describe("Quando tento cadastrar um usuario que ja existe", () => {
+    it("Retorna status 409 e uma mensagem de conflito", async () => {
+      const VALID_USER_EMAIL = "customer@customer.com";
+      const VALID_PASSWORD = "secret_customer";
+      const VALID_NAME = "Canarinho do hexa";
+
+      sinon.stub(User, "findOne").resolves(customerUserDB);
 
       const httpResponse = await chai
         .request(`http://localhost:${PORT}`)
-        .post("/login")
+        .post("/users/register")
         .send({
-          email: INVALID_USER_EMAIL,
-          password: INVALID_PASSWORD,
+          email: VALID_USER_EMAIL,
+          password: VALID_PASSWORD,
+          name: VALID_NAME,
         });
 
-      expect(httpResponse.status).to.equal(404);
-      expect(httpResponse.body).to.deep.equal({ message: "User not found" });
+      expect(httpResponse.status).to.equal(409);
+      expect(httpResponse.body).to.deep.equal({ message: "User already exists" });
     });
   });
 
-  describe("Quando o login é feito com sucesso", () => {
-    it("Retorna status 200 e um usuario com seu token", async () => {
+  describe("Quando o cadastro é feito com sucesso", () => {
+    it("Retorna status 201 e um usuario com seu token", async () => {
       const VALID_TOKEN = "validToken";
       const VALID_USER_EMAIL = "customer@customer.com";
       const VALID_PASSWORD = "secret_customer";
-      sinon.stub(User, "findOne").resolves(customerUserDB);
+      const VALID_NAME = "Canarinho do hexa";
+
+      sinon.stub(User, "findOne").resolves(null);
+      sinon.stub(User, "create").resolves(customerUserDB);
       sinon.stub(jwt, "sign").resolves(VALID_TOKEN);
 
       const httpResponse = await chai
         .request(`http://localhost:${PORT}`)
-        .post("/login")
+        .post("/users/register")
         .send({
           email: VALID_USER_EMAIL,
           password: VALID_PASSWORD,
+          name: VALID_NAME,
         });
 
-      expect(httpResponse.status).to.equal(200);
+      expect(httpResponse.status).to.equal(201);
       expect(httpResponse.body).to.deep.equal(customerLogin);
     });
   });

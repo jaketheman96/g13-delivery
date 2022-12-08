@@ -1,6 +1,5 @@
 const chai = require("chai");
 const sinon = require("sinon");
-const jwt = require("jsonwebtoken");
 const { Product } = require("../../../database/models");
 const chaiHttp = require("chai-http");
 require("dotenv").config();
