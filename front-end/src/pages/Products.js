@@ -9,6 +9,7 @@ import Loading from '../components/Loading';
 
 function ProductsPage() {
   const {
+    userInfos,
     totalCartPrice,
     cart,
     setCart,
@@ -50,13 +51,21 @@ function ProductsPage() {
   };
 
   useEffect(() => {
+    let isMounted = true;
     async function getProducts() {
       const data = await getFetch('products');
-      if (data) setProducts(data);
+      if (isMounted) setProducts(data);
     }
     getProducts();
-    return () => { setProducts(null); };
+    return () => { isMounted = false; };
   }, []);
+
+  useEffect(() => {
+    const userValidator = () => {
+      if (!userInfos) return history.push('/login');
+    };
+    userValidator();
+  }, [userInfos, history]);
 
   // useEffect(() => {
   //   const newInputs = localStorage.getItem('inputs');

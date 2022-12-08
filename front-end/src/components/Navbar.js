@@ -13,6 +13,7 @@ function Navbar() {
       orders: () => history.push('/customer/orders'),
       logout: () => {
         localStorage.removeItem('user');
+        localStorage.removeItem('cart');
         setUserInfos(null);
         history.push('/login');
       },
