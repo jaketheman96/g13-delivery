@@ -12,7 +12,6 @@ function DetalhesDoPedido() {
   useEffect(() => {
     const getOrderDetail = async () => {
       const response = await getFetch(`sales/${id}`);
-      console.log(response);
       setOrderDetailById(response);
     };
     getOrderDetail();
@@ -26,6 +25,8 @@ function DetalhesDoPedido() {
         seller={ orderDetailById.seller }
         saleDate={ orderDetailById.saleDate }
         status={ orderDetailById.status }
+        products={ orderDetailById.products }
+        totalPrice={ orderDetailById.totalPrice }
       />}
     </section>
   );

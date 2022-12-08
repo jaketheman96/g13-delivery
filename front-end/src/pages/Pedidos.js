@@ -1,9 +1,9 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { format } from 'date-fns';
 import Navbar from '../components/Navbar';
 import OrderCard from '../components/OrderCard';
 import getFetch from '../utils/getFetch';
 import DeliveryContext from '../context/DeliveryContext';
+import formatDate from '../utils/formatDate';
 
 function Pedidos() {
   const { userInfos } = useContext(DeliveryContext);
@@ -24,12 +24,6 @@ function Pedidos() {
     getSales();
     return () => { isMounted = false; };
   }, [setOrders, userInfos]);
-
-  const formatDate = (saleDate) => {
-    const date = new Date(saleDate);
-    const formatedDate = format(date, 'dd/MM/yyyy');
-    return formatedDate;
-  };
 
   return (
     <>
