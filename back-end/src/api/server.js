@@ -9,3 +9,7 @@ const { App } = require('./app');
 
 const server = new App();
 server.startServer();
+
+module.exports = {
+    server,
+};
