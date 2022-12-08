@@ -35,10 +35,34 @@ const sellerLogin = {
     token: "validToken",
 };
 
+const allUsers = [
+  {
+    id: 1,
+    email: "customer@customer.com",
+    name: 'Customer do app delivery',
+    role: "customer",
+    password: "customer",
+  },
+  {
+      id: 2,
+      email: "admin@admin.com",
+      name: 'Admin do app delivery',
+      role: "admin",
+      token: "validToken",
+    },
+    {
+      id: 3,
+      email: "seller@seller.com",
+      name: 'Seller do app delivery',
+      role: "seller",
+      token: "validToken",
+  }]
+
 module.exports = {
   adminUserDB,
   customerUserDB,
   customerLogin,
   adminLogin,
   sellerLogin,
+  allUsers,
 };
