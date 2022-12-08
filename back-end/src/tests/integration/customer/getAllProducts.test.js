@@ -11,10 +11,10 @@ chai.use(chaiHttp);
 
 const { expect } = chai;
 
-describe("Teste da rota de POST /login", () => {
+describe("Teste da rota de GET /products", () => {
   after(() => sinon.restore());
 
-  describe("Quando o login é feito com sucesso", () => {
+  describe("Quando a listagem de todos os produtos é feita com sucesso", () => {
     it("Retorna status 200 e uma lista de produtos", async () => {
       sinon.stub(Product, "findAll").resolves(allProducts);
 

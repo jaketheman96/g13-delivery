@@ -16,7 +16,7 @@ const { expect } = chai;
 describe("Teste da rota de POST /users/register", () => {
   afterEach(() => sinon.restore());
 
-  describe("Quando o recebe algum atrabuto não recebe email e senha", () => {
+  describe("Quando não recebe algum atributo", () => {
     it("Retorna status 400 com uma mensagem de erro", async () => {
       const httpResponse = await chai
         .request(`http://localhost:${PORT}`)
@@ -50,7 +50,7 @@ describe("Teste da rota de POST /users/register", () => {
     });
   });
 
-  describe("Quando tento cadastrar um usuario que ja existe", () => {
+  describe("Quando é cadastrado um usuario que ja existe", () => {
     it("Retorna status 409 e uma mensagem de conflito", async () => {
       const VALID_USER_EMAIL = "customer@customer.com";
       const VALID_PASSWORD = "secret_customer";
