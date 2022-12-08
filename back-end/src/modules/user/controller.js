@@ -57,6 +57,14 @@ class UsersController {
 
       return res.status(StatusCodes.OK).json(orders);
   }
+  
+  async getOrdersBySellerId(req, res) {
+        const { id } = req.user;
+
+      const orders = await this.usersService.getOrdersBySellerId(id);
+
+      return res.status(StatusCodes.OK).json(orders);
+  }
 
   async deleteUser(req, res) {
       const { userId } = req.params;

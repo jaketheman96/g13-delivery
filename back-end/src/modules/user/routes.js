@@ -18,6 +18,11 @@ userRoutes.post(
     (req, res, next) => tokenAuth.handle(req, res, next),
     (req, res) => usersController.getOrdersByCustomerId(req, res),
   )
+  .get(
+    '/seller/orders',
+    (req, res, next) => tokenAuth.handle(req, res, next),
+    (req, res) => usersController.getOrdersBySellerId(req, res),
+  )
   .get('/users', (req, res) => usersController.getAllUsers(req, res))
   .get('/users/common', (req, res) => usersController.getAllCommonUsers(req, res))
   .get('/users/sellers', (req, res) => usersController.getAllSellerUsers(req, res))

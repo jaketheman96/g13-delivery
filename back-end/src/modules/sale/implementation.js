@@ -1,9 +1,10 @@
-const { User, Sale } = require('../../database/models');
+const { User, Sale, Product } = require('../../database/models');
 
 class SalesImplementation {
   constructor() {
     this.sequelizeSaleModel = Sale;
     this.sequelizeUserModel = User;
+    this.sequelizeProductModel = Product;
   }
 
   async create(sale) {
@@ -15,8 +16,9 @@ class SalesImplementation {
       include: [
         { model: this.sequelizeUserModel, as: 'buyer', attributes: { exclude: ['password'] } },
         { model: this.sequelizeUserModel, as: 'seller', attributes: { exclude: ['password'] } },
+        { model: this.sequelizeProductModel, as: 'products', through: { attributes: [] } },
       ],
-      attributes: { exclude: ['userId', 'sellerId'] },
+      attributes: { exclude: ['userId', 'sellerId', 'user_id', 'seller_id'] },
     }).then((sales) => sales);
   }
 
@@ -25,8 +27,9 @@ class SalesImplementation {
       include: [
         { model: this.sequelizeUserModel, as: 'buyer', attributes: { exclude: ['password'] } },
         { model: this.sequelizeUserModel, as: 'seller', attributes: { exclude: ['password'] } },
+        { model: this.sequelizeProductModel, as: 'products', through: { attributes: [] } },
       ],
-      attributes: { exclude: ['userId', 'SellerId'] },
+      attributes: { exclude: ['userId', 'sellerId', 'user_id', 'seller_id'] },
     }).then((sale) => sale);
   }
 
