@@ -5,7 +5,7 @@ import getFetch from '../utils/getFetch';
 import postFetch from '../utils/postFetch';
 
 function SellerForm() {
-  const { cart, userInfos, totalCartPrice } = useContext(DeliveryContext);
+  const { cart, userInfos } = useContext(DeliveryContext);
   const [sellerInfos, setSellerInfos] = useState([]);
   const [deliveryAddress, setDeliveryAddress] = useState('');
   const [deliveryNumber, setDeliveryNumber] = useState(0);
@@ -25,10 +25,13 @@ function SellerForm() {
   const requestBody = () => ({
     userId: userInfos.id,
     sellerId: Number(seller),
-    products: cart.map((itens) => ({ id: itens.id, quantity: itens.quantity })),
+    products: cart.map((itens) => ({
+      id: itens.id,
+      quantity: itens.quantity,
+      price: itens.price,
+    })),
     deliveryAddress,
     deliveryNumber,
-    totalPrice: totalCartPrice.toFixed(2),
   });
 
   const handleClick = async (event) => {

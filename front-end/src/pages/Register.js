@@ -1,5 +1,4 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
 import DeliveryContext from '../context/DeliveryContext';
 import postFetch from '../utils/postFetch';
 
@@ -13,8 +12,6 @@ function RegisterPage() {
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
   const [showRegisterError, setShowRegisterError] = useState(false);
-
-  const history = useHistory();
 
   const handleChange = (event) => {
     const option = event.target.name;
@@ -33,7 +30,7 @@ function RegisterPage() {
         const response = await postFetch({ name, email, password }, 'users/register');
         if (response.message) return setShowRegisterError(true);
         localStorage.setItem('user', JSON.stringify(response));
-        history.push('/customer/products');
+        setUserInfos(response);
       },
     };
     buttons[option]();

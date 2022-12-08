@@ -1,19 +1,10 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import DeliveryContext from '../context/DeliveryContext';
-import Loading from './Loading';
 
 function Navbar() {
   const { userInfos, setUserInfos } = useContext(DeliveryContext);
   const history = useHistory();
-
-  useEffect(() => {
-    const getItensFromStorage = () => {
-      const userData = localStorage.getItem('user');
-      if (userData) setUserInfos(JSON.parse(userData));
-    };
-    getItensFromStorage();
-  }, [setUserInfos]);
 
   const handleClick = ({ target }) => {
     const option = target.name;
@@ -69,7 +60,7 @@ function Navbar() {
         { handleNavbar(userInfos?.role) }
       </button>
       <h3 data-testid="customer_products__element-navbar-user-full-name">
-        {userInfos ? userInfos.name : <Loading />}
+        {userInfos && userInfos.name}
       </h3>
       <button
         data-testid="customer_products__element-navbar-link-logout"

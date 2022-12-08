@@ -1,7 +1,6 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import Loading from './Loading';
 import DeliveryContext from '../context/DeliveryContext';
-import getItensFromStorage from '../utils/getItensFromStorage';
 
 const PRICE_ZERO = 0;
 
@@ -12,15 +11,6 @@ export default function CheckoutTable() {
     setCart,
     setTotalCartPrice,
   } = useContext(DeliveryContext);
-
-  useEffect(() => {
-    const handleStorage = () => {
-      const arrayFromStorage = getItensFromStorage('cart');
-      setCart(arrayFromStorage);
-    };
-
-    handleStorage();
-  }, [setCart]);
 
   const subtractTotal = (totalPrice, value) => {
     const total = totalPrice - Number(value);

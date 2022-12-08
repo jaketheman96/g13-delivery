@@ -9,7 +9,6 @@ import Loading from '../components/Loading';
 
 function ProductsPage() {
   const {
-    userInfos,
     totalCartPrice,
     cart,
     setCart,
@@ -50,6 +49,15 @@ function ProductsPage() {
     }
   };
 
+  useEffect(() => {
+    async function getProducts() {
+      const data = await getFetch('products');
+      if (data) setProducts(data);
+    }
+    getProducts();
+    return () => { setProducts(null); };
+  }, []);
+
   // useEffect(() => {
   //   const newInputs = localStorage.getItem('inputs');
   //   if (newInputs) {
@@ -74,21 +82,6 @@ function ProductsPage() {
   //     }
   //   }
   // }, [products]);
-
-  useEffect(() => {
-    async function getProducts() {
-      const data = await getFetch('products');
-      setProducts(data);
-    }
-    getProducts();
-  }, [setCart]);
-
-  useEffect(() => {
-    const userValidation = () => {
-      if (!userInfos) return history.push('/login');
-    };
-    userValidation();
-  }, [userInfos, history]);
 
   return (
     <>
