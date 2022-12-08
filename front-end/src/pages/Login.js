@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import DeliveryContext from '../context/DeliveryContext';
 import postFetch from '../utils/postFetch';
+import roleValidator from '../utils/roleValidator';
 
 function LoginPage() {
   const {
@@ -19,7 +20,7 @@ function LoginPage() {
 
   useEffect(() => {
     const userValidator = () => {
-      if (userInfos) return history.push('/customer/products');
+      if (userInfos) return history.push(roleValidator(userInfos));
     };
     userValidator();
   }, [userInfos, history]);
@@ -42,14 +43,7 @@ function LoginPage() {
         if (response.message) return setShowLoginError(true);
         localStorage.setItem('user', JSON.stringify(response));
         setUserInfos(response);
-        switch (response.role) {
-        case 'administrator':
-          return history.push('/admin/manage');
-        case 'seller':
-          return history.push('/seller/orders');
-        default:
-          return history.push('/customer/products');
-        }
+        history.push(roleValidator(response));
       },
     };
     buttons[option]();
