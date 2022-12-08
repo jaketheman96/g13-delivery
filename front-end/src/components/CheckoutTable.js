@@ -110,7 +110,7 @@ export default function CheckoutTable({ infos, totalPrice }) {
                   __element-order-table-sub-total-${index}`
                 }
               >
-                {(item.SaleProduct.quantity).toFixed(2).replace('.', ',')}
+                {(item.price * item.SaleProduct.quantity).toFixed(2).replace('.', ',')}
               </td>
               <td>
                 <button
