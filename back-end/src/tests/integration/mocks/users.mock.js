@@ -14,7 +14,15 @@ const customerUserDB = 	{
     role: "customer"
 };
 
+const userLogin = 	{
+    id: 1,
+    email: 'customer@customer.com',
+    role: "customer",
+    token: 'validToken'
+};
+
 module.exports ={
-    userAdminDB,
-    customerUserDB
+    adminUserDB,
+    customerUserDB,
+    userLogin
 }
