@@ -76,6 +76,12 @@ class UsersService {
 
       return orders;
   }
+
+  async getOrdersBySellerId(customerId) {
+      const orders = await this.userImplementation.getOrdersBySellerId(customerId);
+
+      return orders;
+  }
   
   async deleteUser(userId) {
       const foundUser = await this.userImplementation.findUserById(userId);
