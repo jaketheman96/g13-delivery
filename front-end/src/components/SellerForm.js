@@ -5,7 +5,7 @@ import getFetch from '../utils/getFetch';
 import postFetch from '../utils/postFetch';
 
 function SellerForm() {
-  const { cart, userInfos } = useContext(DeliveryContext);
+  const { cart, userInfos, totalCartPrice } = useContext(DeliveryContext);
   const [sellerInfos, setSellerInfos] = useState([]);
   const [deliveryAddress, setDeliveryAddress] = useState('');
   const [deliveryNumber, setDeliveryNumber] = useState(0);
@@ -32,6 +32,7 @@ function SellerForm() {
     })),
     deliveryAddress,
     deliveryNumber,
+    totalPrice: totalCartPrice,
   });
 
   const handleClick = async (event) => {

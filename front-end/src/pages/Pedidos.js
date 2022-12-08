@@ -8,17 +8,18 @@ import getFetch from '../utils/getFetch';
 function Pedidos() {
   const { userInfos } = useContext(DeliveryContext);
 
-  const [orders, setOrders] = useState([]);
+  const [orders, setOrders] = useState();
 
   useEffect(() => {
+    let isMounted = true;
     const getSales = async () => {
       if (userInfos) {
-        const response = await getFetch('customer/orders', userInfos.token);
-        setOrders(response);
+        const response = await getFetch('sales');
+        if (isMounted) setOrders(response);
       }
     };
     getSales();
-    return () => setOrders([]);
+    return () => { isMounted = false; };
   }, [setOrders, userInfos]);
 
   const formatDate = (saleDate) => {

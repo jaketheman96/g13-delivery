@@ -8,11 +8,11 @@ class SalesServices {
     this.salesProductsModel = SaleProduct;
   }
 
-  create(userId, saleData) {
-    const { sellerId, products, deliveryAddress, deliveryNumber } = saleData;
-
-    const totalPrice = products
-      .reduce((acc, product) => acc + (product.price * product.quantity), 0);
+  async create(saleData) {
+    const { userId, sellerId, products, deliveryAddress, deliveryNumber, totalPrice } = saleData;
+    // const totalPrice = products
+    //   .reduce((acc, product) => acc + (product.price * product.quantity), 0);
+    //   console.log(totalPrice); ---> retornando NaN
     return this.salesImplementation.create({
       userId,
       sellerId,
