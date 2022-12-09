@@ -16,7 +16,9 @@ class SalesImplementation {
       include: [
         { model: this.sequelizeUserModel, as: 'buyer', attributes: { exclude: ['password'] } },
         { model: this.sequelizeUserModel, as: 'seller', attributes: { exclude: ['password'] } },
-        { model: this.sequelizeProductModel, as: 'products', through: { attributes: [] } },
+        {
+          model: this.sequelizeProductModel, as: 'products', through: { attributes: ['quantity'] },
+        },
       ],
       attributes: { exclude: ['userId', 'sellerId', 'user_id', 'seller_id'] },
     }).then((sales) => sales);
@@ -27,7 +29,9 @@ class SalesImplementation {
       include: [
         { model: this.sequelizeUserModel, as: 'buyer', attributes: { exclude: ['password'] } },
         { model: this.sequelizeUserModel, as: 'seller', attributes: { exclude: ['password'] } },
-        { model: this.sequelizeProductModel, as: 'products', through: { attributes: [] } },
+        {
+          model: this.sequelizeProductModel, as: 'products', through: { attributes: ['quantity'] },
+        },
       ],
       attributes: { exclude: ['userId', 'sellerId', 'user_id', 'seller_id'] },
     }).then((sale) => sale);

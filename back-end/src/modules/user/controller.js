@@ -51,7 +51,7 @@ class UsersController {
   }
 
   async getOrdersByCustomerId(req, res) {
-        const { id } = req.user;
+        const { id } = req.params;
 
       const orders = await this.usersService.getOrdersByCustomerId(id);
 

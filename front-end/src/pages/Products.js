@@ -5,7 +5,6 @@ import ProductCard from '../components/ProductCard';
 import DeliveryContext from '../context/DeliveryContext';
 import getFetch from '../utils/getFetch';
 // import convertToBRL from '../utils/convertToBRL';
-import Loading from '../components/Loading';
 
 function ProductsPage() {
   const {
@@ -98,7 +97,7 @@ function ProductsPage() {
       <br />
       <div className="row row-cols-1 row-cols-md-2 g-4">
         {
-          !products ? <Loading /> : products.map((product) => (
+          products && products.map((product) => (
 
             <ProductCard
               key={ product.id }

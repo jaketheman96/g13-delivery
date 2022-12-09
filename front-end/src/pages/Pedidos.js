@@ -1,9 +1,9 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { format } from 'date-fns';
 import Navbar from '../components/Navbar';
 import OrderCard from '../components/OrderCard';
-import DeliveryContext from '../context/DeliveryContext';
 import getFetch from '../utils/getFetch';
+import DeliveryContext from '../context/DeliveryContext';
+import formatDate from '../utils/formatDate';
 
 function Pedidos() {
   const { userInfos } = useContext(DeliveryContext);
@@ -14,19 +14,16 @@ function Pedidos() {
     let isMounted = true;
     const getSales = async () => {
       if (userInfos) {
-        const response = await getFetch('sales');
+        const response = await getFetch(
+          `customer/orders/${userInfos.id}`,
+          userInfos.token,
+        );
         if (isMounted) setOrders(response);
       }
     };
     getSales();
     return () => { isMounted = false; };
   }, [setOrders, userInfos]);
-
-  const formatDate = (saleDate) => {
-    const date = new Date(saleDate);
-    const formatedDate = format(date, 'dd/MM/yyyy');
-    return formatedDate;
-  };
 
   return (
     <>

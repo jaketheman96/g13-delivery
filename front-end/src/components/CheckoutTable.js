@@ -1,10 +1,11 @@
-import React, { useContext } from 'react';
-import Loading from './Loading';
+import React, { useContext, useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
+import { useRouteMatch } from 'react-router-dom';
 import DeliveryContext from '../context/DeliveryContext';
 
 const PRICE_ZERO = 0;
 
-export default function CheckoutTable() {
+export default function CheckoutTable({ infos, totalPrice }) {
   const {
     totalCartPrice,
     cart,
@@ -12,10 +13,14 @@ export default function CheckoutTable() {
     setTotalCartPrice,
   } = useContext(DeliveryContext);
 
-  const subtractTotal = (totalPrice, value) => {
-    const total = totalPrice - Number(value);
-    if (total < PRICE_ZERO) return setTotalCartPrice(0);
-    setTotalCartPrice(total);
+  const [isCheckoutPage, setIsCheckoutPage] = useState(false);
+
+  const { path } = useRouteMatch();
+
+  const subtractTotal = (total, value) => {
+    const operation = total - Number(value);
+    if (operation < PRICE_ZERO) return setTotalCartPrice(0);
+    setTotalCartPrice(operation);
   };
 
   const handleRemoveBtn = ({ target }) => {
@@ -25,9 +30,29 @@ export default function CheckoutTable() {
     subtractTotal(totalCartPrice, target.value);
   };
 
+  useEffect(() => {
+    const pathValidator = () => {
+      if (path.includes('/checkout')) {
+        return setIsCheckoutPage(true);
+      }
+      return setIsCheckoutPage(false);
+    };
+    pathValidator();
+  }, [path]);
+
+  const checkoutCondition = () => {
+    if (isCheckoutPage) return 'checkout';
+    return 'order_details';
+  };
+
+  const reduceLength = () => {
+    const isCheckout = checkoutCondition();
+    return `customer_${isCheckout}__element-order-table-`;
+  };
+
   return (
-    <div>
-      <h3>Finalizar Pedido</h3>
+    <section>
+      {isCheckoutPage && <h3>Finalizar Pedido</h3>}
       <table>
         <thead>
           <tr>
@@ -46,56 +71,45 @@ export default function CheckoutTable() {
             <th>
               Sub-total
             </th>
-            <th>
-              Remover Item
-            </th>
+            {isCheckoutPage && <th>Remover Item</th>}
           </tr>
         </thead>
         <tbody>
-          {!cart ? <Loading /> : cart.map((item, index) => (
+          {infos && infos.map((item, index) => (
             <tr key={ index }>
               <td
-                data-testid={
-                  `customer_checkout__element-order-table-item-number-${index}`
-                }
+                data-testid={ `${reduceLength()}item-number-${index}` }
               >
                 {index + 1}
               </td>
               <td
-                data-testid={
-                  `customer_checkout__element-order-table-name-${index}`
-                }
+                data-testid={ `${reduceLength()}name-${index}` }
               >
                 {item.name}
               </td>
               <td
-                data-testid={
-                  `customer_checkout__element-order-table-quantity-${index}`
-                }
+                data-testid={ `${reduceLength()}quantity-${index}` }
               >
-                {item.quantity}
+                {item.SaleProduct.quantity}
               </td>
               <td
-                data-testid={
-                  `customer_checkout__element-order-table-unit-price-${index}`
-                }
+                data-testid={ `${reduceLength()}unit-price-${index}` }
               >
                 {item.price.replace('.', ',')}
               </td>
               <td
-                data-testid={
-                  `customer_checkout__element-order-table-sub-total-${index}`
-                }
+                data-testid={ `${reduceLength()}sub-total-${index}` }
               >
-                {(item.price * item.quantity).toFixed(2).replace('.', ',')}
+                {(item.price * item.SaleProduct.quantity).toFixed(2).replace('.', ',')}
               </td>
               <td>
                 <button
                   type="button"
                   onClick={ handleRemoveBtn }
                   id={ item.id }
-                  value={ (item.price * item.quantity).toFixed(2) }
+                  value={ (item.price * item.SaleProduct.quantity).toFixed(2) }
                   data-testid={ `customer_checkout__element-order-table-remove-${index}` }
+                  hidden={ !isCheckoutPage }
                 >
                   Remover
                 </button>
@@ -107,11 +121,23 @@ export default function CheckoutTable() {
       <div>
         Total:
         &nbsp;
-        <span data-testid="customer_checkout__element-order-total-price">
-          {`R$${totalCartPrice.toFixed(2).replace('.', ',')}`}
+        <span
+          data-testid={ `customer_${checkoutCondition()}__element-order-total-price` }
+        >
+          {isCheckoutPage && `R$${totalCartPrice.toFixed(2).replace('.', ',')}`}
+          {!isCheckoutPage && `R$${totalPrice.replace('.', ',')}`}
         </span>
       </div>
-
-    </div>
+    </section>
   );
 }
+
+CheckoutTable.propTypes = {
+  infos: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    name: PropTypes.string.isRequired,
+    price: PropTypes.string.isRequired,
+    SaleProduct: PropTypes.shape({ quantity: PropTypes.number.isRequired }),
+  })).isRequired,
+  totalPrice: PropTypes.string.isRequired,
+};

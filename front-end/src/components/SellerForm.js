@@ -5,7 +5,7 @@ import getFetch from '../utils/getFetch';
 import postFetch from '../utils/postFetch';
 
 function SellerForm() {
-  const { cart, userInfos, totalCartPrice } = useContext(DeliveryContext);
+  const { cart, userInfos, totalCartPrice, setCart } = useContext(DeliveryContext);
   const [sellerInfos, setSellerInfos] = useState([]);
   const [deliveryAddress, setDeliveryAddress] = useState('');
   const [deliveryNumber, setDeliveryNumber] = useState(0);
@@ -39,6 +39,8 @@ function SellerForm() {
     event.preventDefault();
     const body = requestBody();
     const response = await postFetch(body, 'sales', userInfos.token);
+    localStorage.removeItem('cart');
+    setCart([]);
     history.push(`/customer/orders/${response.id}`);
     return response;
   };
