@@ -107,7 +107,7 @@ export default function CheckoutTable({ infos, totalPrice }) {
                   type="button"
                   onClick={ handleRemoveBtn }
                   id={ item.id }
-                  value={ (item.price * item.quantity).toFixed(2) }
+                  value={ (item.price * item.SaleProduct.quantity).toFixed(2) }
                   data-testid={ `customer_checkout__element-order-table-remove-${index}` }
                   hidden={ !isCheckoutPage }
                 >
