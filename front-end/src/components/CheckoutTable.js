@@ -40,9 +40,14 @@ export default function CheckoutTable({ infos, totalPrice }) {
     pathValidator();
   }, [path]);
 
-  const handleConditionalRender = () => {
+  const checkoutCondition = () => {
     if (isCheckoutPage) return 'checkout';
     return 'order_details';
+  };
+
+  const reduceLength = () => {
+    const isCheckout = checkoutCondition();
+    return `customer_${isCheckout}__element-order-table-`;
   };
 
   return (
@@ -73,42 +78,27 @@ export default function CheckoutTable({ infos, totalPrice }) {
           {infos && infos.map((item, index) => (
             <tr key={ index }>
               <td
-                data-testid={
-                  `customer_${handleConditionalRender()}__
-                element-order-table-item-number-${index}`
-                }
+                data-testid={ `${reduceLength()}item-number-${index}` }
               >
                 {index + 1}
               </td>
               <td
-                data-testid={
-                  `customer_${handleConditionalRender()}__
-                  element-order-table-name-${index}`
-                }
+                data-testid={ `${reduceLength()}name-${index}` }
               >
                 {item.name}
               </td>
               <td
-                data-testid={
-                  `customer_${handleConditionalRender()}
-                  __element-order-table-quantity-${index}`
-                }
+                data-testid={ `${reduceLength()}quantity-${index}` }
               >
                 {item.SaleProduct.quantity}
               </td>
               <td
-                data-testid={
-                  `customer_${handleConditionalRender()}
-                  __element-order-table-unit-price-${index}`
-                }
+                data-testid={ `${reduceLength()}unit-price-${index}` }
               >
                 {item.price.replace('.', ',')}
               </td>
               <td
-                data-testid={
-                  `customer_${handleConditionalRender()}
-                  __element-order-table-sub-total-${index}`
-                }
+                data-testid={ `${reduceLength()}sub-total-${index}` }
               >
                 {(item.price * item.SaleProduct.quantity).toFixed(2).replace('.', ',')}
               </td>
@@ -132,11 +122,10 @@ export default function CheckoutTable({ infos, totalPrice }) {
         Total:
         &nbsp;
         <span
-          data-testid={ `customer_${handleConditionalRender()}
-          __element-order-total-price` }
+          data-testid={ `customer_${checkoutCondition()}__element-order-total-price` }
         >
           {isCheckoutPage && `R$${totalCartPrice.toFixed(2).replace('.', ',')}`}
-          {!isCheckoutPage && `R$${totalPrice}`}
+          {!isCheckoutPage && `R$${totalPrice.replace('.', ',')}`}
         </span>
       </div>
     </section>
