@@ -35,6 +35,7 @@ function LoginPage() {
   };
 
   const handleClick = (event) => {
+    event.preventDefault();
     const option = event.target.name;
     const buttons = {
       register: () => history.push('/register'),
@@ -71,39 +72,42 @@ function LoginPage() {
 
   return (
     <div>
-      <input
-        type="text"
-        placeholder="Login"
-        data-testid="common_login__input-email"
-        name="email"
-        onChange={ handleChange }
-      />
-      <br />
-      <input
-        type="password"
-        placeholder="Password"
-        data-testid="common_login__input-password"
-        name="password"
-        onChange={ handleChange }
-      />
-      <br />
-      <button
-        type="button"
-        data-testid="common_login__button-login"
-        disabled={ isButtonDisabled }
-        name="login"
-        onClick={ handleClick }
-      >
-        Login
-      </button>
-      <button
-        type="button"
-        data-testid="common_login__button-register"
-        name="register"
-        onClick={ handleClick }
-      >
-        Ainda nao tenho conta
-      </button>
+      {/* logar usando o Enter */}
+      <form onSubmit={ handleClick }>
+        <input
+          type="text"
+          placeholder="Login"
+          data-testid="common_login__input-email"
+          name="email"
+          onChange={ handleChange }
+        />
+        <br />
+        <input
+          type="password"
+          placeholder="Password"
+          data-testid="common_login__input-password"
+          name="password"
+          onChange={ handleChange }
+        />
+        <br />
+        <button
+          type="submit"
+          data-testid="common_login__button-login"
+          disabled={ isButtonDisabled }
+          name="login"
+          onClick={ handleClick }
+        >
+          Login
+        </button>
+        <button
+          type="submit"
+          data-testid="common_login__button-register"
+          name="register"
+          onClick={ handleClick }
+        >
+          Ainda nao tenho conta
+        </button>
+      </form>
       <div data-testid="common_login__element-invalid-email">
         {showLoginError && <p> Senha ou email invalidos </p>}
       </div>
