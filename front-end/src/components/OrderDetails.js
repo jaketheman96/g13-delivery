@@ -13,6 +13,7 @@ function OrderDetails({ id, seller: { name }, saleDate, status, products, totalP
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
   const [showCustomerButton, setShowCustomerButton] = useState(false);
   const [showSellerButtons, setShowSellerButtons] = useState(false);
+  const [isPreparing, setIsPreparing] = useState(false);
 
   const reduceLength = () => {
     if (userInfos) {
@@ -37,7 +38,7 @@ function OrderDetails({ id, seller: { name }, saleDate, status, products, totalP
       }
     };
     buttonsValidator();
-  }, []);
+  }, [setShowCustomerButton, setShowSellerButtons, userInfos]);
 
   useEffect(() => {
     const statusValidator = () => {
@@ -83,24 +84,17 @@ function OrderDetails({ id, seller: { name }, saleDate, status, products, totalP
         </button>
         <button
           type="button"
-          data-testid="seller_order_details__button-delivery-check"
-          onClick={ () => console.log('pendente') }
-          hidden={ !showSellerButtons }
-        >
-          Pendente
-        </button>
-        <button
-          type="button"
-          data-testid="seller_order_details__button-delivery-check"
-          onClick={ () => console.log('preparando pedido') }
+          data-testid="seller_order_details__button-preparing-check"
+          onClick={ () => setIsPreparing(true) }
           hidden={ !showSellerButtons }
         >
           Preparar Pedido
         </button>
         <button
           type="button"
-          data-testid="seller_order_details__button-delivery-check"
+          data-testid="seller_order_details__button-dispatch-check"
           onClick={ () => console.log('saiu para entrega') }
+          disabled={ !isPreparing }
           hidden={ !showSellerButtons }
         >
           Saiu para entrega

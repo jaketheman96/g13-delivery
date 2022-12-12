@@ -2,11 +2,13 @@ import React, { useContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useRouteMatch } from 'react-router-dom';
 import DeliveryContext from '../context/DeliveryContext';
+import user from '../utils/roleValidator';
 
 const PRICE_ZERO = 0;
 
 export default function CheckoutTable({ infos, totalPrice }) {
   const {
+    userInfos,
     totalCartPrice,
     cart,
     setCart,
@@ -45,9 +47,16 @@ export default function CheckoutTable({ infos, totalPrice }) {
     return 'order_details';
   };
 
+  const roleValidation = () => {
+    if (userInfos) {
+      const role = user.userRole(userInfos);
+      return role;
+    }
+  };
+
   const reduceLength = () => {
     const isCheckout = checkoutCondition();
-    return `customer_${isCheckout}__element-order-table-`;
+    return `${roleValidation()}_${isCheckout}__element-order`;
   };
 
   return (
@@ -78,27 +87,27 @@ export default function CheckoutTable({ infos, totalPrice }) {
           {infos && infos.map((item, index) => (
             <tr key={ index }>
               <td
-                data-testid={ `${reduceLength()}item-number-${index}` }
+                data-testid={ `${reduceLength()}-table-item-number-${index}` }
               >
                 {index + 1}
               </td>
               <td
-                data-testid={ `${reduceLength()}name-${index}` }
+                data-testid={ `${reduceLength()}-table-name-${index}` }
               >
                 {item.name}
               </td>
               <td
-                data-testid={ `${reduceLength()}quantity-${index}` }
+                data-testid={ `${reduceLength()}-table-quantity-${index}` }
               >
                 {item.SaleProduct.quantity}
               </td>
               <td
-                data-testid={ `${reduceLength()}unit-price-${index}` }
+                data-testid={ `${reduceLength()}-table-unit-price-${index}` }
               >
                 {item.price.replace('.', ',')}
               </td>
               <td
-                data-testid={ `${reduceLength()}sub-total-${index}` }
+                data-testid={ `${reduceLength()}-table-sub-total-${index}` }
               >
                 {(item.price * item.SaleProduct.quantity).toFixed(2).replace('.', ',')}
               </td>
@@ -122,7 +131,7 @@ export default function CheckoutTable({ infos, totalPrice }) {
         Total:
         &nbsp;
         <span
-          data-testid={ `customer_${checkoutCondition()}__element-order-total-price` }
+          data-testid={ `${reduceLength()}-total-price` }
         >
           {isCheckoutPage && `R$${totalCartPrice.toFixed(2).replace('.', ',')}`}
           {!isCheckoutPage && `R$${totalPrice.replace('.', ',')}`}
