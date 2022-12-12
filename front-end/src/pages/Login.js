@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import DeliveryContext from '../context/DeliveryContext';
 import postFetch from '../utils/postFetch';
-import roleValidator from '../utils/roleValidator';
+import role from '../utils/roleValidator';
 
 function LoginPage() {
   const {
@@ -20,7 +20,7 @@ function LoginPage() {
 
   useEffect(() => {
     const userValidator = () => {
-      if (userInfos) return history.push(roleValidator(userInfos));
+      if (userInfos) return history.push(role.roleValidator(userInfos));
     };
     userValidator();
   }, [userInfos, history]);
