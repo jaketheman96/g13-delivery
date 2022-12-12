@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import DeliveryContext from '../context/DeliveryContext';
 
-function OrderCard({ id, price, date, status, address }) {
+function OrderCard({ id, price, date, status, address, deliveryNumber }) {
   const MINIMUN_ZEROS = 3;
 
   const { userInfos } = useContext(DeliveryContext);
@@ -51,7 +51,7 @@ function OrderCard({ id, price, date, status, address }) {
           {price.replace('.', ',')}
         </h4>
         <p data-testid={ `${userRole()}_orders__element-card-address-${id}` }>
-          {userRole() === 'seller' && address}
+          {userRole() === 'seller' && `${address}, ${deliveryNumber}` }
         </p>
       </div>
     </Link>
@@ -60,6 +60,7 @@ function OrderCard({ id, price, date, status, address }) {
 
 OrderCard.defaultProps = {
   address: '',
+  deliveryNumber: '',
 };
 
 OrderCard.propTypes = {
@@ -68,6 +69,7 @@ OrderCard.propTypes = {
   date: PropTypes.string.isRequired,
   price: PropTypes.string.isRequired,
   address: PropTypes.string,
+  deliveryNumber: PropTypes.string,
 };
 
 export default OrderCard;

@@ -33,6 +33,7 @@ function SellerPage() {
           date={ formatDate(order.saleDate) }
           status={ order.status }
           address={ order.deliveryAddress }
+          deliveryNumber={ order.deliveryNumber }
         />
       ))}
     </>
