@@ -9,4 +9,15 @@ const roleValidator = (user) => {
   }
 };
 
-export default roleValidator;
+const userRole = (userInfos) => {
+  switch (userInfos.role) {
+  case 'seller':
+    return 'seller';
+  case 'admin':
+    return 'admin';
+  default:
+    return 'customer';
+  }
+};
+
+export default { roleValidator, userRole };

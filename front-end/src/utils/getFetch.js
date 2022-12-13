@@ -3,7 +3,7 @@ const getFetch = async (page, token) => {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
-      Authorization: `${token}`,
+      Authorization: token,
     },
   };
   try {

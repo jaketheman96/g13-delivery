@@ -19,7 +19,7 @@ userRoutes.post(
     (req, res) => usersController.getOrdersByCustomerId(req, res),
   )
   .get(
-    '/seller/orders',
+    '/seller/orders/:id',
     (req, res, next) => tokenAuth.handle(req, res, next),
     (req, res) => usersController.getOrdersBySellerId(req, res),
   )

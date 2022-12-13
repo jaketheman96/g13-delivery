@@ -10,7 +10,7 @@ function Navbar() {
     const option = target.name;
     const input = {
       products: () => history.push('/customer/products'),
-      orders: () => history.push('/customer/orders'),
+      orders: () => history.push(`/${userInfos.role}/orders`),
       logout: () => {
         localStorage.removeItem('user');
         localStorage.removeItem('cart');

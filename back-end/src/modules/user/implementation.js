@@ -66,7 +66,7 @@ class UsersImplementation {
         { model: this.sequelizeUserModel, as: 'seller', attributes: [] },
       ],
       where: { sellerId: id },
-      attributes: ['id', 'totalPrice', 'status', 'saleDate', 'deliveryAddress'],
+      attributes: ['id', 'totalPrice', 'status', 'saleDate', 'deliveryAddress', 'deliveryNumber'],
     }).then((sales) => sales);
   }
 
