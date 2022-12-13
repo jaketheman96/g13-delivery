@@ -26,4 +26,17 @@ describe("Teste da rota de GET /sales/:id", () => {
       expect(httpResponse.body).to.be.deep.equal(sale);
     });
   });
+
+  describe("Quando a busca uma venda inexistente", () => {
+    it("Retorna status 404 e uma mensagem de erro", async () => {
+      sinon.stub(Sale, "findOne").resolves(null);
+
+      const httpResponse = await chai
+        .request(`http://localhost:${PORT}`)
+        .get("/sales/1")
+
+      expect(httpResponse.status).to.equal(404);
+      expect(httpResponse.body).to.be.deep.equal({ message: 'Sale not found' });
+    });
+  });
 });
