@@ -4,6 +4,11 @@ import formatDate from '../utils/formatDate';
 import CheckoutTable from './CheckoutTable';
 import DeliveryContext from '../context/DeliveryContext';
 import user from '../utils/roleValidator';
+import putFetch from '../utils/putFetch';
+
+const delivered = { status: 'Entregue' };
+const preparing = { status: 'Preparando' };
+const delivering = { status: 'Em Trânsito' };
 
 function OrderDetails({ id, seller: { name }, saleDate, status, products, totalPrice }) {
   const MINIMUN_ZEROS = 3;
@@ -48,10 +53,27 @@ function OrderDetails({ id, seller: { name }, saleDate, status, products, totalP
     statusValidator();
   }, [setIsButtonDisabled, status]);
 
+  const handleClick = ({ target }) => {
+    const input = {
+      delivered: async () => {
+        setIsButtonDisabled(true);
+        await putFetch(delivered, 'sales', id);
+      },
+      preparing: async () => {
+        setIsPreparing(true);
+        await putFetch(preparing, 'sales', id);
+      },
+      delivering: async () => {
+        await putFetch(delivering, 'sales', id);
+      },
+    };
+    input[target.name]();
+  };
+
   return (
     <section>
       <div
-        style={ { display: 'flex' } }
+        style={ { display: 'flex', justifyContent: 'space-evenly' } }
       >
         <h4
           data-testid={ `${reduceLength()}label-order-id` }
@@ -76,8 +98,9 @@ function OrderDetails({ id, seller: { name }, saleDate, status, products, totalP
         <button
           type="button"
           data-testid="customer_order_details__button-delivery-check"
-          onClick={ () => setIsButtonDisabled(true) }
+          onClick={ handleClick }
           disabled={ isButtonDisabled }
+          name="delivered"
           hidden={ !showCustomerButton }
         >
           Marcar como entregue
@@ -85,7 +108,8 @@ function OrderDetails({ id, seller: { name }, saleDate, status, products, totalP
         <button
           type="button"
           data-testid="seller_order_details__button-preparing-check"
-          onClick={ () => setIsPreparing(true) }
+          onClick={ handleClick }
+          name="preparing"
           hidden={ !showSellerButtons }
         >
           Preparar Pedido
@@ -93,8 +117,9 @@ function OrderDetails({ id, seller: { name }, saleDate, status, products, totalP
         <button
           type="button"
           data-testid="seller_order_details__button-dispatch-check"
-          onClick={ () => console.log('saiu para entrega') }
+          onClick={ handleClick }
           disabled={ !isPreparing }
+          name="delivering"
           hidden={ !showSellerButtons }
         >
           Saiu para entrega
