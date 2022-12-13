@@ -70,7 +70,7 @@ class UsersController {
       const { userId } = req.params;
 
       await this.usersService.deleteUser(userId);
-      return res.status(StatusCodes.OK).end();
+      return res.sendStatus(StatusCodes.NO_CONTENT);
   }
 }
 
