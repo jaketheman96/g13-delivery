@@ -34,12 +34,12 @@ class UsersImplementation {
       .then((users) => users);
   }
 
-  async getAllCommonUsers() {
-    return this.sequelizeUserModel.findAll({
-      where: { role: { [Op.or]: ['seller', 'customer'] } },
-      attributes: { exclude: ['password'] },
-    }).then((users) => users);
-  }
+  // async getAllCommonUsers() {
+  //   return this.sequelizeUserModel.findAll({
+  //     where: { role: { [Op.or]: ['seller', 'customer'] } },
+  //     attributes: { exclude: ['password'] },
+  //   }).then((users) => users);
+  // }
 
   async getAllSellerUsers() {
     return this.sequelizeUserModel.findAll({

@@ -59,11 +59,11 @@ class UsersService {
       return allUsers;
   }
 
-  async getAllCommonUsers() {
-      const allCommonUsers = await this.userImplementation.getAllCommonUsers();
+//   async getAllCommonUsers() {
+//       const allCommonUsers = await this.userImplementation.getAllCommonUsers();
 
-      return allCommonUsers;
-  }
+//       return allCommonUsers;
+//   }
 
   async getAllSellerUsers() {
       const allSellerUsers = await this.userImplementation.getAllSellerUsers();

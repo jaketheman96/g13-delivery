@@ -79,15 +79,15 @@ describe("Verificando camada de service user", function () {
 
 
 
-  describe("Buscando todos os usuarios que não são admin", function () {
-    it("com sucesso", async function () {
-      sinon.stub(User, "findAll").resolves(commonUsers);
+  // describe("Buscando todos os usuarios que não são admin", function () {
+  //   it("com sucesso", async function () {
+  //     sinon.stub(User, "findAll").resolves(commonUsers);
 
-      const users = await usersService.getAllCommonUsers();
+  //     const users = await usersService.getAllCommonUsers();
 
-      expect(users).to.equal(commonUsers);
-    });
-  });
+  //     expect(users).to.equal(commonUsers);
+  //   });
+  // });
 
   describe("Buscando todos os pedidos de um usuario pelo seu id", function () {
     it("com sucesso", async function () {
