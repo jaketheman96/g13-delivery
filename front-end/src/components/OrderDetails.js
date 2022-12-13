@@ -15,10 +15,11 @@ function OrderDetails({ id, seller: { name }, saleDate, status, products, totalP
 
   const { userInfos } = useContext(DeliveryContext);
 
-  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
+  const [isDeliveredButtonDisabled, setIsDeliveredButtonDisabled] = useState(false);
   const [showCustomerButton, setShowCustomerButton] = useState(false);
   const [showSellerButtons, setShowSellerButtons] = useState(false);
-  const [isPreparing, setIsPreparing] = useState(false);
+  const [isDeliveringBtnDisabled, setIsDeliveringBtnDisabled] = useState(false);
+  const [isPreparingBtnDisabled, setIsPreparingBtnDisabled] = useState(false);
 
   const reduceLength = () => {
     if (userInfos) {
@@ -47,20 +48,40 @@ function OrderDetails({ id, seller: { name }, saleDate, status, products, totalP
 
   useEffect(() => {
     const statusValidator = () => {
-      if (status === 'Em Trânsito') return setIsButtonDisabled(false);
-      return setIsButtonDisabled(true);
+      switch (status) {
+      case 'Pendente':
+        setIsPreparingBtnDisabled(false);
+        setIsDeliveringBtnDisabled(true);
+        setIsDeliveredButtonDisabled(true);
+        break;
+      case 'Preparando':
+        setIsPreparingBtnDisabled(true);
+        setIsDeliveringBtnDisabled(false);
+        setIsDeliveredButtonDisabled(true);
+        break;
+      case 'Em Trânsito':
+        setIsPreparingBtnDisabled(true);
+        setIsDeliveringBtnDisabled(true);
+        setIsDeliveredButtonDisabled(false);
+        break;
+      case 'Entregue':
+        setIsPreparingBtnDisabled(true);
+        setIsDeliveringBtnDisabled(true);
+        setIsDeliveredButtonDisabled(true);
+        break;
+      default:
+        break;
+      }
     };
     statusValidator();
-  }, [setIsButtonDisabled, status]);
+  }, [status]);
 
   const handleClick = ({ target }) => {
     const input = {
       delivered: async () => {
-        setIsButtonDisabled(true);
         await putFetch(delivered, 'sales', id);
       },
       preparing: async () => {
-        setIsPreparing(true);
         await putFetch(preparing, 'sales', id);
       },
       delivering: async () => {
@@ -99,7 +120,7 @@ function OrderDetails({ id, seller: { name }, saleDate, status, products, totalP
           type="button"
           data-testid="customer_order_details__button-delivery-check"
           onClick={ handleClick }
-          disabled={ isButtonDisabled }
+          disabled={ isDeliveredButtonDisabled }
           name="delivered"
           hidden={ !showCustomerButton }
         >
@@ -109,6 +130,7 @@ function OrderDetails({ id, seller: { name }, saleDate, status, products, totalP
           type="button"
           data-testid="seller_order_details__button-preparing-check"
           onClick={ handleClick }
+          disabled={ isPreparingBtnDisabled }
           name="preparing"
           hidden={ !showSellerButtons }
         >
@@ -118,7 +140,7 @@ function OrderDetails({ id, seller: { name }, saleDate, status, products, totalP
           type="button"
           data-testid="seller_order_details__button-dispatch-check"
           onClick={ handleClick }
-          disabled={ !isPreparing }
+          disabled={ isDeliveringBtnDisabled }
           name="delivering"
           hidden={ !showSellerButtons }
         >

@@ -13,7 +13,6 @@ function SellerOrderDetails() {
     let isMounted = true;
     const getSalesDetails = async () => {
       const response = await getFetch(`sales/${id}`);
-      console.log(response);
       if (isMounted) setSellerOrderDetails(response);
     };
     getSalesDetails();
