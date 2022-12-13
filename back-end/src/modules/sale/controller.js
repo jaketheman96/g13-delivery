@@ -35,11 +35,11 @@ class SalesController {
       .then(() => res.status(StatusCodes.OK).json('Successfully updated'));
   }
 
-  async delete(req, res) {
-    const { id } = req.params;
-    await this.salesService.delete(id);
-    return res.status(StatusCodes.OK).json('Successfully deleted');
-  }
+  // async delete(req, res) {
+  //   const { id } = req.params;
+  //   await this.salesService.delete(id);
+  //   return res.status(StatusCodes.OK).json('Successfully deleted');
+  // }
 }
 
 module.exports = { salesController: new SalesController() };

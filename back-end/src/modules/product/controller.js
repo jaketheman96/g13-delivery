@@ -6,13 +6,13 @@ class ProductsController {
     this.productsService = productsService;
   }
 
-  async createProduct(req, res) {
-    const productInfo = req.body;
+  // async createProduct(req, res) {
+  //   const productInfo = req.body;
 
-    const createdProduct = await this.productsService.createProduct(productInfo);
+  //   const createdProduct = await this.productsService.createProduct(productInfo);
 
-    return res.status(StatusCodes.CREATED).json(createdProduct);
-  }
+  //   return res.status(StatusCodes.CREATED).json(createdProduct);
+  // }
 
   async getAllProducts(_req, res) {
     const allProducts = await this.productsService.getAllProducts();
@@ -27,22 +27,22 @@ class ProductsController {
     return res.status(StatusCodes.OK).json(product);
   }
 
-  async updateProduct(req, res) {
-    const { id } = req.params;
-    const productInfo = req.body;
+  // async updateProduct(req, res) {
+  //   const { id } = req.params;
+  //   const productInfo = req.body;
 
-    await this.productsService.updateProduct(id, productInfo);
+  //   await this.productsService.updateProduct(id, productInfo);
 
-    return res.status(StatusCodes.CREATED).end();
-  }
+  //   return res.status(StatusCodes.CREATED).end();
+  // }
 
-  async deleteProduct(req, res) {
-    const { id } = req.params;
+  // async deleteProduct(req, res) {
+  //   const { id } = req.params;
 
-    await this.productsService.deleteProduct(id);
+  //   await this.productsService.deleteProduct(id);
 
-    return res.status(StatusCodes.OK).end();
-  }
+  //   return res.status(StatusCodes.OK).end();
+  // }
 }
 
 const productsController = new ProductsController();

@@ -41,9 +41,9 @@ class SalesImplementation {
     await this.sequelizeSaleModel.update(sale, { where: { id } });
   }
 
-  async delete(id) {
-    await this.sequelizeSaleModel.destroy({ where: { id } });
-  }
+  // async delete(id) {
+  //   await this.sequelizeSaleModel.destroy({ where: { id } });
+  // }
 }
 
 module.exports = { SalesImplementation };

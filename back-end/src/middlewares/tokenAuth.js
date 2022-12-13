@@ -8,15 +8,15 @@ class TokenAuth {
     this.notFound = notFound;
   }
 
-  handle(req, _res, next) {
+  async handle(req, _res, next) {
     const { authorization: userToken } = req.headers;
 
     if (!userToken) {
       throw new CustomError(this.notFound, 'Token not found');
     }
 
-    const { data: userLoginInfos } = token.verify(userToken);
-
+    const { data: userLoginInfos } = await token.verify(userToken);
+    
     if (!userLoginInfos) {
       throw new CustomError(this.invalid, 'Invalid or expired token');
     }
