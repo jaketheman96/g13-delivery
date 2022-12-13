@@ -29,8 +29,7 @@ class SalesController {
   }
 
   async updateOne(req, res) {
-    const { id } = req.params;
-    const { status } = req.body;
+    const { params: { id }, body: { status } } = req;
     return this.salesService.updateOne(id, status)
       .then(() => res.status(StatusCodes.OK).json('Successfully updated'));
   }

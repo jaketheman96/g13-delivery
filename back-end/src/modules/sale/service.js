@@ -42,9 +42,9 @@ class SalesServices {
       });
   }
 
-  async updateOne(id, sale) {
+  async updateOne(id, status) {
     await this.readOne(id);
-    await this.salesImplementation.updateOne(id, sale);
+    await this.salesImplementation.updateOne(id, status);
   }
 
   // async delete(id) {
