@@ -47,10 +47,10 @@ class SalesServices {
     await this.salesImplementation.updateOne(id, sale);
   }
 
-  async delete(id) {
-    await this.readOne(id);
-    await this.salesImplementation.delete(id);
-  }
+  // async delete(id) {
+  //   await this.readOne(id);
+  //   await this.salesImplementation.delete(id);
+  // }
 }
 
 module.exports = { SalesServices };
