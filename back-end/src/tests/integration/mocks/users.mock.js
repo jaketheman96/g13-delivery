@@ -22,41 +22,51 @@ const customerLogin = {
 };
 
 const adminLogin = {
-    id: 1,
-    email: "admin@admin.com",
-    role: "admin",
-    token: "validToken",
+  id: 1,
+  email: "admin@admin.com",
+  role: "admin",
+  token: "validToken",
 };
 
 const sellerLogin = {
-    id: 1,
-    email: "seller@seller.com",
-    role: "seller",
-    token: "validToken",
+  id: 1,
+  email: "seller@seller.com",
+  role: "seller",
+  token: "validToken",
 };
 
 const allUsers = [
   {
     id: 1,
     email: "customer@customer.com",
-    name: 'Customer do app delivery',
+    name: "Customer do app delivery",
     role: "customer",
     password: "customer",
   },
   {
-      id: 2,
-      email: "admin@admin.com",
-      name: 'Admin do app delivery',
-      role: "admin",
-      token: "validToken",
-    },
-    {
-      id: 3,
-      email: "seller@seller.com",
-      name: 'Seller do app delivery',
-      role: "seller",
-      token: "validToken",
-  }]
+    id: 2,
+    email: "admin@admin.com",
+    name: "Admin do app delivery",
+    role: "admin",
+    token: "validToken",
+  },
+  {
+    id: 3,
+    email: "seller@seller.com",
+    name: "Seller do app delivery",
+    role: "seller",
+    token: "validToken",
+  },
+];
+
+const allSellers = [
+  {
+    id: 2,
+    name: "Fulana Pereira",
+    email: "fulana@deliveryapp.com",
+    role: "seller",
+  },
+];
 
 module.exports = {
   adminUserDB,
@@ -65,4 +75,5 @@ module.exports = {
   adminLogin,
   sellerLogin,
   allUsers,
+  allSellers,
 };
