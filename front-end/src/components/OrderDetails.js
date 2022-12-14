@@ -6,9 +6,10 @@ import DeliveryContext from '../context/DeliveryContext';
 import user from '../utils/roleValidator';
 import putFetch from '../utils/putFetch';
 
+const pending = { status: 'Pendente' };
+const delivering = { status: 'Em Trânsito' };
 const delivered = { status: 'Entregue' };
 const preparing = { status: 'Preparando' };
-const delivering = { status: 'Em Trânsito' };
 
 function OrderDetails({ id, seller: { name }, saleDate, status, products, totalPrice }) {
   const MINIMUN_ZEROS = 3;
@@ -20,6 +21,7 @@ function OrderDetails({ id, seller: { name }, saleDate, status, products, totalP
   const [showSellerButtons, setShowSellerButtons] = useState(false);
   const [isDeliveringBtnDisabled, setIsDeliveringBtnDisabled] = useState(false);
   const [isPreparingBtnDisabled, setIsPreparingBtnDisabled] = useState(false);
+  const [orderStatus, setOrderStatus] = useState('');
 
   const reduceLength = () => {
     if (userInfos) {
@@ -50,21 +52,25 @@ function OrderDetails({ id, seller: { name }, saleDate, status, products, totalP
     const statusValidator = () => {
       switch (status) {
       case 'Pendente':
+        setOrderStatus(pending.status);
         setIsPreparingBtnDisabled(false);
         setIsDeliveringBtnDisabled(true);
         setIsDeliveredButtonDisabled(true);
         break;
       case 'Preparando':
+        setOrderStatus(preparing.status);
         setIsPreparingBtnDisabled(true);
         setIsDeliveringBtnDisabled(false);
         setIsDeliveredButtonDisabled(true);
         break;
       case 'Em Trânsito':
+        setOrderStatus(delivering.status);
         setIsPreparingBtnDisabled(true);
         setIsDeliveringBtnDisabled(true);
         setIsDeliveredButtonDisabled(false);
         break;
       case 'Entregue':
+        setOrderStatus(delivered.status);
         setIsPreparingBtnDisabled(true);
         setIsDeliveringBtnDisabled(true);
         setIsDeliveredButtonDisabled(true);
@@ -79,12 +85,20 @@ function OrderDetails({ id, seller: { name }, saleDate, status, products, totalP
   const handleClick = ({ target }) => {
     const input = {
       delivered: async () => {
+        setOrderStatus(delivered.status);
+        setIsDeliveredButtonDisabled(true);
         await putFetch(delivered, 'sales', id);
       },
       preparing: async () => {
+        setOrderStatus(preparing.status);
+        setIsDeliveredButtonDisabled(false);
+        setIsPreparingBtnDisabled(true);
         await putFetch(preparing, 'sales', id);
       },
       delivering: async () => {
+        setOrderStatus(delivering.status);
+        setIsDeliveringBtnDisabled(true);
+        setIsDeliveredButtonDisabled(false);
         await putFetch(delivering, 'sales', id);
       },
     };
@@ -114,7 +128,7 @@ function OrderDetails({ id, seller: { name }, saleDate, status, products, totalP
         <h4
           data-testid={ `${reduceLength()}label-delivery-status` }
         >
-          {status}
+          {orderStatus}
         </h4>
         <button
           type="button"
