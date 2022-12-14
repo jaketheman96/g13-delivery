@@ -91,7 +91,7 @@ function OrderDetails({ id, seller: { name }, saleDate, status, products, totalP
       },
       preparing: async () => {
         setOrderStatus(preparing.status);
-        setIsDeliveredButtonDisabled(false);
+        setIsDeliveringBtnDisabled(false);
         setIsPreparingBtnDisabled(true);
         await putFetch(preparing, 'sales', id);
       },
