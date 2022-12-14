@@ -38,11 +38,11 @@ class UsersController {
       return res.status(StatusCodes.OK).json(allUsers);
   }
 
-  async getAllCommonUsers(_req, res) {
-      const allCommonUsers = await this.usersService.getAllCommonUsers();
+//   async getAllCommonUsers(_req, res) {
+//       const allCommonUsers = await this.usersService.getAllCommonUsers();
 
-      return res.status(StatusCodes.OK).json(allCommonUsers);
-  }
+//       return res.status(StatusCodes.OK).json(allCommonUsers);
+//   }
 
   async getAllSellerUsers(_req, res) {
       const allSellerUsers = await this.usersService.getAllSellerUsers();
