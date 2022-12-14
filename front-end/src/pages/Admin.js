@@ -1,7 +1,9 @@
 import React, { useState, useEffect, useContext } from 'react';
+import AdminTable from '../components/AdminTable';
 import Navbar from '../components/Navbar';
 import DeliveryContext from '../context/DeliveryContext';
 import postFetch from '../utils/postFetch';
+import getFetch from '../utils/getFetch';
 
 function AdminPage() {
   const { userInfos } = useContext(DeliveryContext);
@@ -11,6 +13,24 @@ function AdminPage() {
   const [role, setRole] = useState('');
   const [btnAvailability, toggleBtnAvailability] = useState(false);
   const [errorMessage, setErrorMessage] = useState(undefined);
+  const [usersFromDb, setUsersFromDb] = useState(null);
+
+  useEffect(() => {
+    let isMounted = true;
+    const getUsers = async () => {
+      const users = await getFetch('users');
+      const filterAdmin = users.filter((user) => user.role !== 'administrator');
+      const excludePassword = filterAdmin.map((data) => ({
+        id: data.id,
+        name: data.name,
+        email: data.email,
+        role: data.role === 'seller' ? 'P. Vendedora' : 'Cliente',
+      }));
+      if (isMounted) setUsersFromDb(excludePassword);
+    };
+    getUsers();
+    return () => { isMounted = false; };
+  }, []);
 
   const handleChange = (event) => {
     const option = event.target.name;
@@ -25,13 +45,15 @@ function AdminPage() {
 
   const handleClick = async () => {
     const user = { name, email, password, role };
-    const newUser = await postFetch(
-      user,
-      'users/register/admin',
-      userInfos.token,
-    );
-    if (newUser.message) {
-      setErrorMessage(newUser.message);
+    if (userInfos) {
+      const newUser = await postFetch(
+        user,
+        'users/register/admin',
+        userInfos.token,
+      );
+      if (newUser.message) {
+        setErrorMessage(newUser.message);
+      }
     }
   };
 
@@ -126,7 +148,7 @@ function AdminPage() {
           <div className="col">
             <button
               data-testid="admin_manage__button-register"
-              type="button"
+              type="submit"
               className="btn btn-success"
               onClick={ handleClick }
               disabled={ btnAvailability }
@@ -135,6 +157,9 @@ function AdminPage() {
 
             </button>
           </div>
+        </div>
+        <div>
+          {usersFromDb && <AdminTable users={ usersFromDb } />}
         </div>
       </div>
     </>
