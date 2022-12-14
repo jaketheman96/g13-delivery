@@ -4,16 +4,22 @@ import formatDate from '../utils/formatDate';
 import CheckoutTable from './CheckoutTable';
 import DeliveryContext from '../context/DeliveryContext';
 import user from '../utils/roleValidator';
+import putFetch from '../utils/putFetch';
+
+const delivered = { status: 'Entregue' };
+const preparing = { status: 'Preparando' };
+const delivering = { status: 'Em Trânsito' };
 
 function OrderDetails({ id, seller: { name }, saleDate, status, products, totalPrice }) {
   const MINIMUN_ZEROS = 3;
 
   const { userInfos } = useContext(DeliveryContext);
 
-  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
+  const [isDeliveredButtonDisabled, setIsDeliveredButtonDisabled] = useState(false);
   const [showCustomerButton, setShowCustomerButton] = useState(false);
   const [showSellerButtons, setShowSellerButtons] = useState(false);
-  const [isPreparing, setIsPreparing] = useState(false);
+  const [isDeliveringBtnDisabled, setIsDeliveringBtnDisabled] = useState(false);
+  const [isPreparingBtnDisabled, setIsPreparingBtnDisabled] = useState(false);
 
   const reduceLength = () => {
     if (userInfos) {
@@ -42,16 +48,53 @@ function OrderDetails({ id, seller: { name }, saleDate, status, products, totalP
 
   useEffect(() => {
     const statusValidator = () => {
-      if (status === 'Em Trânsito') return setIsButtonDisabled(false);
-      return setIsButtonDisabled(true);
+      switch (status) {
+      case 'Pendente':
+        setIsPreparingBtnDisabled(false);
+        setIsDeliveringBtnDisabled(true);
+        setIsDeliveredButtonDisabled(true);
+        break;
+      case 'Preparando':
+        setIsPreparingBtnDisabled(true);
+        setIsDeliveringBtnDisabled(false);
+        setIsDeliveredButtonDisabled(true);
+        break;
+      case 'Em Trânsito':
+        setIsPreparingBtnDisabled(true);
+        setIsDeliveringBtnDisabled(true);
+        setIsDeliveredButtonDisabled(false);
+        break;
+      case 'Entregue':
+        setIsPreparingBtnDisabled(true);
+        setIsDeliveringBtnDisabled(true);
+        setIsDeliveredButtonDisabled(true);
+        break;
+      default:
+        break;
+      }
     };
     statusValidator();
-  }, [setIsButtonDisabled, status]);
+  }, [status]);
+
+  const handleClick = ({ target }) => {
+    const input = {
+      delivered: async () => {
+        await putFetch(delivered, 'sales', id);
+      },
+      preparing: async () => {
+        await putFetch(preparing, 'sales', id);
+      },
+      delivering: async () => {
+        await putFetch(delivering, 'sales', id);
+      },
+    };
+    input[target.name]();
+  };
 
   return (
     <section>
       <div
-        style={ { display: 'flex' } }
+        style={ { display: 'flex', justifyContent: 'space-evenly' } }
       >
         <h4
           data-testid={ `${reduceLength()}label-order-id` }
@@ -76,8 +119,9 @@ function OrderDetails({ id, seller: { name }, saleDate, status, products, totalP
         <button
           type="button"
           data-testid="customer_order_details__button-delivery-check"
-          onClick={ () => setIsButtonDisabled(true) }
-          disabled={ isButtonDisabled }
+          onClick={ handleClick }
+          disabled={ isDeliveredButtonDisabled }
+          name="delivered"
           hidden={ !showCustomerButton }
         >
           Marcar como entregue
@@ -85,7 +129,9 @@ function OrderDetails({ id, seller: { name }, saleDate, status, products, totalP
         <button
           type="button"
           data-testid="seller_order_details__button-preparing-check"
-          onClick={ () => setIsPreparing(true) }
+          onClick={ handleClick }
+          disabled={ isPreparingBtnDisabled }
+          name="preparing"
           hidden={ !showSellerButtons }
         >
           Preparar Pedido
@@ -93,8 +139,9 @@ function OrderDetails({ id, seller: { name }, saleDate, status, products, totalP
         <button
           type="button"
           data-testid="seller_order_details__button-dispatch-check"
-          onClick={ () => console.log('saiu para entrega') }
-          disabled={ !isPreparing }
+          onClick={ handleClick }
+          disabled={ isDeliveringBtnDisabled }
+          name="delivering"
           hidden={ !showSellerButtons }
         >
           Saiu para entrega
