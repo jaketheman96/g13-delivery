@@ -1,9 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-function AdminTable({ users }) {
+function AdminTable({ users, handleRemoveBtn }) {
   return (
     <div>
+      <h3>Lista de Usuários</h3>
       <table>
         <thead>
           <tr>
@@ -11,6 +12,7 @@ function AdminTable({ users }) {
             <th>Nome</th>
             <th>Email</th>
             <th>Tipo</th>
+            <th>Excluir</th>
           </tr>
         </thead>
         <tbody>
@@ -36,10 +38,16 @@ function AdminTable({ users }) {
               >
                 {user.role}
               </td>
-              <td
-                data-testid={ `admin_manage__element-user-table-remove-${index}` }
-              >
-                <button type="button">Remover</button>
+              <td>
+                <button
+                  type="button"
+                  name={ user.name }
+                  id={ user.id }
+                  onClick={ (e) => handleRemoveBtn(e.target.name, e.target.id) }
+                  data-testid={ `admin_manage__element-user-table-remove-${index}` }
+                >
+                  Excluir
+                </button>
               </td>
             </tr>
           ))}
@@ -56,6 +64,7 @@ AdminTable.propTypes = {
     email: PropTypes.string.isRequired,
     role: PropTypes.string.isRequired,
   })).isRequired,
+  handleRemoveBtn: PropTypes.func.isRequired,
 };
 
 export default AdminTable;
