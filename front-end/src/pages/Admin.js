@@ -1,7 +1,10 @@
 import React, { useState, useEffect, useContext } from 'react';
+import AdminTable from '../components/AdminTable';
 import Navbar from '../components/Navbar';
 import DeliveryContext from '../context/DeliveryContext';
 import postFetch from '../utils/postFetch';
+import getFetch from '../utils/getFetch';
+import deleteFetch from '../utils/deleteFetch';
 
 function AdminPage() {
   const { userInfos } = useContext(DeliveryContext);
@@ -11,6 +14,29 @@ function AdminPage() {
   const [role, setRole] = useState('');
   const [btnAvailability, toggleBtnAvailability] = useState(false);
   const [errorMessage, setErrorMessage] = useState(undefined);
+  const [usersFromDb, setUsersFromDb] = useState(null);
+
+  const formatUsers = (usersData) => {
+    const filterAdmin = usersData.filter((user) => user.role !== 'administrator');
+    const formatingUser = filterAdmin.map((data) => ({
+      id: data.id,
+      name: data.name,
+      email: data.email,
+      role: data.role === 'seller' ? 'P. Vendedora' : 'Cliente',
+    }));
+    return formatingUser;
+  };
+
+  useEffect(() => {
+    let isMounted = true;
+    const getUsers = async () => {
+      const users = await getFetch('users');
+      const usersFormated = formatUsers(users);
+      if (isMounted) setUsersFromDb(usersFormated);
+    };
+    getUsers();
+    return () => { isMounted = false; };
+  }, []);
 
   const handleChange = (event) => {
     const option = event.target.name;
@@ -25,13 +51,18 @@ function AdminPage() {
 
   const handleClick = async () => {
     const user = { name, email, password, role };
-    const newUser = await postFetch(
-      user,
-      'users/register/admin',
-      userInfos.token,
-    );
-    if (newUser.message) {
-      setErrorMessage(newUser.message);
+    if (userInfos) {
+      const newUser = await postFetch(
+        user,
+        'users/register/admin',
+        userInfos.token,
+      );
+      if (newUser.message) {
+        return setErrorMessage(newUser.message);
+      }
+      const users = [...usersFromDb, newUser];
+      const formated = formatUsers(users);
+      return setUsersFromDb(formated);
     }
   };
 
@@ -63,6 +94,12 @@ function AdminPage() {
     };
     registerButtonControl();
   });
+
+  const handleRemoveBtn = async (userName, userId) => {
+    const filterUsers = usersFromDb.filter((user) => user.name !== userName);
+    setUsersFromDb(filterUsers);
+    await deleteFetch(userId, 'users', userInfos.token);
+  };
 
   return (
     <>
@@ -126,7 +163,7 @@ function AdminPage() {
           <div className="col">
             <button
               data-testid="admin_manage__button-register"
-              type="button"
+              type="submit"
               className="btn btn-success"
               onClick={ handleClick }
               disabled={ btnAvailability }
@@ -135,6 +172,10 @@ function AdminPage() {
 
             </button>
           </div>
+        </div>
+        <div>
+          {usersFromDb
+          && <AdminTable users={ usersFromDb } handleRemoveBtn={ handleRemoveBtn } />}
         </div>
       </div>
     </>
