@@ -1,5 +1,5 @@
 import React from 'react';
-import { findByTestId, getByRole, getByTestId, screen, waitFor } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import App from '../App';
 import renderWithRouter from './helpers/renderWithRouter';
@@ -31,20 +31,6 @@ describe('Testes na tela de login', () => {
     expect(registerButton).toBeInTheDocument();
   });
 
-  test('Testa o redirecionamento para a tela de registro', () => {
-    renderWithRouter(<App />);
-
-    const registerButton = screen.getByRole('button', { name: /ainda nao tenho conta/i });
-
-    expect(registerButton).toBeInTheDocument();
-
-    userEvent.click(registerButton)
-
-    const userNameInput = screen.getByPlaceholderText(/nome/i)
-
-    expect(userNameInput).toBeInTheDocument()
-  });
-
   test('Testa o caso de erro de login', async () => {
     jest.spyOn(global, 'fetch');
     global.fetch.mockResolvedValue({
@@ -73,7 +59,21 @@ describe('Testes na tela de login', () => {
 
     const invalidLogin = await screen.findByText(/senha ou email invalidos/i)
 
-    expect(invalidLogin).toBeInTheDocument()
+    await expect(invalidLogin).toBeInTheDocument()
+  });
+
+  test('Testa o redirecionamento para a tela de registro', () => {
+    renderWithRouter(<App />);
+
+    const registerButton = screen.getByRole('button', { name: /ainda nao tenho conta/i });
+
+    expect(registerButton).toBeInTheDocument();
+
+    userEvent.click(registerButton)
+
+    const userNameInput = screen.getByPlaceholderText(/nome/i)
+
+    expect(userNameInput).toBeInTheDocument()
   });
 
   test('Testa se o post fetch é chamado corretamente', async () => {
@@ -85,7 +85,7 @@ describe('Testes na tela de login', () => {
     const EMAIL_USER = 'zebirita@email.com';
     const PASSWORD_USER = '$#zebirita#$';
 
-    renderWithRouter(<App />)
+    renderWithRouter(<App />, '/login')
 
     const inputEmail = screen.getByPlaceholderText(/login/i);
     const inputPassword = screen.getByPlaceholderText(/password/i);
