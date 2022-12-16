@@ -51,6 +51,8 @@ describe('Testes na pagina de Registros', () => {
       json: jest.fn().mockResolvedValue(userRegistered),
     });
 
+    const { history } = renderWithRouter(<App />)
+
     const email = 'jaketheman96@gmail.com';
     const password = 'jakejakejakejake';
     const name = 'jaketheman96796123';
@@ -69,7 +71,7 @@ describe('Testes na pagina de Registros', () => {
     userEvent.click(buttonRegister)
 
     await expect(global.fetch).toHaveBeenCalledTimes(1);
-  })
+    })
 
   test('Testa o registro invalido em caso de usuario ja existente', async () => {
     jest.spyOn(global, 'fetch');
