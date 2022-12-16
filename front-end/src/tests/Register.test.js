@@ -4,7 +4,6 @@ import userEvent from '@testing-library/user-event';
 import renderWithRouter from './helpers/renderWithRouter';
 import App from '../App';
 import registerMock from './mocks/registerMock';
-import { act } from 'react-dom/test-utils';
 
 const { userRegistered, invalidRegister } = registerMock;
 
@@ -46,7 +45,7 @@ describe('Testes na pagina de Registros', () => {
     expect(buttonRegister).toBeEnabled()
   })
 
-  test('Testa de o fetch eh chamado apos clicar no botao de registrar', () => {
+  test('Testa de o fetch eh chamado apos clicar no botao de registrar', async () => {
     jest.spyOn(global, 'fetch');
     global.fetch.mockResolvedValue({
       json: jest.fn().mockResolvedValue(userRegistered),
@@ -69,10 +68,10 @@ describe('Testes na pagina de Registros', () => {
 
     userEvent.click(buttonRegister)
 
-    expect(global.fetch).toHaveBeenCalledTimes(1);
+    await expect(global.fetch).toHaveBeenCalledTimes(1);
   })
 
-  test('Testa o registro invalido em caso de usuario ja existente', () => {
+  test('Testa o registro invalido em caso de usuario ja existente', async () => {
     jest.spyOn(global, 'fetch');
     global.fetch.mockResolvedValue({
       json: jest.fn().mockResolvedValue(invalidRegister),
@@ -95,7 +94,7 @@ describe('Testes na pagina de Registros', () => {
 
     userEvent.click(buttonRegister)
 
-    const registerInvalid = screen.getByTestId('common_register__element-invalid_register')
+    const registerInvalid = await screen.findByTestId('common_register__element-invalid_register')
 
     expect(registerInvalid).toBeInTheDocument()
   })
