@@ -70,7 +70,7 @@ describe('Testes na pagina de Registros', () => {
 
     userEvent.click(buttonRegister)
 
-    await expect(global.fetch).toHaveBeenCalledTimes(1);
+    expect(global.fetch).toHaveBeenCalledTimes(1);
     })
 
   test('Testa o registro invalido em caso de usuario ja existente', async () => {

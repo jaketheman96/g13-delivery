@@ -58,13 +58,13 @@ function ProductCard({ id, image, name, price, handleQuantity }) {
           className="card-text"
           data-testid={ `customer_products__element-card-title-${id}` }
         >
-          { name || 'Product Name' }
+          { name }
         </p>
         <span>
           R$
         </span>
         <span data-testid={ `customer_products__element-card-price-${id}` }>
-          { price || 'Product Price'}
+          { price }
         </span>
         <br />
         <button

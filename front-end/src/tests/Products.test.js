@@ -1,9 +1,10 @@
 import React from 'react';
-import { screen, fireEvent } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import renderWithRouter from './helpers/renderWithRouter';
 import App from '../App';
 import productsMock from './mocks/productsMock';
 import user from './mocks/userMocks';
+import userEvent from '@testing-library/user-event';
 
 describe('Testes na pagina de produtos', () => {
   beforeEach(() => {
@@ -44,29 +45,49 @@ describe('Testes na pagina de produtos', () => {
 
     const firstProduct = await screen.findByTestId('customer_products__element-card-title-1')
     const lastProduct = await screen.findByTestId('customer_products__element-card-title-11')
+    const firstProductPrice = await screen.findByTestId('customer_products__element-card-price-1')
 
     expect(firstProduct).toBeInTheDocument()
     expect(lastProduct).toBeInTheDocument()
+    expect(firstProduct).toHaveTextContent(/skol lata 250ml/i)
+    expect(firstProductPrice).toHaveTextContent('2,20')
   })
 
-  test('Testa o cart button', async () => {
+  test('Testa o cart button, add item e remove item', async () => {
     jest.spyOn(global, 'fetch');
     global.fetch.mockResolvedValue({
       json: jest.fn().mockResolvedValue(productsMock),
     });
 
     const { history } = renderWithRouter(<App />)
-
+    
     history.push('/customer/products')
-
+    
     const addItem = await screen.findByTestId('customer_products__button-card-add-item-1')
+    const removeItem = await screen.findByTestId('customer_products__button-card-rm-item-1')
     const cartButton = screen.getByTestId('customer_products__button-cart')
+    const itemQuantity = await screen.findByTestId('customer_products__input-card-quantity-1')
     expect(cartButton).not.toBeEnabled()
 
-    fireEvent.click(addItem)
-    fireEvent.click(addItem)
-    fireEvent.click(cartButton)
+    userEvent.click(addItem)
+    userEvent.click(removeItem)
+    userEvent.type(itemQuantity, 'a')
 
+    expect(itemQuantity.value).toEqual('1')
+
+    userEvent.click(removeItem)
+    userEvent.type(itemQuantity, '2')
+
+    expect(itemQuantity.value).toBe('2')
+
+    userEvent.click(removeItem)
+    userEvent.click(removeItem)
+    userEvent.click(removeItem)
+
+    expect(itemQuantity.value).toEqual('0')
+
+    userEvent.click(addItem)
+    userEvent.click(cartButton)
     expect(history.location.pathname).toEqual('/customer/checkout')
   })
 })

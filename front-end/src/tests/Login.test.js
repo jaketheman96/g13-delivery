@@ -59,7 +59,7 @@ describe('Testes na tela de login', () => {
 
     const invalidLogin = await screen.findByText(/senha ou email invalidos/i)
 
-    await expect(invalidLogin).toBeInTheDocument()
+    expect(invalidLogin).toBeInTheDocument()
   });
 
   test('Testa o redirecionamento para a tela de registro', () => {
