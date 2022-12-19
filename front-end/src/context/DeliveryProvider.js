@@ -8,6 +8,7 @@ function DeliveryProvider({ children }) {
   const [userInfos, setUserInfos] = useState();
   const [totalCartPrice, setTotalCartPrice] = useState(0);
   const [cart, setCart] = useState([]);
+  const [btnActive, setBtnActive] = useState('Products');
 
   useEffect(() => {
     const handleTotal = () => {
@@ -43,11 +44,14 @@ function DeliveryProvider({ children }) {
     setCart,
     totalCartPrice,
     setTotalCartPrice,
+    btnActive,
+    setBtnActive,
   }), [
     isButtonDisabled,
     userInfos,
     totalCartPrice,
     cart,
+    btnActive,
   ]);
 
   return (

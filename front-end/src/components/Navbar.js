@@ -1,16 +1,29 @@
 import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import DeliveryContext from '../context/DeliveryContext';
+import '../style/Navbar.style.css';
 
 function Navbar() {
-  const { userInfos, setUserInfos } = useContext(DeliveryContext);
+  const {
+    userInfos,
+    setUserInfos,
+    btnActive,
+    setBtnActive,
+  } = useContext(DeliveryContext);
+
   const history = useHistory();
 
   const handleClick = ({ target }) => {
     const option = target.name;
     const input = {
-      products: () => history.push('/customer/products'),
-      orders: () => history.push(`/${userInfos.role}/orders`),
+      products: () => {
+        setBtnActive('Products');
+        history.push('/customer/products');
+      },
+      orders: () => {
+        setBtnActive('Orders');
+        history.push(`/${userInfos.role}/orders`);
+      },
       logout: () => {
         localStorage.removeItem('user');
         localStorage.removeItem('cart');
@@ -34,43 +47,47 @@ function Navbar() {
 
   return (
     <header
-      style={ {
-        display: 'flex',
-        justifyContent: 'space-between',
-        padding: '5px',
-        flexWrap: 'wrap',
-        alignItems: 'center',
-      } }
+      className="navbar_header"
     >
-      <button
-        data-testid="customer_products__element-navbar-link-products"
-        type="button"
-        hidden={ userInfos?.role !== 'customer' }
-        name="products"
-        onClick={ handleClick }
-      >
-        Produtos
-      </button>
-      <button
-        data-testid="customer_products__element-navbar-link-orders"
-        type="button"
-        hidden={ userInfos?.role in ['customer', 'seller'] }
-        name="orders"
-        onClick={ handleClick }
-      >
-        { handleNavbar(userInfos?.role) }
-      </button>
-      <h3 data-testid="customer_products__element-navbar-user-full-name">
-        {userInfos && userInfos.name}
-      </h3>
-      <button
-        data-testid="customer_products__element-navbar-link-logout"
-        type="button"
-        name="logout"
-        onClick={ handleClick }
-      >
-        Sair
-      </button>
+      <div className="navbar__product_button">
+        <button
+          className={ btnActive === 'Products' ? 'btn active' : 'btn' }
+          data-testid="customer_products__element-navbar-link-products"
+          type="button"
+          hidden={ userInfos?.role !== 'customer' }
+          name="products"
+          onClick={ handleClick }
+        >
+          Produtos
+        </button>
+      </div>
+      <div className="navbar__orders_button">
+        <button
+          className={ btnActive === 'Orders' ? 'btn active' : 'btn' }
+          data-testid="customer_products__element-navbar-link-orders"
+          type="button"
+          hidden={ userInfos?.role in ['customer', 'seller'] }
+          name="orders"
+          onClick={ handleClick }
+        >
+          {handleNavbar(userInfos?.role)}
+        </button>
+      </div>
+      <div className="navbar__user_name">
+        <p data-testid="customer_products__element-navbar-user-full-name">
+          {userInfos && userInfos.name}
+        </p>
+      </div>
+      <div className="navbar__logout_button">
+        <button
+          data-testid="customer_products__element-navbar-link-logout"
+          type="button"
+          name="logout"
+          onClick={ handleClick }
+        >
+          Sair
+        </button>
+      </div>
     </header>
   );
 }
