@@ -1,0 +1,125 @@
+.login_page form {
+  background-color: rgb(238, 254, 255);
+  border: 1px solid rgb(204, 204, 204);
+  box-shadow: 0 3px 4px rgb(143, 143, 143);
+  display: flex;
+  flex-direction: column;
+  height: 18em;
+  justify-content: space-evenly;
+  left: 50%;
+  padding-left: 15px;
+  padding-right: 15px;
+  position: absolute;
+  top: 60%;
+  transform: translate(-50%, -50%);
+  width: 15%;
+}
+
+.login_page .logo_image {
+  left: 50%;
+  position: absolute;
+  top: 40%;
+  transform: translate(-50%, -50%);
+}
+
+.login_page .invalid_login {
+  font-size: smaller;
+  left: 50%;
+  position: absolute;
+  top: 78%;
+  transform: translate(-50%, -50%);
+}
+
+.login_page p {
+  margin: 0;
+  padding-left: 10px;
+}
+
+.login_page input {
+  border: solid black 1px;
+  border-radius: 3px;
+  box-shadow: 0 3px 4px rgb(143, 143, 143);
+  height: 45px;
+}
+
+.login_page .login_button {
+  background-color: rgb(9, 85, 40);
+  border: none;
+  border-radius: 5px;
+  color: white;
+  height: 38px;
+}
+
+.login_page .login_button:hover {
+  background-color: rgb(168, 190, 168);
+  transition-duration: 0.4s;
+}
+
+.login_page .register_button {
+  background-color: rgb(206, 233, 221);
+  border: solid rgb(9, 85, 40) 2px;
+  border-color: rgb(9, 85, 40);
+  border-radius: 5px;
+  color: rgb(9, 85, 40);
+  height: 38px;
+}
+
+.login_page .register_button:hover {
+  background-color: rgb(196, 221, 196);
+  color: white;
+  transition-duration: 0.4s;
+}
+
+/* Extra small devices (phones, 600px and down) */
+
+@media only screen and ( max-width : 600px ) {
+
+  .login_page form {
+    width: 65%;
+  }
+
+  .login_page .invalid_login {
+    top: 82%;
+  }
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+
+@media only screen and ( min-width : 600px ) {
+
+  .login_page form {
+    width: 50%;
+  }
+
+  .login_page .invalid_login {
+    top: 80%;
+  }
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+
+@media only screen and ( min-width : 768px ) {
+
+  .login_page form {
+    width: 40%;
+  }
+
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+
+@media only screen and ( min-width : 992px ) {
+
+  .login_page form {
+    width: 30%;
+  }
+}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+
+@media only screen and ( min-width : 1200px ) {
+
+  .login_page form {
+    width: 20%;
+  }
+}

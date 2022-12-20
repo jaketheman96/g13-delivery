@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 import DeliveryContext from '../context/DeliveryContext';
 import postFetch from '../utils/postFetch';
 import role from '../utils/roleValidator';
+import '../style/Login.style.css';
 
 function LoginPage() {
   const {
@@ -71,45 +72,50 @@ function LoginPage() {
   });
 
   return (
-    <div>
+    <div className="login_page">
       {/* logar usando o Enter */}
+      <div className="logo_image">
+        IMAGEM
+      </div>
       <form onSubmit={ handleClick }>
+        <p>Login</p>
         <input
           type="text"
-          placeholder="Login"
+          placeholder="email@delivery.com.br"
           data-testid="common_login__input-email"
           name="email"
           onChange={ handleChange }
         />
-        <br />
+        <p>Senha</p>
         <input
           type="password"
-          placeholder="Password"
+          placeholder="**************"
           data-testid="common_login__input-password"
           name="password"
           onChange={ handleChange }
         />
-        <br />
         <button
           type="submit"
           data-testid="common_login__button-login"
           disabled={ isButtonDisabled }
           name="login"
           onClick={ handleClick }
+          className="login_button"
         >
-          Login
+          LOGIN
         </button>
         <button
           type="submit"
           data-testid="common_login__button-register"
           name="register"
           onClick={ handleClick }
+          className="register_button"
         >
-          Ainda nao tenho conta
+          Ainda não tenho conta
         </button>
       </form>
       <div data-testid="common_login__element-invalid-email">
-        {showLoginError && <p> Senha ou email invalidos </p>}
+        {showLoginError && <p className="invalid_login"> Senha ou email invalidos </p>}
       </div>
     </div>
   );
