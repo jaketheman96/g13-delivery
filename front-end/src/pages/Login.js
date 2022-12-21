@@ -4,6 +4,7 @@ import DeliveryContext from '../context/DeliveryContext';
 import postFetch from '../utils/postFetch';
 import role from '../utils/roleValidator';
 import '../style/Login.style.css';
+import logo from '../images/G13delivery.gif';
 
 function LoginPage() {
   const {
@@ -75,7 +76,7 @@ function LoginPage() {
     <div className="login_page">
       {/* logar usando o Enter */}
       <div className="logo_image">
-        IMAGEM
+        <img src={ logo } alt="G13 logo gif" width="400px" height="350px" />
       </div>
       <form onSubmit={ handleClick }>
         <p>Login</p>
