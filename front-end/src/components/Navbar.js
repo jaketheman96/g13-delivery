@@ -37,7 +37,7 @@ function Navbar() {
   const handleNavbar = (userRole) => {
     switch (userRole) {
     case 'customer':
-      return 'Meus pedidos';
+      return 'MEUS PEDIDOS';
     case 'administrator':
       return 'Gerenciar usuários';
     default:
@@ -49,7 +49,12 @@ function Navbar() {
     <header
       className="navbar_header"
     >
-      <div className="navbar__product_button">
+      <div
+        className="navbar__product_button"
+        style={ btnActive === 'Products'
+          ? { background: '#00FA9A' }
+          : { backgroundColor: `rgb(${('9', '85', '40')})` } }
+      >
         <button
           className={ btnActive === 'Products' ? 'btn active' : 'btn' }
           data-testid="customer_products__element-navbar-link-products"
@@ -58,10 +63,15 @@ function Navbar() {
           name="products"
           onClick={ handleClick }
         >
-          Produtos
+          PRODUTOS
         </button>
       </div>
-      <div className="navbar__orders_button">
+      <div
+        className="navbar__orders_button"
+        style={ btnActive === 'Orders'
+          ? { background: '#00FA9A' }
+          : { backgroundColor: `rgb(${('9', '85', '40')})` } }
+      >
         <button
           className={ btnActive === 'Orders' ? 'btn active' : 'btn' }
           data-testid="customer_products__element-navbar-link-orders"

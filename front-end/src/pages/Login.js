@@ -12,6 +12,7 @@ function LoginPage() {
     setUserInfos,
     isButtonDisabled,
     setIsButtonDisabled,
+    setBtnActive,
   } = useContext(DeliveryContext);
 
   const [email, setEmail] = useState('');
@@ -42,6 +43,7 @@ function LoginPage() {
     const buttons = {
       register: () => history.push('/register'),
       login: async () => {
+        setBtnActive('Products');
         const response = await postFetch({ email, password }, 'login');
         if (response.message) return setShowLoginError(true);
         localStorage.setItem('user', JSON.stringify(response));
