@@ -4,7 +4,7 @@ import DeliveryContext from '../context/DeliveryContext';
 import postFetch from '../utils/postFetch';
 import role from '../utils/roleValidator';
 import '../style/Login.style.css';
-import logo from '../images/G13delivery.gif';
+import logo from '../images/g13delivery.gif';
 
 function LoginPage() {
   const {

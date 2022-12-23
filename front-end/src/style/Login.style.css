@@ -1,4 +1,4 @@
-.login_page form {
+form {
   background-color: rgb(238, 254, 255);
   border: 1px solid rgb(204, 204, 204);
   box-shadow: 0 3px 4px rgb(143, 143, 143);
@@ -30,12 +30,12 @@
   transform: translate(-50%, -50%);
 }
 
-.login_page p {
+p {
   margin: 0;
   padding-left: 10px;
 }
 
-.login_page input {
+input {
   border: solid black 1px;
   border-radius: 3px;
   box-shadow: 0 3px 4px rgb(143, 143, 143);
@@ -74,7 +74,7 @@
 
 @media only screen and ( max-width : 600px ) {
 
-  .login_page form {
+  form {
     width: 65%;
   }
 
@@ -96,7 +96,7 @@
 
 @media only screen and ( min-width : 600px ) {
 
-  .login_page form {
+  form {
     width: 50%;
   }
 
@@ -113,7 +113,7 @@
 
 @media only screen and ( min-width : 768px ) {
 
-  .login_page form {
+  form {
     width: 40%;
   }
 
@@ -127,7 +127,7 @@
 
 @media only screen and ( min-width : 992px ) {
 
-  .login_page form {
+  form {
     width: 30%;
   }
 
@@ -140,7 +140,7 @@
 
 @media only screen and ( min-width : 1200px ) {
 
-  .login_page form {
+  form {
     width: 20%;
   }
 

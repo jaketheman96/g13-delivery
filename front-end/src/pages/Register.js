@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import DeliveryContext from '../context/DeliveryContext';
 import postFetch from '../utils/postFetch';
+import '../style/Login.style.css';
 
 function RegisterPage() {
   const {
@@ -71,42 +72,44 @@ function RegisterPage() {
 
   return (
     <div>
-      <input
-        type="text"
-        placeholder="Nome"
-        data-testid="common_register__input-name"
-        name="name"
-        onChange={ handleChange }
-      />
-      <br />
-      <input
-        type="text"
-        placeholder="Email"
-        data-testid="common_register__input-email"
-        name="email"
-        onChange={ handleChange }
-      />
-      <br />
-      <input
-        type="password"
-        placeholder="Password"
-        data-testid="common_register__input-password"
-        name="password"
-        onChange={ handleChange }
-      />
-      <br />
-      <button
-        type="button"
-        data-testid="common_register__button-register"
-        disabled={ isButtonDisabled }
-        name="register"
-        onClick={ handleClick }
-      >
-        Registrar
-      </button>
-      <div data-testid="common_register__element-invalid_register">
-        {showRegisterError && <p> Registro invalido </p>}
-      </div>
+      <form>
+        <input
+          type="text"
+          placeholder="Nome"
+          data-testid="common_register__input-name"
+          name="name"
+          onChange={ handleChange }
+        />
+        <br />
+        <input
+          type="text"
+          placeholder="Email"
+          data-testid="common_register__input-email"
+          name="email"
+          onChange={ handleChange }
+        />
+        <br />
+        <input
+          type="password"
+          placeholder="Password"
+          data-testid="common_register__input-password"
+          name="password"
+          onChange={ handleChange }
+        />
+        <br />
+        <button
+          type="button"
+          data-testid="common_register__button-register"
+          disabled={ isButtonDisabled }
+          name="register"
+          onClick={ handleClick }
+        >
+          Registrar
+        </button>
+        <div data-testid="common_register__element-invalid_register">
+          {showRegisterError && <p> Registro invalido </p>}
+        </div>
+      </form>
     </div>
   );
 }
