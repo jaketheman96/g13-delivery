@@ -114,25 +114,18 @@ function ProductsPage() {
           )) : <p>{ fetchError }</p>
         }
       </div>
-      <button
-        type="button"
-        data-testid="customer_products__button-cart"
-        disabled={ totalCartPrice <= 0 }
-        name="total"
-        value={ totalCartPrice.toFixed(2).replace('.', ',') }
-        onClick={ () => history.push('/customer/checkout') }
-      >
-        Total
-
-      </button>
-      <span>
-        R$
-
-      </span>
-      <span data-testid="customer_products__checkout-bottom-value">
-        { totalCartPrice.toFixed(2).replace('.', ',') }
-
-      </span>
+      <div className="total-cart">
+        <button
+          type="button"
+          data-testid="customer_products__button-cart"
+          disabled={ totalCartPrice <= 0 }
+          name="total"
+          value={ totalCartPrice.toFixed(2).replace('.', ',') }
+          onClick={ () => history.push('/customer/checkout') }
+        >
+          { `Ver carrinho: R$ ${totalCartPrice.toFixed(2).replace('.', ',')}` }
+        </button>
+      </div>
     </>
   );
 }

@@ -67,34 +67,38 @@ function ProductCard({ id, image, name, price, handleQuantity }) {
         >
           { name }
         </p>
-        <button
-          type="button"
-          id={ id }
-          data-testid={ `customer_products__button-card-rm-item-${id}` }
-          name="btn-rm"
-          onClick={ handleClick }
-        >
-          -
+        <div className="quantity-control">
+          <button
+            type="button"
+            id={ id }
+            data-testid={ `customer_products__button-card-rm-item-${id}` }
+            name="btn-rm"
+            onClick={ handleClick }
+            className="rmv-btn"
+          >
+            -
 
-        </button>
-        <input
-          data-testid={ `customer_products__input-card-quantity-${id}` }
-          id={ id }
-          style={ { width: '2em' } }
-          type="text"
-          value={ inputValue }
-          onChange={ handleChange }
-        />
-        <button
-          type="button"
-          id={ id }
-          data-testid={ `customer_products__button-card-add-item-${id}` }
-          name="btn-add"
-          onClick={ handleClick }
-        >
-          +
+          </button>
+          <input
+            data-testid={ `customer_products__input-card-quantity-${id}` }
+            id={ id }
+            type="text"
+            value={ inputValue }
+            onChange={ handleChange }
+          />
+          <button
+            type="button"
+            id={ id }
+            data-testid={ `customer_products__button-card-add-item-${id}` }
+            name="btn-add"
+            onClick={ handleClick }
+            className="add-btn"
+          >
+            +
 
-        </button>
+          </button>
+
+        </div>
       </div>
     </div>
   );
