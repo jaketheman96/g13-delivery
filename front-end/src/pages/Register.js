@@ -2,7 +2,8 @@ import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import DeliveryContext from '../context/DeliveryContext';
 import postFetch from '../utils/postFetch';
-import '../style/Login.style.css';
+import '../style/Register.style.css';
+import logo from '../images/g13delivery.gif';
 
 function RegisterPage() {
   const {
@@ -71,8 +72,14 @@ function RegisterPage() {
   });
 
   return (
-    <div>
+    <div
+      className="register_page"
+    >
+      <div className="logo_image">
+        <img src={ logo } alt="G13 logo gif" width="400px" height="350px" />
+      </div>
       <form>
+        <p>Nome </p>
         <input
           type="text"
           placeholder="Nome"
@@ -80,7 +87,7 @@ function RegisterPage() {
           name="name"
           onChange={ handleChange }
         />
-        <br />
+        <p>Email</p>
         <input
           type="text"
           placeholder="Email"
@@ -88,7 +95,7 @@ function RegisterPage() {
           name="email"
           onChange={ handleChange }
         />
-        <br />
+        <p>Senha</p>
         <input
           type="password"
           placeholder="Password"
@@ -96,20 +103,23 @@ function RegisterPage() {
           name="password"
           onChange={ handleChange }
         />
-        <br />
         <button
           type="button"
           data-testid="common_register__button-register"
           disabled={ isButtonDisabled }
           name="register"
           onClick={ handleClick }
+          className="register_page__button"
         >
           Registrar
         </button>
-        <div data-testid="common_register__element-invalid_register">
-          {showRegisterError && <p> Registro invalido </p>}
-        </div>
       </form>
+      <div
+        data-testid="common_register__element-invalid_register"
+        className="invalid_register"
+      >
+        {showRegisterError && <p> Registro invalido </p>}
+      </div>
     </div>
   );
 }

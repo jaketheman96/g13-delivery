@@ -4,6 +4,7 @@ import Navbar from '../components/Navbar';
 import ProductCard from '../components/ProductCard';
 import DeliveryContext from '../context/DeliveryContext';
 import getFetch from '../utils/getFetch';
+import '../style/Products.style.css';
 // import convertToBRL from '../utils/convertToBRL';
 
 function ProductsPage() {
@@ -15,6 +16,7 @@ function ProductsPage() {
   } = useContext(DeliveryContext);
   const history = useHistory();
   const [products, setProducts] = useState(null);
+  const [fetchError, setFetchError] = useState(null);
   // const [inputs, setInputs] = useState([]);
 
   const handleQuantity = (productId, quantity) => {
@@ -53,7 +55,10 @@ function ProductsPage() {
     let isMounted = true;
     async function getProducts() {
       const data = await getFetch('products');
-      if (isMounted) setProducts(data);
+      if (isMounted) {
+        if (data.message) return setFetchError(data.message);
+        return setProducts(data);
+      }
     }
     getProducts();
     return () => { isMounted = false; };
@@ -95,10 +100,9 @@ function ProductsPage() {
     <>
       <Navbar />
       <br />
-      <div className="row row-cols-1 row-cols-md-2 g-4">
+      <div className="products_card">
         {
-          products && products.map((product) => (
-
+          !fetchError && products ? products.map((product) => (
             <ProductCard
               key={ product.id }
               id={ product.id }
@@ -107,7 +111,7 @@ function ProductsPage() {
               name={ product.name }
               handleQuantity={ handleQuantity }
             />
-          ))
+          )) : <p>{ fetchError }</p>
         }
       </div>
       <button

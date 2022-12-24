@@ -1,0 +1,37 @@
+.products_card {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 50px 20px;
+  justify-content: space-evenly;
+}
+
+.card {
+  border-radius: 0;
+  box-shadow: 0 3px 4px rgb(143, 143, 143);
+  width: 15em;
+}
+
+.card-img-top-1 {
+  margin: 0 auto;
+  width: 125px;
+}
+
+.card-body {
+  background-color: rgb(232, 243, 231);
+  text-align: center;
+}
+
+.products_price {
+  background-color: rgb(245, 253, 255, 0.5);
+  border-radius: 5px;
+  height: 25px;
+  margin: 0;
+  position: absolute;
+  width: 70px;
+}
+
+.products_price p {
+  font-size: 20px;
+  text-align: center;
+  text-decoration: solid;
+}

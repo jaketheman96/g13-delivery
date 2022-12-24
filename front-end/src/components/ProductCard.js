@@ -45,13 +45,20 @@ function ProductCard({ id, image, name, price, handleQuantity }) {
   };
 
   return (
-    <div className="card" style={ { width: '10em' } }>
+    <div className="card">
+      <div className="products_price">
+        <p
+          data-testid={ `customer_products__element-card-price-${id}` }
+        >
+          { `R$${price}` }
+        </p>
+      </div>
       <img
         src={ `${image}` }
-        className="card-img-top"
-        style={ { width: '3em' } }
+        className={ `card-img-top-${id}` }
         alt="product"
         data-testid={ `customer_products__img-card-bg-image-${id}` }
+        style={ { maxWidth: '100%', height: 'auto' } }
       />
       <div className="card-body">
         <p
@@ -60,13 +67,6 @@ function ProductCard({ id, image, name, price, handleQuantity }) {
         >
           { name }
         </p>
-        <span>
-          R$
-        </span>
-        <span data-testid={ `customer_products__element-card-price-${id}` }>
-          { price }
-        </span>
-        <br />
         <button
           type="button"
           id={ id }
