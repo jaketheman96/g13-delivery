@@ -3,17 +3,19 @@
   flex-wrap: wrap;
   gap: 50px 20px;
   justify-content: space-evenly;
+  margin: 0 auto;
+  width: 90%;
 }
 
 .card {
   border-radius: 0;
   box-shadow: 0 3px 4px rgb(143, 143, 143);
-  width: 15em;
+  width: 20em;
 }
 
 .card-img-top-1 {
   margin: 0 auto;
-  width: 125px;
+  width: 172px;
 }
 
 .card-body {
