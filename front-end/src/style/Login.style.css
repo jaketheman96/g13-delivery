@@ -1,3 +1,14 @@
+.login_page {
+  display: flex;
+  flex-direction: column;
+  height: 80%;
+  justify-content: space-evenly;
+  left: 50%;
+  position: absolute;
+  top: 45%;
+  transform: translate(-50%, -50%);
+}
+
 .login_page form {
   background-color: rgb(238, 254, 255);
   border: 1px solid rgb(204, 204, 204);
@@ -6,28 +17,15 @@
   flex-direction: column;
   height: 17em;
   justify-content: space-evenly;
-  left: 50%;
+  margin: auto;
   padding-left: 15px;
   padding-right: 15px;
-  position: absolute;
-  top: 60%;
-  transform: translate(-50%, -50%);
-  width: 15%;
-}
-
-.logo_image {
-  left: 50%;
-  position: absolute;
-  top: 26%;
-  transform: translate(-50%, -50%);
+  width: 320px;
 }
 
 .login_page .invalid_login {
   font-size: smaller;
-  left: 50%;
-  position: absolute;
-  top: 78%;
-  transform: translate(-50%, -50%);
+  text-align: center;
 }
 
 .login_page p {
@@ -70,81 +68,11 @@
   transition-duration: 0.4s;
 }
 
-/* Extra small devices (phones, 600px and down) */
-
-@media only screen and ( max-width : 600px ) {
-
-  .login_page form {
-    width: 65%;
-  }
-
-  .login_page .invalid_login {
-    top: 82%;
-  }
-
-  .login_page .logo_image {
-    top: 30%;
-  }
-
-  .login_page .logo_image img {
-    height: 300px;
-    width: 300px;
-  }
-}
-
-/* Small devices (portrait tablets and large phones, 600px and up) */
-
-@media only screen and ( min-width : 600px ) {
-
-  .login_page form {
-    width: 50%;
-  }
-
-  .login_page .invalid_login {
-    top: 80%;
-  }
-
-  .login_page .logo_image {
-    top: 25%;
-  }
-}
-
-/* Medium devices (landscape tablets, 768px and up) */
-
-@media only screen and ( min-width : 768px ) {
-
-  .login_page form {
-    width: 40%;
-  }
-
-  .login_page .logo_image {
-    top: 25%;
-  }
-
-}
-
-/* Large devices (laptops/desktops, 992px and up) */
-
-@media only screen and ( min-width : 992px ) {
-
-  .login_page form {
-    width: 30%;
-  }
-
-  .login_page .logo_image {
-    top: 25%;
-  }
-}
-
 /* Extra large devices (large laptops and desktops, 1200px and up) */
 
 @media only screen and ( min-width : 1200px ) {
 
-  .login_page form {
-    width: 20%;
-  }
-
-  .login_page .logo_image {
-    top: 26%;
+  .login_page {
+    height: 70%;
   }
 }

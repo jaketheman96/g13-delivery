@@ -75,52 +75,54 @@ function LoginPage() {
   });
 
   return (
-    <div className="login_page">
+    <section className="login_page">
       {/* logar usando o Enter */}
       <div className="logo_image">
         <img src={ logo } alt="G13 logo gif" width="400px" height="350px" />
       </div>
-      <form onSubmit={ handleClick }>
-        <p>Login</p>
-        <input
-          type="text"
-          placeholder="email@delivery.com.br"
-          data-testid="common_login__input-email"
-          name="email"
-          onChange={ handleChange }
-        />
-        <p>Senha</p>
-        <input
-          type="password"
-          placeholder="**************"
-          data-testid="common_login__input-password"
-          name="password"
-          onChange={ handleChange }
-        />
-        <button
-          type="submit"
-          data-testid="common_login__button-login"
-          disabled={ isButtonDisabled }
-          name="login"
-          onClick={ handleClick }
-          className="login_button"
-        >
-          LOGIN
-        </button>
-        <button
-          type="submit"
-          data-testid="common_login__button-register"
-          name="register"
-          onClick={ handleClick }
-          className="register_button"
-        >
-          Ainda não tenho conta
-        </button>
-      </form>
+      <div className="login_form">
+        <form onSubmit={ handleClick }>
+          <p>Login</p>
+          <input
+            type="text"
+            placeholder="email@delivery.com.br"
+            data-testid="common_login__input-email"
+            name="email"
+            onChange={ handleChange }
+          />
+          <p>Senha</p>
+          <input
+            type="password"
+            placeholder="**************"
+            data-testid="common_login__input-password"
+            name="password"
+            onChange={ handleChange }
+          />
+          <button
+            type="submit"
+            data-testid="common_login__button-login"
+            disabled={ isButtonDisabled }
+            name="login"
+            onClick={ handleClick }
+            className="login_button"
+          >
+            LOGIN
+          </button>
+          <button
+            type="submit"
+            data-testid="common_login__button-register"
+            name="register"
+            onClick={ handleClick }
+            className="register_button"
+          >
+            Ainda não tenho conta
+          </button>
+        </form>
+      </div>
       <div data-testid="common_login__element-invalid-email">
         {showLoginError && <p className="invalid_login"> Senha ou email invalidos </p>}
       </div>
-    </div>
+    </section>
   );
 }
 

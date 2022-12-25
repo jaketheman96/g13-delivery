@@ -72,55 +72,55 @@ function RegisterPage() {
   });
 
   return (
-    <div
-      className="register_page"
-    >
+    <section className="register_page">
       <div className="logo_image">
         <img src={ logo } alt="G13 logo gif" width="400px" height="350px" />
       </div>
-      <form>
-        <p>Nome </p>
-        <input
-          type="text"
-          placeholder="Nome"
-          data-testid="common_register__input-name"
-          name="name"
-          onChange={ handleChange }
-        />
-        <p>Email</p>
-        <input
-          type="text"
-          placeholder="Email"
-          data-testid="common_register__input-email"
-          name="email"
-          onChange={ handleChange }
-        />
-        <p>Senha</p>
-        <input
-          type="password"
-          placeholder="Password"
-          data-testid="common_register__input-password"
-          name="password"
-          onChange={ handleChange }
-        />
-        <button
-          type="button"
-          data-testid="common_register__button-register"
-          disabled={ isButtonDisabled }
-          name="register"
-          onClick={ handleClick }
-          className="register_page__button"
-        >
-          Registrar
-        </button>
-      </form>
+      <div className="register_form">
+        <form>
+          <p>Nome </p>
+          <input
+            type="text"
+            placeholder="Nome"
+            data-testid="common_register__input-name"
+            name="name"
+            onChange={ handleChange }
+          />
+          <p>Email</p>
+          <input
+            type="text"
+            placeholder="Email"
+            data-testid="common_register__input-email"
+            name="email"
+            onChange={ handleChange }
+          />
+          <p>Senha</p>
+          <input
+            type="password"
+            placeholder="Password"
+            data-testid="common_register__input-password"
+            name="password"
+            onChange={ handleChange }
+          />
+          <button
+            type="button"
+            data-testid="common_register__button-register"
+            disabled={ isButtonDisabled }
+            name="register"
+            onClick={ handleClick }
+            className="register_page__button"
+          >
+            Registrar
+          </button>
+        </form>
+      </div>
       <div
         data-testid="common_register__element-invalid_register"
         className="invalid_register"
       >
         {showRegisterError && <p> Registro invalido </p>}
       </div>
-    </div>
+    </section>
   );
 }
 
