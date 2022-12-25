@@ -37,7 +37,7 @@
   background-color: rgb(71, 49, 167);
   display: flex;
   justify-content: center;
-  margin-left: auto;
+  margin: 0 0 0 auto;
   text-align: center;
   width: 20vw;
 }
@@ -77,11 +77,11 @@
 
 @media only screen and ( max-width : 600px ) {
 
-  .navbar__product_button button {
+  .navbar__orders_button button {
     font-size: 2.8vw;
   }
 
-  .navbar__orders_button button {
+  .navbar__product_button button {
     font-size: 2.8vw;
   }
 
@@ -93,21 +93,53 @@
     height: 45px;
   }
 
+  .navbar__orders_button {
+    background-color: rgb(9, 85, 40);
+    border-radius: 35%;
+    height: 13vw;
+    position: fixed;
+    right: 70%;
+    top: 93%;
+    width: 13vw;
+    z-index: 1;
+  }
+
+  .navbar__product_button {
+    background-color: rgb(9, 85, 40);
+    border-radius: 35%;
+    height: 13vw;
+    position: fixed;
+    right: 85%;
+    top: 93%;
+    width: 13vw;
+    z-index: 1;
+  }
+
   .navbar__product_button button {
-    font-size: 3vw;
+    background-image: url('../images/beericon.png');
+    background-size: cover;
+    font-size: 0;
+    height: 100%;
   }
 
   .navbar__orders_button button {
-    font-size: 3vw;
+    background-image: url('../images/ordersicon.png');
+    background-size: cover;
+    font-size: 0;
+    height: 100%;
+  }
+
+  .navbar__user_name {
+    margin: 0 auto 0 0;
   }
 
   .navbar__logout_button button {
-    font-size: 3vw;
+    font-size: 5vw;
     margin: auto;
   }
 
   .navbar__logout_button {
-    width: 10vw;
+    width: 12vw;
   }
 
 }
