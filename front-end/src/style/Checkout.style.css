@@ -5,21 +5,47 @@
 
 .checkout-table table {
   border: solid rgb(170, 170, 170) 1px;
-  overflow-x: auto;
-  width: 90vw;
+  width: 100%;
 }
 
-th, td {
-  padding: 15px;
+td th {
+  padding: 100px;
+}
+
+table tbody tr td:nth-child( 1 ) {
+  background-color: #00ff9d;
   text-align: center;
+  width: 30px;
 }
 
-.navbar_header .navbar__product_button {
-  display: flex;
+table tbody tr td:nth-child( 2 ) {
+  background-color: rgb(228, 228, 228);
 }
 
-.navbar_header .navbar__product_button button {
-  font-weight: 500;
+table tbody tr td:nth-child( 3 ) {
+  background-color: rgb(9, 85, 40);
+  color: white;
   text-align: center;
-  width: 18vw;
+  width: 100px;
+}
+
+table tbody tr td:nth-child( 4 ) {
+  background-color: rgb(71, 49, 167);
+  color: white;
+  text-align: center;
+  width: 100px;
+}
+
+table tbody tr td:nth-child( 5 ) {
+  background-color: rgb(16, 111, 194);
+  color: white;
+  text-align: center;
+  width: 100px;
+}
+
+table button {
+  background-color: #3ef7b0;
+  color: white;
+  text-align: center;
+  width: 200px;
 }
