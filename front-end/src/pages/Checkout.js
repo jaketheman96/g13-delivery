@@ -3,6 +3,7 @@ import CheckoutTable from '../components/CheckoutTable';
 import Navbar from '../components/Navbar';
 import SellerForm from '../components/SellerForm';
 import DeliveryContext from '../context/DeliveryContext';
+import '../style/Checkout.style.css';
 
 function CheckoutPage() {
   const { cart } = useContext(DeliveryContext);

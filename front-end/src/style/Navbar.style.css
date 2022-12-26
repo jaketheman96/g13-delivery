@@ -39,12 +39,12 @@
   justify-content: center;
   margin: 0 0 0 auto;
   text-align: center;
-  width: 20vw;
+  width: 300px;
 }
 
 .navbar_header .navbar__user_name p {
   color: rgb(247, 247, 247);
-  font-size: 1.5vmax;
+  font-size: 20px;
   margin: 0;
 }
 
@@ -54,92 +54,86 @@
 }
 
 .navbar_header .navbar__logout_button button {
-  font-size: 1.3vmax;
   text-align: center;
-  width: 8vw;
+  width: 10vw;
 }
 
-@media only screen and ( max-width : 768px ) {
-
-  .navbar__product_button button {
-    font-size: 2vw;
-  }
-
-  .navbar__orders_button button {
-    font-size: 2vw;
-  }
-
-  .navbar__logout_button button {
-    font-size: 2vw;
-  }
-
-}
+/* Extra small devices (phones, 600px and down) */
 
 @media only screen and ( max-width : 600px ) {
 
-  .navbar__orders_button button {
-    font-size: 2.8vw;
-  }
-
-  .navbar__product_button button {
-    font-size: 2.8vw;
-  }
-
-}
-
-@media only screen and ( max-width : 420px ) {
-
   .navbar_header {
-    height: 45px;
-  }
-
-  .navbar__orders_button {
-    background-color: rgb(9, 85, 40);
-    border-radius: 35%;
-    height: 13vw;
-    position: fixed;
-    right: 70%;
-    top: 93%;
-    width: 13vw;
-    z-index: 1;
+    height: 55px;
   }
 
   .navbar__product_button {
-    background-color: rgb(9, 85, 40);
-    border-radius: 35%;
-    height: 13vw;
-    position: fixed;
-    right: 85%;
-    top: 93%;
-    width: 13vw;
-    z-index: 1;
+    max-height: 100%;
   }
 
   .navbar__product_button button {
     background-image: url('../images/beericon.png');
-    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: 9vw 9vw;
     font-size: 0;
-    height: 100%;
   }
 
   .navbar__orders_button button {
     background-image: url('../images/ordersicon.png');
-    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: 10vw 10vw;
     font-size: 0;
-    height: 100%;
   }
 
-  .navbar__user_name {
-    margin: 0 auto 0 0;
-  }
-
-  .navbar__logout_button button {
-    font-size: 5vw;
-    margin: auto;
+  .navbar_header .navbar__logout_button button {
+    background-image: url('../images/logouticon.png');
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: 6vw 6vw;
+    font-size: 0;
   }
 
   .navbar__logout_button {
-    width: 12vw;
+    width: 10vw;
+  }
+
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+
+@media only screen and ( min-width : 600px ) {
+
+  .navbar__product_button button {
+    font-size: 2vw;
+  }
+
+  .navbar__orders_button button {
+    font-size: 2vw;
+  }
+
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+
+@media only screen and ( min-width : 992px ) {
+
+  .navbar__product_button button {
+    font-size: 20px;
+  }
+
+  .navbar__orders_button button {
+    font-size: 20px;
+  }
+
+}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+
+@media only screen and ( min-width : 1200px ) {
+
+  .navbar__logout_button {
+    width: 120px;
   }
 
 }

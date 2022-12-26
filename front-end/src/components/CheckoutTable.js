@@ -60,8 +60,8 @@ export default function CheckoutTable({ infos, totalPrice }) {
   };
 
   return (
-    <section>
-      {isCheckoutPage && <h3>Finalizar Pedido</h3>}
+    <section className="checkout-table">
+      {isCheckoutPage && <h4>Finalizar Pedido</h4>}
       <table>
         <thead>
           <tr>
@@ -128,13 +128,11 @@ export default function CheckoutTable({ infos, totalPrice }) {
         </tbody>
       </table>
       <div>
-        Total:
-        &nbsp;
         <span
           data-testid={ `${reduceLength()}-total-price` }
         >
-          {isCheckoutPage && `R$${totalCartPrice.toFixed(2).replace('.', ',')}`}
-          {!isCheckoutPage && `R$${totalPrice.replace('.', ',')}`}
+          {isCheckoutPage && `Total: R$${totalCartPrice.toFixed(2).replace('.', ',')}`}
+          {!isCheckoutPage && `Total: R$${totalPrice.replace('.', ',')}`}
         </span>
       </div>
     </section>
