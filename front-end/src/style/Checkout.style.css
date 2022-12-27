@@ -1,51 +1,116 @@
 .checkout-table {
-  margin: 30px auto;
-  width: 90vw;
+  background-color: rgb(246, 246, 246);
+  border: solid rgb(187, 187, 187) 1px;
+  box-shadow: 0 3px 4px rgb(162, 162, 162);
+  margin: 0 auto;
+  width: 80%;
+}
+
+h4 {
+  font-size: 20px;
+  margin: 2vw 0 0 10.5vw;
 }
 
 .checkout-table table {
-  border: solid rgb(170, 170, 170) 1px;
+  border-collapse: separate;
+  border-spacing: 0 6px;
+  padding: 15px 15px 25px;
   width: 100%;
 }
 
-td th {
-  padding: 100px;
+.total-price {
+  background-color: rgb(49, 105, 72);
+  border-radius: 6px;
+  display: flex;
+  height: 50px;
+  margin: 0 15px 15px 0;
+  margin-left: auto;
+  width: 25%;
+}
+
+.total-price p {
+  color: white;
+  font-family: sans-serif;
+  font-size: 2.4vw;
+  font-weight: 700;
+  margin: auto;
+}
+
+tr th {
+  font-size: 12px;
+  font-weight: 400;
+  text-align: center;
+}
+
+tbody {
+  text-align: center;
+}
+
+tbody td {
+  height: 40px;
+  padding: 0;
 }
 
 table tbody tr td:nth-child( 1 ) {
   background-color: #00ff9d;
+  border-radius: 5px 0 0 5px;
+  font-family: sans-serif;
+  font-size: 17px;
+  font-weight: 700;
   text-align: center;
-  width: 30px;
+  width: 50px;
 }
 
 table tbody tr td:nth-child( 2 ) {
   background-color: rgb(228, 228, 228);
+  font-family: sans-serif;
+  font-size: 17px;
+  font-weight: 800;
+  padding-left: 10px;
+  text-align: left;
+  width: 480px;
 }
 
 table tbody tr td:nth-child( 3 ) {
-  background-color: rgb(9, 85, 40);
+  background-color: rgb(49, 105, 72);
   color: white;
+  font-family: sans-serif;
+  font-size: 21px;
+  font-weight: 800;
   text-align: center;
-  width: 100px;
+  width: 110px;
 }
 
 table tbody tr td:nth-child( 4 ) {
   background-color: rgb(71, 49, 167);
   color: white;
+  font-family: sans-serif;
+  font-size: 21px;
+  font-weight: 800;
   text-align: center;
-  width: 100px;
+  width: 110px;
 }
 
 table tbody tr td:nth-child( 5 ) {
   background-color: rgb(16, 111, 194);
   color: white;
+  font-family: sans-serif;
+  font-size: 21px;
+  font-weight: 800;
   text-align: center;
-  width: 100px;
+  width: 110px;
 }
 
 table button {
-  background-color: #3ef7b0;
+  all: unset;
+  background-color: #37d184;
+  border-radius: 0 5px 5px 0;
   color: white;
+  cursor: pointer;
+  font-family: sans-serif;
+  font-size: 1.5vw;
+  font-weight: 800;
+  height: 100%;
   text-align: center;
-  width: 200px;
+  width: 100%;
 }

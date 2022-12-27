@@ -61,25 +61,14 @@ export default function CheckoutTable({ infos, totalPrice }) {
 
   return (
     <section className="checkout-table">
-      {isCheckoutPage && <h4>Finalizar Pedido</h4>}
       <table>
         <thead>
           <tr>
-            <th>
-              Item
-            </th>
-            <th>
-              Descrição
-            </th>
-            <th>
-              Quantidade
-            </th>
-            <th>
-              Valor Unitário
-            </th>
-            <th>
-              Sub-total
-            </th>
+            <th>Item</th>
+            <th>Descrição</th>
+            <th>Quantidade</th>
+            <th>Valor Unitário</th>
+            <th>Sub-total</th>
             {isCheckoutPage && <th>Remover Item</th>}
           </tr>
         </thead>
@@ -117,7 +106,7 @@ export default function CheckoutTable({ infos, totalPrice }) {
                   onClick={ handleRemoveBtn }
                   id={ item.id }
                   value={ (item.price * item.SaleProduct.quantity).toFixed(2) }
-                  data-testid={ `customer_checkout__element-order-table-remove-${index}` }
+                  data-testid={ `${reduceLength()}table-remove-${index}` }
                   hidden={ !isCheckoutPage }
                 >
                   Remover
@@ -127,13 +116,13 @@ export default function CheckoutTable({ infos, totalPrice }) {
           ))}
         </tbody>
       </table>
-      <div>
-        <span
+      <div className="total-price">
+        <p
           data-testid={ `${reduceLength()}-total-price` }
         >
-          {isCheckoutPage && `Total: R$${totalCartPrice.toFixed(2).replace('.', ',')}`}
-          {!isCheckoutPage && `Total: R$${totalPrice.replace('.', ',')}`}
-        </span>
+          {isCheckoutPage && `Total: R$ ${totalCartPrice.toFixed(2).replace('.', ',')}`}
+          {!isCheckoutPage && `Total: R$ ${totalPrice.replace('.', ',')}`}
+        </p>
       </div>
     </section>
   );
