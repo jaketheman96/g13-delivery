@@ -9,7 +9,6 @@ function DeliveryProvider({ children }) {
   const [totalCartPrice, setTotalCartPrice] = useState(0);
   const [cart, setCart] = useState([]);
   const [btnActive, setBtnActive] = useState('Products');
-  const [statusColor, setStatusColor] = useState('');
 
   useEffect(() => {
     const handleTotal = () => {
@@ -47,15 +46,12 @@ function DeliveryProvider({ children }) {
     setTotalCartPrice,
     btnActive,
     setBtnActive,
-    statusColor,
-    setStatusColor,
   }), [
     isButtonDisabled,
     userInfos,
     totalCartPrice,
     cart,
     btnActive,
-    statusColor,
   ]);
 
   return (

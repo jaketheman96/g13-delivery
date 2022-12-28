@@ -15,7 +15,7 @@ const preparing = { status: 'Preparando' };
 function OrderDetails({ id, seller: { name }, saleDate, status, products, totalPrice }) {
   const MINIMUN_ZEROS = 3;
 
-  const { userInfos, statusColor, setStatusColor } = useContext(DeliveryContext);
+  const { userInfos } = useContext(DeliveryContext);
 
   const [isDeliveredButtonDisabled, setIsDeliveredButtonDisabled] = useState(false);
   const [showCustomerButton, setShowCustomerButton] = useState(false);
@@ -23,6 +23,7 @@ function OrderDetails({ id, seller: { name }, saleDate, status, products, totalP
   const [isDeliveringBtnDisabled, setIsDeliveringBtnDisabled] = useState(false);
   const [isPreparingBtnDisabled, setIsPreparingBtnDisabled] = useState(false);
   const [orderStatus, setOrderStatus] = useState('');
+  const [statusColor, setStatusColor] = useState('');
 
   const reduceLength = () => {
     if (userInfos) {

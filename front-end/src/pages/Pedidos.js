@@ -4,6 +4,7 @@ import OrderCard from '../components/OrderCard';
 import getFetch from '../utils/getFetch';
 import DeliveryContext from '../context/DeliveryContext';
 import formatDate from '../utils/formatDate';
+import '../style/Orders.style.css';
 
 function Pedidos() {
   const { userInfos } = useContext(DeliveryContext);
@@ -28,7 +29,7 @@ function Pedidos() {
   return (
     <>
       <Navbar />
-      <section>
+      <section className="orders-section">
         { orders && orders.map((sale) => (
           <OrderCard
             key={ sale.id }

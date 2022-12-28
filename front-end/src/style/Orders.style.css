@@ -1,0 +1,83 @@
+.orders-section {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+
+.orders-card {
+  background-color: rgb(228, 228, 228);
+  box-shadow: 0 3px 4px rgb(162, 162, 162);
+  height: 100px;
+  margin: 40px auto;
+  width: 43%;
+}
+
+.orders-card a {
+  display: flex;
+  height: 100%;
+  width: 100%;
+}
+
+.orders-card:hover {
+  transform: scale(0.98);
+}
+
+.order-id {
+  background-color: white;
+  display: flex;
+  height: 100%;
+  text-align: center;
+  width: 20%;
+}
+
+.order-id p {
+  font-family: sans-serif;
+  margin: 0;
+}
+
+.order-id span {
+  margin: auto;
+}
+
+.order-status p {
+  font-family: sans-serif;
+  font-size: 25px;
+  font-weight: 800;
+  margin: auto;
+}
+
+.order-date-and-price p {
+  background-color: rgb(224, 238, 238);
+  border-radius: 5px;
+  font-family: sans-serif;
+  font-size: 20px;
+  font-weight: 550;
+  margin: auto;
+  width: 100%;
+}
+
+.order-id p:nth-child( 1 ) {
+  font-size: 15px;
+}
+
+.order-id p:nth-child( 2 ) {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.order-status {
+  border-radius: 6px;
+  display: flex;
+  margin: 5px;
+  width: 47%;
+}
+
+.order-date-and-price {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  margin: 5px;
+  text-align: center;
+  width: 29%;
+}
+
