@@ -20,17 +20,21 @@ function SellerOrderDetails() {
   }, [id]);
 
   return (
-    <section>
+    <>
       <Navbar />
-      {sellerOrderDetails && <OrderDetails
-        id={ sellerOrderDetails.id }
-        seller={ sellerOrderDetails.seller }
-        saleDate={ sellerOrderDetails.saleDate }
-        status={ sellerOrderDetails.status }
-        products={ sellerOrderDetails.products }
-        totalPrice={ sellerOrderDetails.totalPrice }
-      />}
-    </section>
+      <section>
+        <h4>Detalhes do Pedido</h4>
+        {sellerOrderDetails
+        && <OrderDetails
+          id={ sellerOrderDetails.id }
+          seller={ sellerOrderDetails.seller }
+          saleDate={ sellerOrderDetails.saleDate }
+          status={ sellerOrderDetails.status }
+          products={ sellerOrderDetails.products }
+          totalPrice={ sellerOrderDetails.totalPrice }
+        />}
+      </section>
+    </>
   );
 }
 

@@ -24,7 +24,8 @@ function SellerPage() {
   return (
     <>
       <Navbar />
-      {sellerOrders
+      <section className="orders-section">
+        {sellerOrders
       && sellerOrders.map((order) => (
         <OrderCard
           key={ order.id }
@@ -36,6 +37,7 @@ function SellerPage() {
           deliveryNumber={ order.deliveryNumber }
         />
       ))}
+      </section>
     </>
   );
 }

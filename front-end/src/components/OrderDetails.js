@@ -13,7 +13,7 @@ const delivered = { status: 'Entregue' };
 const preparing = { status: 'Preparando' };
 
 function OrderDetails({ id, seller: { name }, saleDate, status, products, totalPrice }) {
-  const MINIMUN_ZEROS = 3;
+  const MINIMUN_NUMBERS = 4;
 
   const { userInfos } = useContext(DeliveryContext);
 
@@ -120,7 +120,7 @@ function OrderDetails({ id, seller: { name }, saleDate, status, products, totalP
         <p
           data-testid={ `${reduceLength()}label-order-id` }
         >
-          {`Pedido: ${id.toString().padStart(MINIMUN_ZEROS, '0')}`}
+          {`Pedido: ${id.toString().padStart(MINIMUN_NUMBERS, '0')}`}
         </p>
         <p
           data-testid={ `${reduceLength()}label-seller-name` }
@@ -146,6 +146,7 @@ function OrderDetails({ id, seller: { name }, saleDate, status, products, totalP
           onClick={ handleClick }
           disabled={ isDeliveredButtonDisabled }
           name="delivered"
+          className="customer-delivered-button"
           hidden={ !showCustomerButton }
         >
           Marcar como entregue
@@ -156,6 +157,7 @@ function OrderDetails({ id, seller: { name }, saleDate, status, products, totalP
           onClick={ handleClick }
           disabled={ isPreparingBtnDisabled }
           name="preparing"
+          className="seller-preparing-button"
           hidden={ !showSellerButtons }
         >
           Preparar Pedido
@@ -166,6 +168,7 @@ function OrderDetails({ id, seller: { name }, saleDate, status, products, totalP
           onClick={ handleClick }
           disabled={ isDeliveringBtnDisabled }
           name="delivering"
+          className="seller-delivering-button"
           hidden={ !showSellerButtons }
         >
           Saiu para entrega

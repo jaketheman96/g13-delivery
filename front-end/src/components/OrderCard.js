@@ -29,7 +29,11 @@ function OrderCard({ id, price, date, status, address, deliveryNumber }) {
   };
 
   return (
-    <div className="orders-card">
+    <div
+      className={ userInfos
+        ? `${user.userRole(userInfos)}-orders-card`
+        : null }
+    >
       <Link
         to={ `/${user.userRole(userInfos)}/orders/${id}` }
         style={ {
@@ -69,7 +73,7 @@ function OrderCard({ id, price, date, status, address, deliveryNumber }) {
         </div>
         <div className="order-address">
           <p data-testid={ `${reduceLength()}card-address-${id}` }>
-            {user.userRole(userInfos) === 'seller' && `${address}, ${deliveryNumber}` }
+            {user.userRole(userInfos) === 'seller' && `${address}, ${deliveryNumber}`}
           </p>
         </div>
       </Link>

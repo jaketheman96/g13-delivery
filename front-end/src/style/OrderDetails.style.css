@@ -38,6 +38,7 @@
   font-family: sans-serif;
   font-weight: 700;
   height: 73%;
+  margin: auto 0;
   text-align: center;
   width: 15%;
 }
@@ -53,7 +54,7 @@
   height: 73%;
   margin: auto;
   text-align: center;
-  width: 25%;
+  width: 20%;
 }
 
 .order_details-header button:hover {
