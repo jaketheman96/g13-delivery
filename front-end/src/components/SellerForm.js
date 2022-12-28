@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 import DeliveryContext from '../context/DeliveryContext';
 import getFetch from '../utils/getFetch';
 import postFetch from '../utils/postFetch';
+import '../style/SellerForm.style.css';
 
 function SellerForm() {
   const { cart, userInfos, totalCartPrice, setCart } = useContext(DeliveryContext);
@@ -10,12 +11,14 @@ function SellerForm() {
   const [deliveryAddress, setDeliveryAddress] = useState('');
   const [deliveryNumber, setDeliveryNumber] = useState(0);
   const [seller, setSeller] = useState(0);
+  const [isSubmitBtnDisabled, setIsSubmitBtnDisabled] = useState(false);
 
   const history = useHistory();
 
   useEffect(() => {
     const getSellers = async () => {
       const response = await getFetch('users/sellers');
+      setSeller(response[0].id);
       setSellerInfos(response);
     };
 
@@ -55,58 +58,74 @@ function SellerForm() {
     return options[input]();
   };
 
+  useEffect(() => {
+    const buttonValidator = () => {
+      if (!deliveryAddress || deliveryNumber === 0) {
+        return setIsSubmitBtnDisabled(true);
+      }
+      return setIsSubmitBtnDisabled(false);
+    };
+    buttonValidator();
+  }, [deliveryAddress, deliveryNumber]);
+
   return (
-    <section>
+    <section className="seller-and-address-form">
       <form>
-        <label htmlFor="seller">
-          P. Vendedora Responsável
-          <select
-            id="seller"
-            name="seller"
-            data-testid="customer_checkout__select-seller"
-            onChange={ handleChange }
+        <div className="form-labels">
+          <label htmlFor="seller">
+            P. Vendedora Responsável
+            <select
+              id="seller"
+              name="seller"
+              className="seller"
+              data-testid="customer_checkout__select-seller"
+              onChange={ handleChange }
+            >
+              {sellerInfos.map((s) => (
+                <option
+                  key={ s.id }
+                  value={ s.id }
+                >
+                  {s.name}
+                </option>
+              ))}
+            </select>
+          </label>
+          <label htmlFor="address">
+            Endereço:
+            <input
+              id="address"
+              name="address"
+              className="address"
+              type="text"
+              placeholder="Av. Frio de Janeiro, Bairro lalaland"
+              data-testid="customer_checkout__input-address"
+              onChange={ handleChange }
+            />
+          </label>
+          <label htmlFor="number">
+            Número:
+            <input
+              id="number"
+              name="number"
+              type="number"
+              className="number"
+              placeholder="147"
+              data-testid="customer_checkout__input-address-number"
+              onChange={ handleChange }
+            />
+          </label>
+        </div>
+        <div className="submit-button">
+          <button
+            type="submit"
+            data-testid="customer_checkout__button-submit-order"
+            onClick={ handleClick }
+            disabled={ isSubmitBtnDisabled }
           >
-            <option>-----</option>
-            {sellerInfos.map((s) => (
-              <option
-                key={ s.id }
-                value={ s.id }
-              >
-                {s.name}
-              </option>
-            ))}
-          </select>
-        </label>
-        <label htmlFor="address">
-          Endereço:
-          <input
-            id="address"
-            name="address"
-            type="text"
-            placeholder="Av. Frio de Janeiro, Bairro lalaland"
-            data-testid="customer_checkout__input-address"
-            onChange={ handleChange }
-          />
-        </label>
-        <label htmlFor="number">
-          Número:
-          <input
-            id="number"
-            name="number"
-            type="number"
-            placeholder="147"
-            data-testid="customer_checkout__input-address-number"
-            onChange={ handleChange }
-          />
-        </label>
-        <br />
-        <button
-          type="submit"
-          data-testid="customer_checkout__button-submit-order"
-          onClick={ handleClick }
-        >
-          Finalizar Pedido
-        </button>
+            Finalizar Pedido
+          </button>
+        </div>
       </form>
     </section>
   );

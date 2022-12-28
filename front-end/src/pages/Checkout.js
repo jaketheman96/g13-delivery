@@ -43,6 +43,7 @@ function CheckoutPage() {
       <h4>Finalizar Pedido</h4>
       {checkoutCart
        && <CheckoutTable infos={ checkoutCart.products } totalPrice={ handleTotal() } />}
+      <h4>Detalhes e Endereço para Entrega</h4>
       <SellerForm />
     </>
   );
