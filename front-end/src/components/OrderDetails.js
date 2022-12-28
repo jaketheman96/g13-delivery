@@ -5,6 +5,7 @@ import CheckoutTable from './CheckoutTable';
 import DeliveryContext from '../context/DeliveryContext';
 import user from '../utils/roleValidator';
 import putFetch from '../utils/putFetch';
+import '../style/OrderDetails.style.css';
 
 const pending = { status: 'Pendente' };
 const delivering = { status: 'Em Trânsito' };
@@ -14,7 +15,7 @@ const preparing = { status: 'Preparando' };
 function OrderDetails({ id, seller: { name }, saleDate, status, products, totalPrice }) {
   const MINIMUN_ZEROS = 3;
 
-  const { userInfos } = useContext(DeliveryContext);
+  const { userInfos, statusColor, setStatusColor } = useContext(DeliveryContext);
 
   const [isDeliveredButtonDisabled, setIsDeliveredButtonDisabled] = useState(false);
   const [showCustomerButton, setShowCustomerButton] = useState(false);
@@ -53,24 +54,28 @@ function OrderDetails({ id, seller: { name }, saleDate, status, products, totalP
       switch (status) {
       case 'Pendente':
         setOrderStatus(pending.status);
+        setStatusColor('209, 189, 12');
         setIsPreparingBtnDisabled(false);
         setIsDeliveringBtnDisabled(true);
         setIsDeliveredButtonDisabled(true);
         break;
       case 'Preparando':
         setOrderStatus(preparing.status);
+        setStatusColor('150, 247, 102');
         setIsPreparingBtnDisabled(true);
         setIsDeliveringBtnDisabled(false);
         setIsDeliveredButtonDisabled(true);
         break;
       case 'Em Trânsito':
         setOrderStatus(delivering.status);
+        setStatusColor('218, 122, 5');
         setIsPreparingBtnDisabled(true);
         setIsDeliveringBtnDisabled(true);
         setIsDeliveredButtonDisabled(false);
         break;
       case 'Entregue':
         setOrderStatus(delivered.status);
+        setStatusColor('40, 217, 220');
         setIsPreparingBtnDisabled(true);
         setIsDeliveringBtnDisabled(true);
         setIsDeliveredButtonDisabled(true);
@@ -85,18 +90,21 @@ function OrderDetails({ id, seller: { name }, saleDate, status, products, totalP
   const handleClick = ({ target }) => {
     const input = {
       delivered: async () => {
+        setStatusColor('40, 217, 220');
         setOrderStatus(delivered.status);
         setIsDeliveredButtonDisabled(true);
         await putFetch(delivered, 'sales', id);
       },
       preparing: async () => {
         setOrderStatus(preparing.status);
+        setStatusColor('150, 247, 102');
         setIsDeliveringBtnDisabled(false);
         setIsPreparingBtnDisabled(true);
         await putFetch(preparing, 'sales', id);
       },
       delivering: async () => {
         setOrderStatus(delivering.status);
+        setStatusColor('218, 122, 5');
         setIsDeliveringBtnDisabled(true);
         setIsDeliveredButtonDisabled(false);
         await putFetch(delivering, 'sales', id);
@@ -106,30 +114,31 @@ function OrderDetails({ id, seller: { name }, saleDate, status, products, totalP
   };
 
   return (
-    <section>
-      <div
-        style={ { display: 'flex', justifyContent: 'space-evenly' } }
-      >
-        <h4
+    <div className="order_details-component">
+      <div className="order_details-header">
+        <p
           data-testid={ `${reduceLength()}label-order-id` }
         >
           {`Pedido: ${id.toString().padStart(MINIMUN_ZEROS, '0')}`}
-        </h4>
-        <h4
+        </p>
+        <p
           data-testid={ `${reduceLength()}label-seller-name` }
         >
-          {name}
-        </h4>
-        <h4
+          {`Vend: ${name}`}
+        </p>
+        <p
           data-testid={ `${reduceLength()}label-order-date` }
         >
           {formatDate(saleDate)}
-        </h4>
-        <h4
+        </p>
+        <p
           data-testid={ `${reduceLength()}label-delivery-status` }
+          style={ statusColor
+            ? { backgroundColor: `rgb(${statusColor})` }
+            : null }
         >
           {orderStatus}
-        </h4>
+        </p>
         <button
           type="button"
           data-testid="customer_order_details__button-delivery-check"
@@ -161,10 +170,8 @@ function OrderDetails({ id, seller: { name }, saleDate, status, products, totalP
           Saiu para entrega
         </button>
       </div>
-      <div>
-        <CheckoutTable infos={ products } totalPrice={ totalPrice } />
-      </div>
-    </section>
+      <CheckoutTable infos={ products } totalPrice={ totalPrice } />
+    </div>
   );
 }
 

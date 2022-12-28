@@ -1,0 +1,58 @@
+.order_details-component {
+  background-color: rgb(246, 246, 246);
+  border: solid rgb(187, 187, 187) 1px;
+  box-shadow: 0 3px 4px rgb(162, 162, 162);
+  height: 85%;
+  margin: 0 auto;
+  width: 80%;
+}
+
+.order_details-header {
+  background-color: rgb(228, 228, 228);
+  display: flex;
+  height: 42px;
+}
+
+.order_details-header p {
+  font-family: sans-serif;
+  font-size: 18px;
+  margin: auto;
+}
+
+.order_details-header p:nth-child( 1 ) {
+  font-family: sans-serif;
+  font-weight: 700;
+}
+
+.order_details-header p:nth-child( 2 ) {
+  font-family: sans-serif;
+}
+
+.order_details-header p:nth-child( 3 ) {
+  font-family: sans-serif;
+  font-weight: 700;
+}
+
+.order_details-header p:nth-child( 4 ) {
+  border-radius: 8px;
+  font-family: sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  height: 73%;
+  text-align: center;
+  width: 15%;
+}
+
+.order_details-header button {
+  all: unset;
+  background-color: rgb(49, 105, 72);
+  border-radius: 8px;
+  color: white;
+  cursor: pointer;
+  font-family: sans-serif;
+  font-size: 17px;
+  height: 73%;
+  margin: auto;
+  text-align: center;
+  width: 25%;
+}

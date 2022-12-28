@@ -69,7 +69,7 @@ function SellerForm() {
   }, [deliveryAddress, deliveryNumber]);
 
   return (
-    <section className="seller-and-address-form">
+    <div className="seller-and-address-form">
       <form>
         <div className="form-labels">
           <label htmlFor="seller">
@@ -127,7 +127,7 @@ function SellerForm() {
           </button>
         </div>
       </form>
-    </section>
+    </div>
   );
 }
 

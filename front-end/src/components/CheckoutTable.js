@@ -60,7 +60,7 @@ export default function CheckoutTable({ infos, totalPrice }) {
   };
 
   return (
-    <section className="checkout-table">
+    <div className={ `${checkoutCondition()}-table` }>
       <table>
         <thead>
           <tr>
@@ -124,7 +124,7 @@ export default function CheckoutTable({ infos, totalPrice }) {
           {!isCheckoutPage && `Total: R$ ${totalPrice.replace('.', ',')}`}
         </p>
       </div>
-    </section>
+    </div>
   );
 }
 

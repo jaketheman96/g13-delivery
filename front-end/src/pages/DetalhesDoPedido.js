@@ -18,17 +18,20 @@ function DetalhesDoPedido() {
   }, [id]);
 
   return (
-    <section>
+    <>
       <Navbar />
-      {orderDetailById && <OrderDetails
-        id={ orderDetailById.id }
-        seller={ orderDetailById.seller }
-        saleDate={ orderDetailById.saleDate }
-        status={ orderDetailById.status }
-        products={ orderDetailById.products }
-        totalPrice={ orderDetailById.totalPrice }
-      />}
-    </section>
+      <section>
+        <h4>Detalhes do Pedido: </h4>
+        {orderDetailById && <OrderDetails
+          id={ orderDetailById.id }
+          seller={ orderDetailById.seller }
+          saleDate={ orderDetailById.saleDate }
+          status={ orderDetailById.status }
+          products={ orderDetailById.products }
+          totalPrice={ orderDetailById.totalPrice }
+        />}
+      </section>
+    </>
   );
 }
 

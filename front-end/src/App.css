@@ -9,3 +9,7 @@
   justify-content: center;
   width: 100%;
 }
+
+#root {
+  height: 100vh;
+}

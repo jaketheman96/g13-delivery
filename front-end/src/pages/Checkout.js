@@ -40,11 +40,13 @@ function CheckoutPage() {
   return (
     <>
       <Navbar />
-      <h4>Finalizar Pedido</h4>
-      {checkoutCart
+      <section className="checkout-page">
+        <h4>Finalizar Pedido</h4>
+        {checkoutCart
        && <CheckoutTable infos={ checkoutCart.products } totalPrice={ handleTotal() } />}
-      <h4>Detalhes e Endereço para Entrega</h4>
-      <SellerForm />
+        <h4>Detalhes e Endereço para Entrega</h4>
+        <SellerForm />
+      </section>
     </>
   );
 }
