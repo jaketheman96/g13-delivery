@@ -5,6 +5,7 @@ import DeliveryContext from '../context/DeliveryContext';
 import postFetch from '../utils/postFetch';
 import getFetch from '../utils/getFetch';
 import deleteFetch from '../utils/deleteFetch';
+import '../style/Admin.style.css';
 
 function AdminPage() {
   const { userInfos } = useContext(DeliveryContext);
@@ -104,52 +105,53 @@ function AdminPage() {
   return (
     <>
       <Navbar />
-      <div
-        data-testid="admin_manage__element-invalid-register"
-        hidden={ !errorMessage }
-        className="alert alert-danger"
-        role="alert"
-      >
-        { errorMessage }
-      </div>
-
-      <div>
-        <div className="row">
-          <div className="col">
-            <input
-              type="text"
-              className="form-control"
-              placeholder="Nome e sobrenome"
-              aria-label="full name"
-              data-testid="admin_manage__input-name"
-              name="name"
-              onChange={ handleChange }
-            />
-          </div>
-          <div className="col">
-            <input
-              type="email"
-              className="form-control"
-              placeholder="seu-email@site.com.br"
-              aria-label="email"
-              data-testid="admin_manage__input-email"
-              name="email"
-              onChange={ handleChange }
-            />
-          </div>
-          <div className="col">
-            <input
-              type="password"
-              className="form-control"
-              placeholder="Senha"
-              aria-label="password"
-              data-testid="admin_manage__input-password"
-              name="password"
-              onChange={ handleChange }
-            />
-          </div>
+      {errorMessage && (
+        <div
+          data-testid="admin_manage__element-invalid-register"
+          className="alert alert-danger"
+          role="alert"
+        >
+          { errorMessage }
+        </div>
+      )}
+      <h4>Cadastrar novo usuário</h4>
+      <section className="admin-form">
+        <label htmlFor="name">
+          <input
+            type="text"
+            className="form-control"
+            placeholder="Nome e sobrenome"
+            aria-label="full name"
+            data-testid="admin_manage__input-name"
+            name="name"
+            onChange={ handleChange }
+          />
+        </label>
+        <label htmlFor="email">
+          <input
+            type="email"
+            className="form-control"
+            placeholder="seu-email@site.com.br"
+            aria-label="email"
+            data-testid="admin_manage__input-email"
+            name="email"
+            onChange={ handleChange }
+          />
+        </label>
+        <label htmlFor="password">
+          <input
+            type="password"
+            className="form-control"
+            placeholder="Senha"
+            aria-label="password"
+            data-testid="admin_manage__input-password"
+            name="password"
+            onChange={ handleChange }
+          />
+        </label>
+        <label htmlFor="role">
           <select
-            className="col"
+            className="role-select"
             id="floatingSelectGrid"
             data-testid="admin_manage__select-role"
             name="role"
@@ -160,24 +162,24 @@ function AdminPage() {
             <option value="administrator">Administrador</option>
             <option value="seller">Vendedor</option>
           </select>
-          <div className="col">
-            <button
-              data-testid="admin_manage__button-register"
-              type="submit"
-              className="btn btn-success"
-              onClick={ handleClick }
-              disabled={ btnAvailability }
-            >
-              Cadastrar
-
-            </button>
-          </div>
+        </label>
+        <div className="submit-button">
+          <button
+            data-testid="admin_manage__button-register"
+            type="submit"
+            className="btn btn-success"
+            onClick={ handleClick }
+            disabled={ btnAvailability }
+          >
+            Cadastrar
+          </button>
         </div>
-        <div>
-          {usersFromDb
+      </section>
+      <h4>Lista de Usuários</h4>
+      <section className="admin-table">
+        {usersFromDb
           && <AdminTable users={ usersFromDb } handleRemoveBtn={ handleRemoveBtn } />}
-        </div>
-      </div>
+      </section>
     </>
   );
 }

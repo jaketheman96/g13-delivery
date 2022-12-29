@@ -34,11 +34,14 @@
 }
 
 .order_details-header p:nth-child( 4 ) {
-  border-radius: 8px;
   font-family: sans-serif;
   font-weight: 700;
-  height: 73%;
+  height: 100%;
   margin: auto 0;
+}
+
+.order-details-status {
+  margin: auto;
   text-align: center;
   width: 15%;
 }

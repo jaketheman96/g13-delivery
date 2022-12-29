@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 function AdminTable({ users, handleRemoveBtn }) {
   return (
     <div>
-      <h3>Lista de Usuários</h3>
       <table>
         <thead>
           <tr>

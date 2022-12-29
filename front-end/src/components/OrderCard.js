@@ -59,7 +59,7 @@ function OrderCard({ id, price, date, status, address, deliveryNumber }) {
             {status}
           </p>
         </div>
-        <div className="order-date-and-price">
+        <div className="order-date-price-and-address">
           <p
             data-testid={ `${reduceLength()}order-date-${id}` }
           >
@@ -70,11 +70,11 @@ function OrderCard({ id, price, date, status, address, deliveryNumber }) {
           >
             {`R$ ${price.replace('.', ',')}`}
           </p>
-        </div>
-        <div className="order-address">
-          <p data-testid={ `${reduceLength()}card-address-${id}` }>
-            {user.userRole(userInfos) === 'seller' && `${address}, ${deliveryNumber}`}
-          </p>
+          { user.userRole(userInfos) === 'seller' && (
+            <p data-testid={ `${reduceLength()}card-address-${id}` }>
+              {`${address}, ${deliveryNumber}`}
+            </p>
+          )}
         </div>
       </Link>
     </div>

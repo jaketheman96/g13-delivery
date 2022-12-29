@@ -132,14 +132,16 @@ function OrderDetails({ id, seller: { name }, saleDate, status, products, totalP
         >
           {formatDate(saleDate)}
         </p>
-        <p
-          data-testid={ `${reduceLength()}label-delivery-status` }
-          style={ statusColor
-            ? { backgroundColor: `rgb(${statusColor})` }
-            : null }
-        >
-          {orderStatus}
-        </p>
+        <div className="order-details-status">
+          <p
+            data-testid={ `${reduceLength()}label-delivery-status` }
+            style={ statusColor
+              ? { backgroundColor: `rgb(${statusColor})` }
+              : null }
+          >
+            {orderStatus}
+          </p>
+        </div>
         <button
           type="button"
           data-testid="customer_order_details__button-delivery-check"
