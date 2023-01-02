@@ -1,6 +1,6 @@
 # Bem vindo ao G13 Delivery!!
 
--Nesse aplicativo de delivery você tem acessibilidade de vendas para uma loja tanto física como para uma loja virtual, trabalhamos em um aplicativo voltado para cervejas, com a etapa do pedido que vai do processamento, preparo e até o encaminhamento.
+-Um site de delivery onde você tem acessibilidade de vendas para uma loja tanto física como para uma loja virtual, trabalhamos em um site voltado para cervejas, com a etapa do pedido que vai do processamento, preparo e até o encaminhamento.
 
 -Esse site possui 3 tipos de usuários (Cliente, Vendedor e Admin) no qual você pode realizar os pedidos, receber os pedidos e alterar o status e gerenciar os usuários presentes no sistema, respectivamente.
 
