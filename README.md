@@ -32,3 +32,8 @@
 
 --Usuário inicialmente registrado: 
 ` email: adm@deliveryapp.com / senha: --adm2@21!!-- `
+
+
+https://user-images.githubusercontent.com/78574045/223871222-a5747447-f496-4e25-82cf-6fd3b4efe2b3.mp4
+
+
